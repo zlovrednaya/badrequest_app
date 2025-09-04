@@ -16,12 +16,14 @@ class AviationStack extends AbstractApi
     {
         return [
             'limit' => 1,
-            'number' => $input,
+            'iata' => $input,
         ];
     }
-    private function getFlightSata()
+    private function getFlightSata(): array
     {
         $data = $this->prepareData();
-        $this->request('flights', 'GET', $data);
+        $result = $this->request('flights', 'GET', $data);
+        
     }
+
 }
