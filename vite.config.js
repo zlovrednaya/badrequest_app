@@ -10,4 +10,24 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    resolve: {
+        extensions: [
+          ".mjs",
+          ".js",
+          ".ts",
+          ".jsx",
+          ".tsx",
+          ".json",
+          ".vue",
+          ".scss",
+        ],
+    },
+    /*server: {
+        cors: {
+            //origin: 'http://*.yourdomain.com',
+            methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+            allowedHeaders: ['Content-Type', 'Authorization'],
+            credentials: true
+        }
+    }*/
 });
