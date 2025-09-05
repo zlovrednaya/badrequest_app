@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\Integrations;
+namespace App\Models\Integrations;
 
 abstract class AbstractApi
 {

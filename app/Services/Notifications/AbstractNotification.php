@@ -17,7 +17,7 @@ abstract class AbstractNotification
     {
         
     }
-    public function sendMessage(): bool
+    public function sendMessage(): void
     {
         
     }

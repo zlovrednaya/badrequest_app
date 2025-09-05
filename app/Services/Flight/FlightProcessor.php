@@ -1,6 +1,6 @@
 <?php
 
-class Flight
+class FlightProcessor
 {
     public $updateDelay; // min
     public $radius = 5.0; // distance near the flight
