@@ -1,14 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Integrations\IntegrationFactory;
+use App\Http\Controllers\Controller;
 use App\Models\Integrations\AviationStack;
 use App\Http\Requests\FlightRequest;
 
 class FlightController extends Controller
 {
-    public function observeFlight(FlightRequest $request): bool
+
+    /// http://127.0.0.1:8000/observeFlight?flight_number=HV6002
+    public function getObserveFlight(FlightRequest $request): bool
     {
-        $validated = $request->validated();
-        
+    
+        $validated = $request->validate();
+        echo print_r($validated);die;
+        $data = $request->all();
+        $aviationStack = IntegrationFactory::create('aviationstack');
+        $aviationStack::getFlightSata($data);
     }
 }

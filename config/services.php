@@ -34,5 +34,8 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'aviationstack' => [
+        'token' => env('AVIATION_STACK_TOKEN'),
+    ],
 
 ];

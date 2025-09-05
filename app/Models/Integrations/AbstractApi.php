@@ -3,12 +3,13 @@ namespace App\Models\Integrations;
 
 abstract class AbstractApi
 {
-    public string $baseUrl;
-    public string $apiKey;
+    protected string $baseUrl;
+    protected string $apiKey;
 
-    public function __construct()
+    public function __construct($baseUrl, $token)
     {
-
+        $this->baseUrl = $baseUrl;
+        $this->token = $token;
     }
 
     final public function request(string $endpoint, string $method = 'GET', array $data = []): mixed

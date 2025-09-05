@@ -10,10 +10,10 @@ class FlightRequest extends FormRequest
         $scenario = $this->route()->getActionMethod(); 
 
         switch ($scenario) {
-            case 'observeFlight':
+            case 'getObserveFlight':
                 return [
                     'airport' => 'nullable|string|size:3',
-                    'flight_number' => 'nullable|string',
+                    'flight_number' => 'required|string',
                     'date'    => 'nullable|date|after_or_equal:today',
                 ];
 
@@ -38,6 +38,7 @@ class FlightRequest extends FormRequest
     {
         return array_merge(parent::messages(), [
             'airport.size' => 'Airport code must be exactly 3 characters (e.g. LED, JFK).',
+            'flight_number.required' => 'Flight number is obligatory',
         ]);
     }
 }
