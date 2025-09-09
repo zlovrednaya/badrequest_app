@@ -17,21 +17,32 @@ abstract class AbstractApi
         $url = $this->baseUrl . $endpoint;
         $headers = $this->getHeaders();
 
+        if(!empty($data)) {
+            switch ($method) {
+                case 'POST':
+                case 'PUT':
+                case 'PATCH':
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                    break;
+                case 'GET':
+                    $url .= '?' . http_build_query($data);
+                    break;    
+
+            }
+        }
+
         $options = [
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_HTTPHEADER => $headers,
         ];
-
-        if (!empty($data)) {
-            $options[CURLOPT_POSTFIELDS] = json_encode($data);
-        }
-
+        
         $ch = curl_init();
         curl_setopt_array($ch, $options);
         $response = curl_exec($ch);
         curl_close($ch);
+        echo print_r([$url,$response]);die;
 
         return $this->handleResponse($response);
     }
