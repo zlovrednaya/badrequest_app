@@ -1,7 +1,7 @@
 <?php
-namespace App\Models\Integrations;
+namespace App\Services\Integrations;
 
-use App\Models\Integrations\AviationStack\AviationStack;
+use App\Services\Integrations\AviationStack\AviationStack;
 
 class IntegrationFactory
 {

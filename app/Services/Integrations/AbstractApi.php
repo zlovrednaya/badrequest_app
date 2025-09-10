@@ -1,5 +1,5 @@
 <?php
-namespace App\Models\Integrations;
+namespace App\Services\Integrations;
 
 abstract class AbstractApi
 {
@@ -12,7 +12,11 @@ abstract class AbstractApi
         $this->token = $token;
     }
 
-    final public function request(string $endpoint, string $method = 'GET', array $data = []): mixed
+    abstract protected function getHeaders(): array;
+    
+    abstract protected function handleResponse(string $rawResponse): array;
+
+    public function request(string $endpoint, string $method = 'GET', array $data = []): mixed
     {
         $url = $this->baseUrl . $endpoint;
         $headers = $this->getHeaders();
@@ -42,11 +46,7 @@ abstract class AbstractApi
         curl_setopt_array($ch, $options);
         $response = curl_exec($ch);
         curl_close($ch);
-        echo print_r([$url,$response]);die;
 
         return $this->handleResponse($response);
     }
-
-    abstract protected function getHeaders(): array;
-
 }
