@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-//import Main from "./Main";
+import { StrictMode } from 'react';
+import Main from "./Main";
 import axios from 'axios';
 import '../css/app.css'; 
- 
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
-    <p>heelello</p>
-  );
+    <StrictMode>
+      <Main />
+    </StrictMode>
+);
