@@ -10,7 +10,7 @@ function WidgetForm({ widget, onClose }) {
   };
 
   return (
-    <FormComponent onClose={onClose} />
+    <FormComponent widget={widget} onClose={onClose} />
   );
 }
 

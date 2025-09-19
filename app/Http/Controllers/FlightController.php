@@ -13,7 +13,7 @@ class FlightController extends Controller
     public function getObserveFlight(FlightRequest $request, FlightService $flightService): bool
     {
         $data = $request->all();
+            echo print_r($data); die;
         $flightService->checkFlightPosition($data);
-
     }
 }

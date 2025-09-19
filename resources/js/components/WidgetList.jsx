@@ -10,7 +10,7 @@ function WidgetList({ widgets, onSelect }) {
           className="p-4 border rounded-xl shadow cursor-pointer hover:bg-gray-50"
         >
           <h2 className="font-semibold">{widget.name}</h2>
-          <p className="text-sm text-gray-500">{widget.description}</p>
+          <p className="text-sm text-gray-300">{widget.description}</p>
         </div>
       ))}
     </div>
