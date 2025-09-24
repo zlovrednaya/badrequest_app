@@ -10,18 +10,18 @@ function AviationStackForm({ widget, onClose }) {
     });
 
     const sendData = (e) => {
+        e.preventDefault();
+
         const data = new FormData(e.target);
         const formData = {
             email: data.get("email"),
             webhook: data.get("api_key"),
             token: data.get("flight_number"),
         };
+        setFormData(formData);
 
-        e.preventDefault();
         fetch("http://127.0.0.1:8000/observeFlight", {
                 method: 'POST', 
-                //mode: 'cors', 
-                //redirect: 'follow',
                 body: JSON.stringify(formData),
                 headers: new Headers({ 'Content-Type': 'application/json' })
             })
@@ -47,35 +47,29 @@ function AviationStackForm({ widget, onClose }) {
             label = "API Key" 
             name = "api_key"
             placeholder = "Enter API Key (optional)"
-            //value = {formData.email} 
-            //onChange = {(val) => handleChange("email", val)}
           />
           <EmailInput 
             label = "E-mail" 
             name = "email"
             placeholder = "Enter E-mail"
-            //value = {formData.email} 
-            //onChange = {(val) => handleChange("email", val)}
           />
           <Input
             label = "Flight number" 
             name = "flight_number"
             placeholder = "For instance, HV6002"
-            //value = {formData.email} 
-            //onChange = {(val) => handleChange("email", val)}
           />
 
           <div className = "flex justify-end gap-2">
             <button
               type = "button"
               onClick = {onClose}
-              className = "px-4 py-2 border rounded"
+              className = "px-4 py-2 border rounded cursor-pointer"
             >
               Cancel
             </button>
             <button
               type = "submit"
-              className = "px-4 py-2 bg-blue-600 text-white rounded"
+              className = "px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
             >
               Subscribe
             </button>

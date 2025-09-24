@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { useState } from "react";
 
-export function Input({ label, name, placeholder, required = false, onChange }) {
+export function Input({ label, name, placeholder, required = false, error, onValueChange }) {
     const [value, setValue] = useState("");
-    const [error, setError] = useState("");
 
     const handleChange = (e) => {
         const val = e.target.value;
-
-        if (typeof onChange === 'function') {
-            onChange(e, val);
-        }
         setValue(val);
+
+        if (typeof onValueChange === 'function') {
+            onValueChange(e, val);
+        }
     };
 
     return (
@@ -20,12 +19,15 @@ export function Input({ label, name, placeholder, required = false, onChange }) 
             <input
               type = "text"
               name = {name}
-              className = "w-full border p-2 rounded"
+              className = {`w-full border p-2 rounded ${
+                error ? "border-red-500" : "border-gray-300"
+              }`}
               placeholder = {placeholder}
               value = {value}
               onChange = {handleChange}
               required = {required}
             />
+            {error && <span className = "text-xs">{error}</span>}
         </div>
     );
 }
@@ -38,9 +40,8 @@ export function EmailInput({ label, name, placeholder }) {
 
         if (!emailRegex.test(value)) {
             setError("Please enter a valid email address");
-            console.log('not valid');
-            
-            return;
+        } else {
+            setError("");
         }
     };
 
@@ -49,7 +50,8 @@ export function EmailInput({ label, name, placeholder }) {
             label = {label}
             name = {name}
             placeholder = {placeholder}
-            onChange = {handleChangeEmail}
+            onValueChange = {handleChangeEmail}
+            error = {error}
          />
     );
 }
