@@ -7,4 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/observeFlight', [ FlightController::class, 'getObserveFlight' ]);
+Route::post('/observeFlight', [ FlightController::class, 'postObserveFlight' ]);

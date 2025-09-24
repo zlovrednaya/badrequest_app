@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
+import { Input, EmailInput } from "../components/elements/Inputs";
+
 function AviationStackForm({ widget, onClose }) {
     const [formData, setFormData] = useState({
         email: "",
@@ -7,18 +9,17 @@ function AviationStackForm({ widget, onClose }) {
         flight_number: "",
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((previous) => ({
-            ...previous,
-            [name]: value,
-        }));
-    };
-
     const sendData = (e) => {
+        const data = new FormData(e.target);
+        const formData = {
+            email: data.get("email"),
+            webhook: data.get("api_key"),
+            token: data.get("flight_number"),
+        };
+
         e.preventDefault();
         fetch("http://127.0.0.1:8000/observeFlight", {
-                method: 'GET', 
+                method: 'POST', 
                 //mode: 'cors', 
                 //redirect: 'follow',
                 body: JSON.stringify(formData),
@@ -41,42 +42,30 @@ function AviationStackForm({ widget, onClose }) {
           {widget.name} subscription
         </h2>
 
-        <form onSubmit={sendData} className="space-y-4">
-          <div>
-            <label className = "block text-sm font-medium">API Key</label>
-            <input
-              type = "text"
-              name = "api_key"
-              className = "w-full border p-2 rounded"
-              placeholder = "Enter API Key (optional)"
-              value = {formData.api_key}
-              onChange = {handleChange}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium">E-mail</label>
-            <input
-              type = "text"
-              name = "email"
-              className = "w-full border p-2 rounded"
-              placeholder = "Enter e-mail"
-              value = {formData.email}
-              onChange = {handleChange}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium">Flight number</label>
-            <input
-              type = "text"
-              name = "flight_number"
-              className = "w-full border p-2 rounded"
-              placeholder = "For instance, HV6002"
-              value = {formData.flight_number}
-              onChange = {handleChange}
-            />
-          </div>
+        <form onSubmit = {sendData} className="space-y-4">
+          <Input
+            label = "API Key" 
+            name = "api_key"
+            placeholder = "Enter API Key (optional)"
+            //value = {formData.email} 
+            //onChange = {(val) => handleChange("email", val)}
+          />
+          <EmailInput 
+            label = "E-mail" 
+            name = "email"
+            placeholder = "Enter E-mail"
+            //value = {formData.email} 
+            //onChange = {(val) => handleChange("email", val)}
+          />
+          <Input
+            label = "Flight number" 
+            name = "flight_number"
+            placeholder = "For instance, HV6002"
+            //value = {formData.email} 
+            //onChange = {(val) => handleChange("email", val)}
+          />
 
-          <div className="flex justify-end gap-2">
+          <div className = "flex justify-end gap-2">
             <button
               type = "button"
               onClick = {onClose}

@@ -12,18 +12,18 @@ function Main() {
   ];
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Widgets</h1>
+    <div className = "p-6">
+      <h1 className = "text-2xl font-bold mb-4">Widgets</h1>
 
       <WidgetList
-        widgets={widgets}
-        onSelect={setSelectedWidget}
+        widgets = {widgets}
+        onSelect = {setSelectedWidget}
       />
 
       {selectedWidget && (
         <WidgetForm
-          widget={selectedWidget}
-          onClose={() => setSelectedWidget(null)}
+          widget = {selectedWidget}
+          onClose = {() => setSelectedWidget(null)}
         />
       )}
     </div>
