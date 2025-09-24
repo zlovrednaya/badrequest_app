@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Input, EmailInput } from "../components/elements/Inputs";
 
 function AviationStackForm({ widget, onClose }) {
@@ -37,46 +37,44 @@ function AviationStackForm({ widget, onClose }) {
 
     return (
         <div className = "fixed inset-0 flex items-center justify-center bg-black/40">
-      <div className = "bg-white p-6 rounded-xl w-96 shadow-lg">
-        <h2 className = "text-xl font-bold mb-4">
-          {widget.name} subscription
-        </h2>
-
-        <form onSubmit = {sendData} className="space-y-4">
-          <Input
-            label = "API Key" 
-            name = "api_key"
-            placeholder = "Enter API Key (optional)"
-          />
-          <EmailInput 
-            label = "E-mail" 
-            name = "email"
-            placeholder = "Enter E-mail"
-          />
-          <Input
-            label = "Flight number" 
-            name = "flight_number"
-            placeholder = "For instance, HV6002"
-          />
-
-          <div className = "flex justify-end gap-2">
-            <button
-              type = "button"
-              onClick = {onClose}
-              className = "px-4 py-2 border rounded cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              type = "submit"
-              className = "px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
-            >
-              Subscribe
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+            <div className = "bg-white p-6 rounded-xl w-96 shadow-lg">
+                <h2 className = "text-xl font-bold mb-4">
+                {widget.name} subscription
+                </h2> 
+                    <form onSubmit = {sendData} className="space-y-4">
+                        <Input
+                            label = "API Key" 
+                            name = "api_key"
+                            placeholder = "Enter API Key (optional)"
+                        />
+                        <EmailInput 
+                            label = "E-mail" 
+                            name = "email"
+                            placeholder = "Enter E-mail"
+                        />
+                        <Input
+                            label = "Flight number" 
+                            name = "flight_number"
+                            placeholder = "For instance, HV6002"
+                        />
+                        <div className = "flex justify-end gap-2">
+                            <button
+                                type = "button"
+                                onClick = {onClose}
+                                className = "px-4 py-2 border rounded cursor-pointer"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type = "submit"
+                                className = "px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
+                            >
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+            </div>
+        </div>
     );
 }
 export default AviationStackForm;
