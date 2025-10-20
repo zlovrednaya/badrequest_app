@@ -17,6 +17,7 @@
         "vite": "^7.0.4"
     },
     "dependencies": {
+        "animejs": "^4.2.2",
         "create-react-app": "^1.2.1"
     }
 }

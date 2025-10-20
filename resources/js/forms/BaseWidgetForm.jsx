@@ -1,5 +1,4 @@
 // component consists of a simple integration form, including an API key button and a URL
-
 import React, { Component } from "react";
 
 function BaseWidgetForm({ widget, onClose }) {

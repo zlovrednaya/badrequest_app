@@ -9,6 +9,7 @@ function Main() {
   const widgets = [
     { id: "AviationStack", name: "AviationStack", description: "Subscribe to your flight" },
     { id: "BaseWidget", name: "BaseWidget", description: "Default widget form" },
+    { id: "AbstractAnimationWidget", name: "AbstractAnimationWidget", description: "Launch animation widget with anima.js" },
   ];
 
   return (
