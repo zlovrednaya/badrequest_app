@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import WidgetList from "./components/WidgetList";
 import WidgetForm from "./components/WidgetForm";
+import Header from "./components/Header";
 import { useState } from "react";
 
 function Main() {
@@ -9,13 +10,12 @@ function Main() {
   const widgets = [
     { id: "AviationStack", name: "AviationStack", description: "Subscribe to your flight" },
     { id: "BaseWidget", name: "BaseWidget", description: "Default widget form" },
-    { id: "AbstractAnimationWidget", name: "AbstractAnimationWidget", description: "Launch animation widget with anima.js" },
+    { id: "AbstractAnimationWidget", name: "AbstractAnimationWidget", description: "anima.js" },
   ];
 
   return (
     <div className = "p-6">
-      <h1 className = "text-2xl font-bold mb-4">Widgets</h1>
-
+      <Header/>
       <WidgetList
         widgets = {widgets}
         onSelect = {setSelectedWidget}

@@ -1,64 +1,64 @@
 import React, { Component } from "react";
 import { animate, splitText, stagger } from 'animejs';
 import { useEffect, useRef, useState } from 'react';
+import WidgetList from "../components/WidgetList";
 
 
 function AbstractAnimationForm({ widget, onClose }) {
 
+  const [selectedWidget, setSelectedWidget] = useState(null);
   const handleSubmit = (e) => {
       e.preventDefault();
       alert(`${widget.name} settings saved!`);
       onClose();
   };
+  const widgets = [
+    { id: "CatchTheBall", name: "", description: "Pattern #1" },
+    { id: "BaseWidget", name: "", description: "Pattern #2" },
+  ];
 
   useEffect(() => {
-    const $demo = document.querySelectorAll('#animatedHeader');
+    const $selector = document.querySelectorAll('#animatedHeader');
    
-    const { chars } = splitText($demo, {
-      chars: { wrap: 'clip' },
+    const { chars } = splitText($selector, {
+      words: false,
+      chars: true,
     });
 
     animate(chars, {
-      y: ['85%', '0%'],
-      duration: 750,
-      ease: 'out(3)',
+      y: [
+        { to: '-0.75rem', ease: 'outExpo', duration: 500 },
+        { to: 0, ease: 'outBounce', duration: 800, delay: 100 }
+      ],
+      delay: stagger(50),
+      ease: 'inOutCirc',
+      loopDelay: 1000,
     });
  
   }, []);
-  
-
-  
-
+    
   return (
   <div className="fixed inset-0 flex items-center justify-center bg-black/40">
-    <div className="bg-white p-6 rounded-xl w-96 shadow-lg">
+    <div className="bg-white p-6 rounded-xl shadow-lg w-2xl min-h-120 relative">
       <h2 className="text-xl font-bold mb-4" id="animatedHeader">
-        {widget.name} Settings
+        {widget.name}
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-
-        <div className="large centered row">
-          <p className="text-xl">Split text by chars.文字ごとに分割します。</p>
-        </div>
+        <WidgetList
+          widgets = {widgets}
+          onSelect = {setSelectedWidget}
+        />
         <div className="small row"></div>
-        
-        <div className="flex justify-end gap-2">
+      </form>
+      <div className="gap-2 close-btn-container rounded-xl absolute">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 border rounded"
+            className="px-4 py-2 rounded cursor-pointer close-btn"
           >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded"
-          >
-            Send
           </button>
         </div>
-      </form>
     </div>
   </div>
 );
