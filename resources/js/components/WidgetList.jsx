@@ -4,7 +4,7 @@ function WidgetList({ widgets, onSelect }) {
   return (
     <div>
       <div>Widgets</div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className = "grid grid-cols-3 gap-4">
         {widgets.map((widget) => (
           <div
             id = {widget.id}
