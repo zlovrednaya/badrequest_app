@@ -22,7 +22,6 @@ function Main() {
         widgets = {widgets}
         onSelect = {setSelectedWidget}
       />
-
       {selectedWidget && (
         <WidgetForm
           widget = {selectedWidget}

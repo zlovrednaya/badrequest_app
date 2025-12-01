@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 export default function () {
     return (
-        <div class="flex">
+        <div style={styles.block}>
             <div style={styles.hello}>Hello!</div>
             <div>I'm Daria Hostieva. I'm fullstack sotftware engineer. And this is my introduction web site </div>
         </div>
@@ -9,6 +9,10 @@ export default function () {
 }
 
 const styles = {
+  block: {
+    display: "flex",
+    justifyContent: "center",
+  },  
   hello: {
     fontSize: "100px",
     fontWeight: "bold",
