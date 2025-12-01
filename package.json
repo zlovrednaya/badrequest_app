@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "animejs": "^4.2.2",
-        "create-react-app": "^1.2.1"
+        "create-react-app": "^1.2.1",
+        "react-pdf": "^10.2.0"
     }
 }
