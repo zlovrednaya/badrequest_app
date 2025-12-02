@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CVpdf from "./CVpdf";
+import PDFButton from "./elements/PDFButton";
 
 
 export default function Header() {
@@ -9,8 +9,8 @@ export default function Header() {
       <nav style = {styles.nav}>
          <a class = "py-2" style = {styles.link} href="#about">About</a>
          <a class = "py-2" style = {styles.link} href="#contact">Contact</a>
-        <CVpdf 
-          pdfUrl = "http://127.0.0.1:8000/storage/Daria_Hostieva_Software_Engineer.pdf"
+        <PDFButton 
+          pdfUrl = "http://127.0.0.1:8000/storage/CV_Daria_Hostieva_FullStack_Engineer.pdf"
           label = "Resume"
         />
       </nav>

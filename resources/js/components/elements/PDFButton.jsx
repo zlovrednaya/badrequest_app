@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
-function CVpdf({ pdfUrl, label = "CV" }) {
+function PDFButton({ pdfUrl, label = "CV" }) {
   const handleClick = () => {
     window.open(pdfUrl, "_blank"); // open PDF in new tab
   };
@@ -17,4 +17,4 @@ function CVpdf({ pdfUrl, label = "CV" }) {
   );
 }
 
-export default CVpdf;
+export default PDFButton;
