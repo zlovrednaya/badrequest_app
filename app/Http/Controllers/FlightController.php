@@ -9,11 +9,10 @@ use App\Http\Requests\FlightRequest;
 class FlightController extends Controller
 {
 
-    /// http://127.0.0.1:8000/observeFlight?flight_number=HV6002
+    // http://127.0.0.1:8000/observeFlight
     public function postObserveFlight(FlightRequest $request, FlightService $flightService): bool
     {
         $data = $request->all();
-            echo print_r($data); die;
         $flightService->checkFlightPosition($data);
     }
 }

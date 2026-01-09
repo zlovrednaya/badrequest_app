@@ -22,14 +22,14 @@ class FlightService
         ];
     }
 
-    public function checkFlightPosition(array $data): bool
+    public function checkFlightPosition(array $data): array
     {
         $payload = $this->prepareData($data);
 
         $aviationStack = IntegrationFactory::create('aviationstack');
         $rawFlight = $aviationStack->getFlightData($payload);
 
-        if (empty($rawFlight)) {
+        if (empty($rawFlight) || empty($rawFlight['data'])) {
             return [
                 'error' => 'Flight not found.',
             ];
@@ -43,17 +43,29 @@ class FlightService
         }
         $rawAirport = $aviationStack->getAirportData($flight['airport']);
         $airport = $this->processAirport($rawAirport);
+        
+        if (empty($flight['lat']) || $flight['lon']) {
+            return [
+                'error' => 'Flight is not active.',
+            ];
+        }
         if ($this->isWithinRadius($airport['lat'], $airport['lon'], $flight['lat'], $flight['lon'])) {
-            // sendMessage
-            echo print_r('is within radius 5km'); die;
+            return [
+                'status' => true,
+                'message' => 'is within radius 5km',
+            ];
         } else {
-            echo print_r('is NOT within radius 5km'); die;
+            return [
+                'status' => false,
+                'message' => 'is NOT within radius 5km',
+            ];
         }
 
     }
 
     private function processFlight(array $flight): array
     {
+    
         $flight = $flight['data'][0];
         return [
                 'airport' => $flight['arrival'] ?? null,

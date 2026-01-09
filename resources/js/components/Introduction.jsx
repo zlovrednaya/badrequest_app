@@ -4,7 +4,7 @@ export default function () {
       <div>
         <div style = {styles.block}>
             <div style = {styles.hello}>Hello!</div>
-            <div style = {styles.introtext}>I'm Daria Hostieva. I'm fullstack software engineer. And this is my introduction web site </div>
+            <div style = {styles.introtext}>I’m Daria Hostieva, a full-stack software engineer. Welcome to my personal website. </div>
         </div>
       </div>  
     )

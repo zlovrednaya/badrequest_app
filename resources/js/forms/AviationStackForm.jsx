@@ -5,7 +5,6 @@ import { Input, EmailInput } from "../components/elements/Inputs";
 function AviationStackForm({ widget, onClose }) {
     const [formData, setFormData] = useState({
         email: "",
-        api_key: "",
         flight_number: "",
     });
 
@@ -15,15 +14,17 @@ function AviationStackForm({ widget, onClose }) {
         const data = new FormData(e.target);
         const formData = {
             email: data.get("email"),
-            webhook: data.get("api_key"),
-            token: data.get("flight_number"),
+            flight_number: data.get("flight_number"),
         };
         setFormData(formData);
 
-        fetch("http://127.0.0.1:8000/observeFlight", {
+        axios("http://localhost:8000/observeFlight", {
                 method: 'POST', 
-                body: JSON.stringify(formData),
-                headers: new Headers({ 'Content-Type': 'application/json' })
+                data: JSON.stringify(formData),
+                headers: new Headers({
+                     'Content-Type': 'application/json',
+                     'Accept': 'application/json',
+                }),
             })
             .then(res => res.json())
             .then((result) => {
@@ -41,38 +42,33 @@ function AviationStackForm({ widget, onClose }) {
                 <h2 className = "text-xl font-bold mb-4">
                 {widget.name} subscription
                 </h2> 
-                    <form onSubmit = {sendData} className="space-y-4">
-                        <Input
-                            label = "API Key" 
-                            name = "api_key"
-                            placeholder = "Enter API Key (optional)"
-                        />
-                        <EmailInput 
-                            label = "E-mail" 
-                            name = "email"
-                            placeholder = "Enter E-mail"
-                        />
-                        <Input
-                            label = "Flight number" 
-                            name = "flight_number"
-                            placeholder = "For instance, HV6002"
-                        />
-                        <div className = "flex justify-end gap-2">
-                            <button
-                                type = "button"
-                                onClick = {onClose}
-                                className = "px-4 py-2 border rounded cursor-pointer"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                type = "submit"
-                                className = "px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
-                            >
-                                Subscribe
-                            </button>
-                        </div>
-                    </form>
+                <form onSubmit = {sendData} className="space-y-4">
+                    <EmailInput 
+                        label = "E-mail" 
+                        name = "email"
+                        placeholder = "Enter E-mail"
+                    />
+                    <Input
+                        label = "Flight number" 
+                        name = "flight_number"
+                        placeholder = "For instance, HV6002"
+                    />
+                    <div className = "flex justify-end gap-2">
+                        <button
+                            type = "button"
+                            onClick = {onClose}
+                            className = "px-4 py-2 border rounded cursor-pointer"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type = "submit"
+                            className = "px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
+                        >
+                            Subscribe
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     );

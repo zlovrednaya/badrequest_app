@@ -10,11 +10,12 @@ class FlightRequest extends FormRequest
         $scenario = $this->route()->getActionMethod(); 
 
         switch ($scenario) {
-            case 'getObserveFlight':
+            case 'postObserveFlight':
                 return [
-                    'airport' => 'nullable|string|size:3',
+                    //'airport' => 'nullable|string|size:3',
+                    'email' => 'required|string',
                     'flight_number' => 'required|string',
-                    'date'    => 'nullable|date|after_or_equal:today',
+                    'api_key' => 'nullable|string',
                 ];
 
             case 'checkDelay':
