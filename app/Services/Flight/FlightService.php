@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Flight;
 
+use Illuminate\Support\Facades\DB;
 use App\Services\Integrations\IntegrationFactory;
 use App\Services\Notifications\MailerSendService;
 
@@ -22,6 +23,10 @@ class FlightService
         ];
     }
 
+    public function getFlight(array $data): array
+    {
+        
+    }
     public function checkFlightPosition(array $data): array
     {
         $payload = $this->prepareData($data);
@@ -71,6 +76,7 @@ class FlightService
                 'airport' => $flight['arrival'] ?? null,
                 'lat' => $flight['live']['latitude'] ?? null,
                 'lon' => $flight['live']['longitude'] ?? null,
+                'flight_date' => $flight['flight_date'] ?? null,
         ];
     }
 
@@ -105,6 +111,53 @@ class FlightService
         $distance = $earthRadius * $c;
 
         return $distance <= $radius;
+    }
+
+    /**
+     * input array
+     * get Flight and Airport and insert flight data to db
+     */
+    public function createFlight(array $data)
+    {
+        $payload = $this->prepareData($data);
+
+        $aviationStack = IntegrationFactory::create('aviationstack');
+        $rawFlight = $aviationStack->getFlightData($payload);
+
+        if (empty($rawFlight) || empty($rawFlight['data'])) {
+            return [
+                'error' => 'Flight not found.',
+            ];
+        }
+        $flight = $this->processFlight($rawFlight);
+
+        if (empty($flight['airport'])) {
+            return [
+                'error' => 'Airport not found.',
+            ];
+        }
+        $rawAirport = $aviationStack->getAirportData($flight['airport']);
+        $airport = $this->processAirport($rawAirport);
+        echo print_r([$rawFlight, $flight,$airport]);
+        if (!($flight['lat'] ?? $flight['lon'])) {
+            return [
+                'error' => 'Flight is not active.',
+            ];
+        }
+       
+
+        $id = DB::table('flights')->insert([
+            'flight_number' => $data['flight_number'],
+            'status' => 'new',
+            'created_at' => now(),
+            'flight_date' => $flight['flight_date'],
+        ]);
+        echo print_r($id);
+
+        DB::table('subscribers')->insert([
+            'channel' => 'email',
+            'receiver' => $data['email']
+        ]);
     }
 
 }

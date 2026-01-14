@@ -18,7 +18,7 @@ function AviationStackForm({ widget, onClose }) {
         };
         setFormData(formData);
 
-        axios("http://localhost:8000/observeFlight", {
+        axios("http://localhost:8001/observeFlight", {
                 method: 'POST', 
                 data: JSON.stringify(formData),
                 headers: new Headers({

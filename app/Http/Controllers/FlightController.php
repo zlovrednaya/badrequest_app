@@ -10,9 +10,12 @@ class FlightController extends Controller
 {
 
     // http://127.0.0.1:8000/observeFlight
-    public function postObserveFlight(FlightRequest $request, FlightService $flightService): bool
+    public function postObserveFlight(FlightRequest $request, FlightService $flightService)
     {
         $data = $request->all();
-        $flightService->checkFlightPosition($data);
+       
+        $response = $flightService->createFlight($data);
+
+        return response()->json($response);
     }
 }
