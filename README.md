@@ -6,7 +6,7 @@ Stack:
 - PHP Laravel
 - React.JS
 - anima.js
-- PostgreSDL
+- PostgreSQL
 
 Mini-app
 1. Flight subscription. Uses the AviationStack API to search for flights and the MailerSend API to send emails.
