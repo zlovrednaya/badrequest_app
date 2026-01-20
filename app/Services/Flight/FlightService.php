@@ -3,6 +3,8 @@ namespace App\Services\Flight;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Flight;
+use App\Models\Subscriber;
+use App\Models\FlightSubscriber;
 use App\Services\Integrations\IntegrationFactory;
 use App\Services\Notifications\MailerSendService;
 
@@ -149,31 +151,31 @@ class FlightService
         DB::beginTransaction();
         try {
             $flight = Flight::firstOrCreate([
-            'flight_number' => $data['flight_number'],
-            'status' => 'new',
-            'created_at' => now(),
-            'flight_date' => $flight['flight_date'],
-        ]);
+                'flight_number' => $data['flight_number'],
+                'status' => 'new',
+                'flight_date' => $flight['flight_date'],
+                'created_at' => now(),
+            ]);
+            $subscriber = Subscriber::firstOrCreate([
+                'channel' => 'email',
+                'receiver' => $data['email'],
+                'created_at' => now(),
+            ]);
+            FlightSubscriber::insert([
+                'flight_id' => $flight->id,
+                'subscriber_id' => $subscriber->id,
+                'notification_status' => 'new',
+                'created_at' => now(),
+            ]);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
             
             return [
                 'success' => false,
-                'error' => 'Error occured during creation',
+                'error' => 'Unable to create flight sibscription',
             ];
         }
-$subscriberId = DB::table('subscribers')->insertGetId([
-                'channel' => 'email',
-                'receiver' => $data['email'],
-                'created_at' => now(),
-            ]);
-        DB::table('flights_subscribers')->insertGetId([
-            'flight_id' => $flight->id,
-            'subscriber_id' => $subscriberId,
-            'notification_status' => 'new',
-            'created_at' => now(),
-        ]);
 
         return [
             'success' => true,
