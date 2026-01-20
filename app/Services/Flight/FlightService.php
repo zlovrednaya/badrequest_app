@@ -82,7 +82,11 @@ class FlightService
                 'flight_date' => $flight['flight_date'] ?? null,
         ];
     }
-
+    
+    /**
+     * input array
+     * output array
+     */
     private function processAirport(array $airport): array
     {
         $airport = $airport['data'][0];
