@@ -11,7 +11,7 @@ export default function Header() {
          <a class = "py-2" style = {styles.link} href="#contact">Contact</a>
         <PDFButton 
           pdfUrl = "http://127.0.0.1:8000/storage/CV_Daria_Hostieva_FullStack_Engineer.pdf"
-          label = "Resume"
+          label = "CV"
         />
       </nav>
     </header>

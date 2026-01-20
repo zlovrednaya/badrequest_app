@@ -2,6 +2,7 @@
 namespace App\Services\Flight;
 
 use Illuminate\Support\Facades\DB;
+use App\Models\Flight;
 use App\Services\Integrations\IntegrationFactory;
 use App\Services\Notifications\MailerSendService;
 
@@ -115,7 +116,7 @@ class FlightService
 
     /**
      * input array
-     * get Flight and Airport and insert flight data to db
+     * get Flight and Airport and insert flight data(flights,subscribers,flights_subscribers) to db
      */
     public function createFlight(array $data)
     {
@@ -144,20 +145,40 @@ class FlightService
                 'error' => 'Flight is not active.',
             ];
         }
-       
 
-        $id = DB::table('flights')->insert([
+        DB::beginTransaction();
+        try {
+            $flight = Flight::firstOrCreate([
             'flight_number' => $data['flight_number'],
             'status' => 'new',
             'created_at' => now(),
             'flight_date' => $flight['flight_date'],
         ]);
-        echo print_r($id);
-
-        DB::table('subscribers')->insert([
-            'channel' => 'email',
-            'receiver' => $data['email']
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return [
+                'success' => false,
+                'error' => 'Error occured during creation',
+            ];
+        }
+$subscriberId = DB::table('subscribers')->insertGetId([
+                'channel' => 'email',
+                'receiver' => $data['email'],
+                'created_at' => now(),
+            ]);
+        DB::table('flights_subscribers')->insertGetId([
+            'flight_id' => $flight->id,
+            'subscriber_id' => $subscriberId,
+            'notification_status' => 'new',
+            'created_at' => now(),
         ]);
+
+        return [
+            'success' => true,
+            'message' => 'Flight has been saved',
+        ];
     }
 
 }
