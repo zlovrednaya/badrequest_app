@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Notifications;
+namespace App\Services\Channels;
 
 use MailerSend\MailerSend;
 use MailerSend\Helpers\Builder\Recipient;

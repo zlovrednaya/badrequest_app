@@ -14,7 +14,7 @@ class FlightController extends Controller
     {
         $data = $request->all();
        
-        $response = $flightService->createFlight($data);
+        $response = $flightService->createSubscription($data);
 
         return response()->json($response);
     }

@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\Flight;
+namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Flight;
@@ -7,6 +7,7 @@ use App\Models\Subscriber;
 use App\Models\FlightSubscriber;
 use App\Services\Integrations\IntegrationFactory;
 use App\Services\Notifications\MailerSendService;
+use App\Jobs\CheckPlaneDistanceJob;
 
 class FlightService
 {
@@ -30,6 +31,7 @@ class FlightService
     {
         
     }
+
     public function checkFlightPosition(array $data): array
     {
         $payload = $this->prepareData($data);
@@ -124,7 +126,7 @@ class FlightService
      * input array
      * get Flight and Airport and insert flight data(flights,subscribers,flights_subscribers) to db
      */
-    public function createFlight(array $data)
+    public function createSubscription(array $data)
     {
         $payload = $this->prepareData($data);
 
@@ -165,7 +167,7 @@ class FlightService
                 'receiver' => $data['email'],
                 'created_at' => now(),
             ]);
-            FlightSubscriber::insert([
+            $flightSubscriberId = FlightSubscriber::insertGetId([
                 'flight_id' => $flight->id,
                 'subscriber_id' => $subscriber->id,
                 'notification_status' => 'new',
@@ -181,9 +183,11 @@ class FlightService
             ];
         }
 
+        CheckPlaneDistanceJob::dispatch($flightSubscriberId);
+
         return [
             'success' => true,
-            'message' => 'Flight has been saved',
+            'message' => 'Flight has been saved. Please wait for the e-mail about your flight.',
         ];
     }
 
