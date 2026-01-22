@@ -26,7 +26,7 @@ class CheckPlaneDistanceJob implements ShouldQueue
         echo print_r($subscription);die;
         if (!empty($subscription)) {
             if ($flightService->checkFlightPosition($subscription['id'])) {
-                $notificationService->sendMessage();
+                $notificationService->sendMessage($subscription);
             } else {
                 self::dispatch($this->flightSubscriberId)->delay(now()->addMinutes(5));
             }

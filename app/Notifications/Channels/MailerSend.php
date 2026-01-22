@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\Channels;
+namespace App\Notifications;
 
 use MailerSend\MailerSend;
 use MailerSend\Helpers\Builder\Recipient;
 use MailerSend\Helpers\Builder\EmailParams;
 
-class MailerSendService extends AbstractNotification {
+class MailerSend extends AbstractNotification {
     public string $apiKey = 'mlsn.d05be6f00e56ef65dd24be03c692e9562258c5a58b6336f4edcd97d3abaf7d53';
 
     public function sendMessage(): void

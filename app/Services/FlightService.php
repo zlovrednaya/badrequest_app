@@ -6,7 +6,7 @@ use App\Models\Flight;
 use App\Models\Subscriber;
 use App\Models\FlightSubscriber;
 use App\Services\Integrations\IntegrationFactory;
-use App\Services\Notifications\MailerSendService;
+use App\Notifications\Channels\MailerSend;
 use App\Jobs\CheckPlaneDistanceJob;
 
 class FlightService

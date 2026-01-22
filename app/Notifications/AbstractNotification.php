@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\Notifications;
+namespace App\Notifications;
 
 abstract class AbstractNotification
 {
