@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Services\Flight\FlightService;
+use App\Services\FlightService;
 use App\Http\Requests\FlightRequest;
 
 class FlightController extends Controller

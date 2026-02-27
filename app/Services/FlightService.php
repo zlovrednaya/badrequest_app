@@ -160,22 +160,24 @@ class FlightService
                 'flight_number' => $data['flight_number'],
                 'status' => 'new',
                 'flight_date' => $flight['flight_date'],
-                'created_at' => now(),
             ]);
-            $subscriber = Subscriber::firstOrCreate([
-                'channel' => 'email',
-                'receiver' => $data['email'],
-                'created_at' => now(),
-            ]);
-            $flightSubscriberId = FlightSubscriber::insertGetId([
+            $subscriber = Subscriber::firstOrCreate(
+                [
+                    'channel' => 'email',
+                    'receiver' => $data['email'],
+                ]
+            );
+            $flightSubscriber = FlightSubscriber::firstOrCreate([
                 'flight_id' => $flight->id,
                 'subscriber_id' => $subscriber->id,
                 'notification_status' => 'new',
-                'created_at' => now(),
             ]);
             DB::commit();
         } catch (\Exception $e) {
+            
             DB::rollback();
+
+            throw $e;die;
             
             return [
                 'success' => false,
@@ -183,7 +185,7 @@ class FlightService
             ];
         }
 
-        CheckPlaneDistanceJob::dispatch($flightSubscriberId);
+        CheckPlaneDistanceJob::dispatch($flightSubscriber->id);
 
         return [
             'success' => true,

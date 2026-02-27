@@ -128,5 +128,10 @@ return [
         ],
 
     ],
+    'job' =>  [
+            'driver' => 'single',
+            'path' => storage_path('logs/job.log'),
+            'level' => 'info',
+    ],
 
 ];
