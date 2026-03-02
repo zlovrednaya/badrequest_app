@@ -15,6 +15,7 @@ class NotificationService
         $notifier = NotificationFactory::create($subscriber['channel']);
         $notifier->sendMessage([
             'receiver' => $subscriber['receiver'],
+            'message' => $subscriber['message'],
         ]);
     }
 }

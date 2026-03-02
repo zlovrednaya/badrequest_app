@@ -3,10 +3,11 @@
 namespace App\Jobs;
 
 use App\Services\FlightService;
+use App\Services\NotificationService;
+
 use App\Models\FlightSubscriber;
 use App\Models\Flight;
 use App\Models\Subscriber;
-use App\Services\NotificationService;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -70,9 +71,13 @@ class CheckPlaneDistanceJob implements ShouldQueue
         if ($flightStatus['status']) {
             Log::info('CheckPlaneDistanceJob. Need message = TRUE');
             $notificationService->sendMessage([
-                'flight_number' => $flight['flight_number'],
-                'recipient' => $subscriber['receiver'],
                 'channel' => $subscriber['channel'],
+                'receiver' => $subscriber['receiver'],
+                'flight_number' => $flight['flight_number'],
+                'message' => __('notifications.flight.approaching', [
+                    'flight'   => $flight['flight_number'],
+                    'distance' => 5,
+                ]),
             ]);
         } else {
             if($flightStatus['error']) {

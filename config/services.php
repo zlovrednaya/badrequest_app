@@ -37,7 +37,7 @@ return [
     'aviationstack' => [
         'token' => env('AVIATION_STACK_TOKEN'),
     ],
-    'mailersender' => [
+    'mailersend' => [
         'token' => env('MAILERSENDER_TOKEN')
     ],
 
