@@ -14,6 +14,11 @@ class FlightService
     public $updateDelay; // min
     public $radius = 5.0; // distance near the flight
 
+    public function __construct(string $providerName = 'aviationstack')
+    {
+        $this->provider = IntegrationFactory::create($providerName);
+    }
+
     public function getUpdate()
     {
 
@@ -35,12 +40,11 @@ class FlightService
     public function checkFlightPosition(array $data): array
     {
         $payload = $this->prepareData($data);
-
-        $aviationStack = IntegrationFactory::create('aviationstack');
-        $rawFlight = $aviationStack->getFlightData($payload);
+        $rawFlight = $this->provider->getFlightData($payload);
 
         if (empty($rawFlight) || empty($rawFlight['data'])) {
             return [
+                'status' => false,
                 'error' => 'Flight not found.',
             ];
         }
@@ -48,28 +52,27 @@ class FlightService
 
         if (empty($flight['airport'])) {
             return [
+                'status' => false,
                 'error' => 'Airport not found.',
             ];
         }
-        $rawAirport = $aviationStack->getAirportData($flight['airport']);
+        $rawAirport = $this->provider->getAirportData($flight['airport']);
         $airport = $this->processAirport($rawAirport);
         
         if (empty($flight['lat']) || $flight['lon']) {
             return [
+                'status' => false,
                 'error' => 'Flight is not active.',
             ];
         }
-        if ($this->isWithinRadius($airport['lat'], $airport['lon'], $flight['lat'], $flight['lon'])) {
-            return [
-                'status' => true,
-                'message' => 'is within radius 5km',
+        $withinRadiusBool = $this->isWithinRadius($airport['lat'], $airport['lon'], $flight['lat'], $flight['lon']);
+        
+        return [
+                'status' => $withinRadiusBool,
+                'message' => $withinRadiusBool ? 'Flight is within radius 5km' : 'Flight is NOT within radius 5km',
+                'flight' => $flight,
+                'airport' => $airport,
             ];
-        } else {
-            return [
-                'status' => false,
-                'message' => 'is NOT within radius 5km',
-            ];
-        }
 
     }
 
@@ -176,8 +179,6 @@ class FlightService
         } catch (\Exception $e) {
             
             DB::rollback();
-
-            throw $e;die;
             
             return [
                 'success' => false,

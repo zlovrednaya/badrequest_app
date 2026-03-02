@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Services\FlightService;
 use App\Models\FlightSubscriber;
+use App\Models\Flight;
 use App\Services\NotificationService;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,25 +27,46 @@ class CheckPlaneDistanceJob implements ShouldQueue
         Log::info('CheckPlaneDistanceJob launched');
         // 0 - find flight in DB
         $subscription = FlightSubscriber::find($this->flightSubscriberId);
+        
+        if (!$subscription) {
+            Log::warning("FlightSubscriber not found: {$this->flightSubscriberId}");
+
+            return;
+        }
+        Log::info($subscription);
         // 1 - send request to retrieve flight from API
-        $flightData = 1;
+        $flight = Flight::find($subscription['flight_id']);
+
+        if (!$flight) {
+            Log::warning("Flight not found: {$subscription['flight_id']}");
+
+            return;
+        }
+        Log::info($flight);
+
         // 2 - check position
         // 3 - send notification or repeat
-        Log::info($subscription);
-        if (!empty($subscription)) {
-            if ($flightService->checkFlightPosition($subscription['id'])) {
-                Log::info('CheckPlaneDistanceJob. Need message = TRUE');
-                $notificationService->sendMessage($subscription);
-            } else {
-                Log::info('CheckPlaneDistanceJob. Need message = FALSE');
-                die;
-                self::dispatch($this->flightSubscriberId)->delay(now()->addMinutes(5));
+        
+        $flightStatus = $flightService->checkFlightPosition([
+            'flight_number' => $flight['flight_number'],
+            'flight_date' => $flight['flight_date'],
+        ]);
+        Log::info($flightStatus);
+        
+        if ($flightStatus['status']) {
+            Log::info('CheckPlaneDistanceJob. Need message = TRUE');
+            $notificationService->sendMessage($subscription);
+        } else {
+            if($flightStatus['error']) {
+                Log::warning("Job is terminated");
+                
+                return;
             }
+
+            Log::info('CheckPlaneDistanceJob. Need message = FALSE');
+            self::dispatch($this->flightSubscriberId)->delay(now()->addMinutes(1));
         }
-
-        die;
-
-        // re-check in 5 minutes
-        self::dispatch($watch->id)->delay(now()->addMinutes(5));
+        
+        return;
     }
 }
