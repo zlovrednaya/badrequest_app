@@ -8,8 +8,8 @@ class NotificationFactory
 {
     public static function create(string $channel)
     {
-        return match(strtolover($channel)) {
-            'email' => new EmailChannel(),
+        return match(strtolower($channel)) {
+            'email' => new MailerSend(),
         };
     }
 }

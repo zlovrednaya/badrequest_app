@@ -2,13 +2,18 @@
 
 namespace App\Notifications;
 
-use MailerSend\MailerSend;
 use MailerSend\Helpers\Builder\Recipient;
 use MailerSend\Helpers\Builder\EmailParams;
 
-class MailerSend extends AbstractNotification {
-    public string $apiKey = 'mlsn.d05be6f00e56ef65dd24be03c692e9562258c5a58b6336f4edcd97d3abaf7d53';
+class MailerSend extends AbstractNotification 
+{
+    private $apiKey;
 
+    public function __construct()
+    {
+        $this->apiKey = config('services.mailersend.token');
+    }
+    
     public function sendMessage(): void
     {
         $mailersend = new MailerSend(['api_key' => $this->apiKey]);

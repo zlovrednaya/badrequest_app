@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Services\FlightService;
 use App\Models\FlightSubscriber;
 use App\Models\Flight;
+use App\Models\Subscriber;
 use App\Services\NotificationService;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,13 +28,22 @@ class CheckPlaneDistanceJob implements ShouldQueue
         Log::info('CheckPlaneDistanceJob launched');
         // 0 - find flight in DB
         $subscription = FlightSubscriber::find($this->flightSubscriberId);
-        
         if (!$subscription) {
             Log::warning("FlightSubscriber not found: {$this->flightSubscriberId}");
 
             return;
         }
         Log::info($subscription);
+
+        $subscriber = Subscriber::find($subscription['subscriber_id']);
+        Log::info($subscriber);
+        
+        if (!$subscriber) {
+            Log::warning("Subscriber not found: {$subscription['subscriber_id']}");
+
+            return;
+        }
+
         // 1 - send request to retrieve flight from API
         $flight = Flight::find($subscription['flight_id']);
 
@@ -44,22 +54,30 @@ class CheckPlaneDistanceJob implements ShouldQueue
         }
         Log::info($flight);
 
-        // 2 - check position
+        // 2 - get flight's status
         // 3 - send notification or repeat
         
-        $flightStatus = $flightService->checkFlightPosition([
+        /*$flightStatus = $flightService->checkFlightPosition([
             'flight_number' => $flight['flight_number'],
             'flight_date' => $flight['flight_date'],
         ]);
         Log::info($flightStatus);
+        */
+        $flightStatus = [
+            'status' => true,
+        ];
         
         if ($flightStatus['status']) {
             Log::info('CheckPlaneDistanceJob. Need message = TRUE');
-            $notificationService->sendMessage($subscription);
+            $notificationService->sendMessage([
+                'flight_number' => $flight['flight_number'],
+                'recipient' => $subscriber['receiver'],
+                'channel' => $subscriber['channel'],
+            ]);
         } else {
             if($flightStatus['error']) {
                 Log::warning("Job is terminated");
-                
+
                 return;
             }
 
