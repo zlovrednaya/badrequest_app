@@ -58,15 +58,12 @@ class CheckPlaneDistanceJob implements ShouldQueue
         // 2 - get flight's status
         // 3 - send notification or repeat
         
-        /*$flightStatus = $flightService->checkFlightPosition([
+        $flightStatus = $flightService->checkFlightPosition([
             'flight_number' => $flight['flight_number'],
             'flight_date' => $flight['flight_date'],
         ]);
         Log::info($flightStatus);
-        */
-        $flightStatus = [
-            'status' => true,
-        ];
+        
         
         if ($flightStatus['status']) {
             Log::info('CheckPlaneDistanceJob. Need message = TRUE');

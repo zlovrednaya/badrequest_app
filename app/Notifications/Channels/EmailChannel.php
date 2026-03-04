@@ -8,6 +8,8 @@ use MailerSend\Helpers\Builder\EmailParams;
 
 use App\Notifications\AbstractNotification;
 
+use Illuminate\Support\Facades\Log;
+
 class EmailChannel extends AbstractNotification 
 {
 
@@ -17,14 +19,14 @@ class EmailChannel extends AbstractNotification
         $this->mainSender = 'info@dgoitdepot.com';
     }
 
-    public function sendMessage($sendData): void
+    public function sendMessage(array $sendData): void
     {
         $mailersend = new MailerSend(['api_key' => $this->apiKey]);
 
         $recipients = [
             new Recipient('dasha13111997@gmail.com', 'Daria'),
         ];
-        Log::info($sendData);die;
+        Log::info($sendData);
         $emailParams = (new EmailParams())
             ->setFrom($this->mainSender)
             ->setFromName('DariasWidgetFactoryInfo')
@@ -34,6 +36,8 @@ class EmailChannel extends AbstractNotification
             ->setText($sendData['message']);
 
         $mailersend->email->send($emailParams);
+
+        return;
     }
 }
 

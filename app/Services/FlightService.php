@@ -150,7 +150,7 @@ class FlightService
         }
         $rawAirport = $aviationStack->getAirportData($flight['airport']);
         $airport = $this->processAirport($rawAirport);
-        echo print_r([$rawFlight, $flight,$airport]);
+        
         if (!($flight['lat'] ?? $flight['lon'])) {
             return [
                 'error' => 'Flight is not active.',

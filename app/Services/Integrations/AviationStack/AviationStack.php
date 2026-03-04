@@ -47,7 +47,6 @@ class AviationStack extends AbstractApi
 
     protected function handleResponse(string $rawResponse): array
     {
-        echo print_r($rawResponse);
         return json_decode($rawResponse, true);
     }
 

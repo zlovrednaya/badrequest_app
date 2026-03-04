@@ -8,6 +8,8 @@ function AviationStackForm({ widget, onClose }) {
         flight_number: "",
     });
 
+    const [serverMessage, setServerMessage] = useState(null);
+
     const sendData = (e) => {
         e.preventDefault();
 
@@ -18,7 +20,7 @@ function AviationStackForm({ widget, onClose }) {
         };
         setFormData(formData);
 
-        axios("http://localhost:8001/observeFlight", {
+        axios( window.location.href + "observeFlight", {
                 method: 'POST', 
                 data: JSON.stringify(formData),
                 headers: new Headers({
@@ -26,14 +28,25 @@ function AviationStackForm({ widget, onClose }) {
                      'Accept': 'application/json',
                 }),
             })
-            .then(res => res.json())
             .then((result) => {
-                console.log(result)
-                setFormData('')
+                console.log('success');
+                setServerMessage({ 
+                    success: result.data.success, 
+                    text: result.data.message,
+                });
             })
-            .catch((err) => console.log('error'));
+            .catch((err) => {
+                console.log('error');
+                console.log(err);
+                setServerMessage({ 
+                    success: false, 
+                    text: 'An error occured'
+                });
+            })
+            
+            
         
-        onClose();
+        // onClose();
     };
 
     return (
@@ -69,6 +82,18 @@ function AviationStackForm({ widget, onClose }) {
                         </button>
                     </div>
                 </form>
+
+                {serverMessage && (
+                    <div
+                    className={`p-3 rounded mt-2 ${
+                        serverMessage.success === true
+                        ? "bg-green-100 text-green-700 border border-green-300"
+                        : "bg-red-100 text-red-700 border border-red-300"
+                    }`}
+                    >
+                    {serverMessage.text}
+                    </div>
+                )}
             </div>
         </div>
     );
