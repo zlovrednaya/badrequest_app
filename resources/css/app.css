@@ -34,3 +34,9 @@
     right: 6px;
 
 }
+
+.title-widget {
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+}
