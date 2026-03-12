@@ -41,3 +41,12 @@
     justify-content: center;
     text-transform: uppercase;
 }
+.WidgetListFormWithLogo {
+    margin: 20px 0;
+}
+.WidgetListFormWithLogo hr {
+    color: var(--color-gray-400);
+}
+.WidgetListLogoContainer {
+    margin: 20px 0;
+}

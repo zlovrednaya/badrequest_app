@@ -10,7 +10,7 @@ function Main() {
 
   const widgets = [
     { id: "AviationStack", name: "AviationStack", description: "Flight subscription allows you to receive a message when the plane is near the airport" },
-    { id: "ChoresTracker", name: "ChoresTracker", description: "An app that helps us track our tasks, gain scores, and win prizes" },
+    { id: "ChoresTracker", name: "ChoresTracker", description: "An app that helps us track our tasks, gain scores, and win prizes", logo: "chores_logo.svg" },
     { id: "BaseWidget", name: "BaseWidget", description: "Default widget form" },
     { id: "AbstractAnimationWidget", name: "AbstractAnimationWidget", description: "animation patterns" },
   ];

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 function WidgetList({ widgets, onSelect }) {
+  const baseLogoUrl = window.location.origin + "/storage/";
   return (
     <div>
       <div className="title-widget">Widgets</div>
@@ -14,6 +15,15 @@ function WidgetList({ widgets, onSelect }) {
           >
             <h2 className="font-semibold">{widget.name}</h2>
             <p className="text-sm text-gray-400">{widget.description}</p>
+            { widget.logo && (
+              <div className="WidgetListFormWithLogo">
+                <hr />
+                <div className="WidgetListLogoContainer">
+                  <img src={`${baseLogoUrl + widget.logo}`}/>
+                </div>
+              </div>)  
+            }
+            
           </div>
         ))}
       </div>
