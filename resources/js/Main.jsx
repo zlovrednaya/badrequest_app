@@ -9,7 +9,8 @@ function Main() {
   const [selectedWidget, setSelectedWidget] = useState(null);
 
   const widgets = [
-    { id: "AviationStack", name: "AviationStack", description: "Subscribe to your flight" },
+    { id: "AviationStack", name: "AviationStack", description: "Flight subscription allows you to receive a message when the plane is near the airport" },
+    { id: "ChoresTracker", name: "ChoresTracker", description: "An app that helps us track our tasks, gain scores, and win prizes" },
     { id: "BaseWidget", name: "BaseWidget", description: "Default widget form" },
     { id: "AbstractAnimationWidget", name: "AbstractAnimationWidget", description: "animation patterns" },
   ];
