@@ -30,11 +30,9 @@
     width: 100%;
     height: 50px;
     margin: 25px 0;
-}
-
-.LoginForm .input-box {
     font-size: 16px;
 }
+
 .LoginForm .input-box input {
     width: 100%;
     height: 100%;

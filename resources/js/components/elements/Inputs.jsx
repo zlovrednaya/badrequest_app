@@ -56,20 +56,31 @@ export function EmailInput({ label, name, placeholder }) {
     );
 }
 
-export function CustomTextInput({ label, name, placeholder, required=false, error, icon: Icon }) {
+export function CustomTextInput({ label, name, placeholder, required=false, error, icon: Icon, onChange }) {
     
     return (
         <div className="input-box">
             {label && (<label className="block text-sm font-medium">{label}</label>)}
             <input
               type="text"
-              name={name}
+              id={name}
               className={name}
               placeholder={placeholder}
               required={required}
+              onChange={onChange}
             />
-            {Icon && <Icon className="input-icon" />}
+            {Icon && <Icon className="icon" />}
             {error && <span className="text-xs">{error}</span>}
         </div>
+    );
+}
+
+export function CustomButtonInput({ placeholder, error }) {
+    
+    return (
+        <button
+            type="submit"
+            className="button-submit"
+        >{placeholder}</button>
     );
 }
