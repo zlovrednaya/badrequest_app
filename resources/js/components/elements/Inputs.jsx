@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { useState } from "react";
 
-export function Input({ label, name, placeholder, required = false, error, onValueChange }) {
+export function Input({ label, name, placeholder, required=false, error, onValueChange }) {
     const [value, setValue] = useState("");
 
     const handleChange = (e) => {
@@ -17,26 +17,26 @@ export function Input({ label, name, placeholder, required = false, error, onVal
         <div>
             <label className="block text-sm font-medium">{label}</label>
             <input
-              type = "text"
-              name = {name}
-              className = {`w-full border p-2 rounded ${
+              type="text"
+              name={name}
+              className={`w-full border p-2 rounded ${
                 error ? "border-red-500" : "border-gray-300"
               }`}
-              placeholder = {placeholder}
-              value = {value}
-              onChange = {handleChange}
-              required = {required}
+              placeholder={placeholder}
+              value={value}
+              onChange={handleChange}
+              required={required}
             />
-            {error && <span className = "text-xs">{error}</span>}
+            {error && <span className="text-xs">{error}</span>}
         </div>
     );
 }
 
 export function EmailInput({ label, name, placeholder }) {
-    const [error, setError] = useState("");
+    const [error, setError]=useState("");
 
-    const handleChangeEmail = (field, value) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const handleChangeEmail=(field, value) => {
+        const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(value)) {
             setError("Please enter a valid email address");
@@ -47,11 +47,29 @@ export function EmailInput({ label, name, placeholder }) {
 
     return (
         <Input
-            label = {label}
-            name = {name}
-            placeholder = {placeholder}
-            onValueChange = {handleChangeEmail}
-            error = {error}
+            label={label}
+            name={name}
+            placeholder={placeholder}
+            onValueChange={handleChangeEmail}
+            error={error}
          />
+    );
+}
+
+export function CustomTextInput({ label, name, placeholder, required=false, error, icon: Icon }) {
+    
+    return (
+        <div className="input-box">
+            {label && (<label className="block text-sm font-medium">{label}</label>)}
+            <input
+              type="text"
+              name={name}
+              className={name}
+              placeholder={placeholder}
+              required={required}
+            />
+            {Icon && <Icon className="input-icon" />}
+            {error && <span className="text-xs">{error}</span>}
+        </div>
     );
 }

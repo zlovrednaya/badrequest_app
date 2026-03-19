@@ -32,10 +32,10 @@
     margin: 25px 0;
 }
 
-.input-box {
+.LoginForm .input-box {
     font-size: 16px;
 }
-.input-box input {
+.LoginForm .input-box input {
     width: 100%;
     height: 100%;
     border-radius: 40px;
@@ -44,20 +44,16 @@
     /*background: #ffffff;*/
 }
 
-.input-box input:focus { 
+.LoginForm .input-box input:focus { 
     outline: none; 
     border: #2c2d59 2px solid; 
     background: #fff;
 }
 
-.input-box input:hover {
-    background: #f8f8ff;
-}
-
-.input-box input::placeholder {
+.LoginForm .input-box input::placeholder {
     color: #ae9e9e;
 }
-.input-box .icon {
+.LoginForm .input-box .icon {
     position: absolute;
     right: 20px;
     top: 50%;
@@ -77,6 +73,7 @@
     width: 100%;
     height: 50px;
     text-align: center;
+    font-weight: 600;
     border-radius: 40px;
     margin: 20px 0 10px 0 ;
     background: #2c2d59;
