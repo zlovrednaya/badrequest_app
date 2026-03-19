@@ -10,7 +10,7 @@ import './RegisterForm.css';
 async function signUp(signUpData) {
     await axios( window.location.href, {
         method: 'POST', 
-        body: JSON.stringify(signUpData),
+        data: JSON.stringify(signUpData),
         headers: new Headers({
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -20,14 +20,14 @@ async function signUp(signUpData) {
 }
 
 export default function RegisterForm(widget) {
-    const [username, setUserName] = useState();
+    const [name, setUserName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const onSubmit = async e => {
         e.preventDefault();
         const token = await signUp({
-            username,
-            username,
+            name,
+            email,
             password,
         });
     };
@@ -37,7 +37,7 @@ export default function RegisterForm(widget) {
                 <form onSubmit={onSubmit}>
                     <h1 className="LoginRegisterFormTitle">{widget.title} | Sign Up</h1>
                     <CustomTextInput 
-                        name="username"
+                        name="name"
                         required={true}
                         icon={FaUser}
                         placeholder="Username"

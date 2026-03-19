@@ -1,12 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function register(Request $request) {
+    public function postRegister(Request $request) {
         $userData = $request->validate([
             'name' => ['required', 'min:3', 'max:255'],
             'email' => ['required', 'min:3', 'max:255'],
