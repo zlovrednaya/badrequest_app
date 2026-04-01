@@ -1,0 +1,10 @@
+
+
+.ChoresTrackerAccount {
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    background: #fffef0;
+    border-radius: 10px; 
+}

@@ -1,6 +1,10 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import ChoresTrackerAccount from "./ChoresTrackerAccount";
+
+import ProtectedRoute from "../../components/ProtectedRoute";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,13 +16,8 @@ import {
 import './ChoresTrackerForm.css';
 
 export default function ChoresTracker() {
+  //  const navigate = useNavigate();
     const title = "Chores";
-
-    const [token, setToken] = useState();
-
-  /*if(!token) {
-    return <LoginForm setToken={setToken} />
-  } */
 
     return (
         <div className="ChoresTrackerForm fixed inset-0 flex items-center justify-center bg-black/40">            
@@ -26,6 +25,7 @@ export default function ChoresTracker() {
                 <Routes>
                     <Route path="/" element={<LoginForm title={title}/>}></Route>
                     <Route path="/register" element={<RegisterForm title={title}/>}></Route>
+                    <Route path="/account" element={<ProtectedRoute><ChoresTrackerAccount/></ProtectedRoute>}></Route>
                 </Routes>
             </Router>
 

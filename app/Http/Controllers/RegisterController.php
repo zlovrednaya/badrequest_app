@@ -9,18 +9,24 @@ use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
     public function postRegister(Request $request) {
-        $userData = $request->validate([
-            'name' => ['required', 'min:3', 'max:255'],
-            'email' => ['required', 'min:3', 'max:255'],
-            'password' => ['required', 'min:8'],
-        ]);
+        try {
+            
+            $userData = $request->validate([
+                'name' => ['required', 'unique:users', 'min:3', 'max:255'],
+                'email' => ['required', 'unique:users', 'regex:/^.+@.+$/i'],
+                'password' => ['required', 'min:8'],
+            ]);
+            $user = User::create([
+                'name' => $userData['name'],
+                'email' => $userData['email'],
+                'password' => Hash::make($userData['password']),
+            ]);
+            auth()->login($user);
 
-        $user = User::create([
-            'name' => $userData['name'],
-            'email' => $userData['email'],
-            'password' => Hash::make($userData['password']),
-        ]);
-        auth()->login($user);
-        return redirect('/');
+            return redirect('/');
+        } catch (Throwable $error) {
+            //echo print_r($error);
+            return ['data'=>true];
+        }
     }
 }

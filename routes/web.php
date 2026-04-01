@@ -11,5 +11,5 @@ Route::get('/', function () {
 
 Route::post('/observeFlight', [ FlightController::class, 'postObserveFlight' ]);
 Route::post('/register', [ RegisterController::class, 'postRegister' ]);
-Route::post('/login', [ LoginController::class, 'login' ]);
+Route::post('/login', [ LoginController::class, 'authenticate' ]);
 Route::post('/logout', [ LoginController::class, 'logout' ]);

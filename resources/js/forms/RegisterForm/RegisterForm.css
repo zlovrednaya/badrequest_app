@@ -17,6 +17,19 @@
     /*background: #ffffff;*/
 }
 
+.LoginRegisterForm .message-box {
+    width: 100%;
+    border-radius: 40px;
+    border: 2px solid #ae9e9e;
+    padding: 0 50px 0 20px;
+    /*background: #ffffff;*/
+}
+.LoginRegisterForm .message-box.message-success {
+    border: 2px solid #91b978;
+}
+.LoginRegisterForm .message-box.message-error {
+    border: 2px solid #b97878;
+}
 .LoginRegisterForm .input-box input:focus { 
     outline: none; 
     border: #2c2d59 2px solid; 

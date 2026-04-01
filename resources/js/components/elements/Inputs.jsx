@@ -84,3 +84,12 @@ export function CustomButtonInput({ placeholder, error }) {
         >{placeholder}</button>
     );
 }
+
+export function MessageInput({ serverMessageText, success }) {
+    
+    return (
+        <div className={`message-box ${success ? "message-success":"message-error"}`}>
+            <div> {serverMessageText}</div>
+        </div>
+    );
+}
