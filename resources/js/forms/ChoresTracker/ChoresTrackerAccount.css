@@ -1,10 +1,30 @@
 
 
 .ChoresTrackerAccount {
+    position: relative;
     height: 90%;
-    width: 90%;
-    display: flex;
+    width: 50%;
     justify-content: center;
     background: #fffef0;
     border-radius: 10px; 
+        
+}
+
+.ChoresTrackerAccount .app-form {
+    width: 70%;
+    height: 100%;
+    position: relative;
+    margin: auto;
+}
+.ChoresTrackerAccount .header-menu {
+    width: 100%;
+    max-width: 1140px;
+    height: 50px;   
+    display: inline-flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.ChoresTrackerMainWindow {
+    height: 90%;
 }

@@ -36,17 +36,24 @@
 
 }
 
-.title-widget {
+.widget-title {
     display: flex;
     justify-content: center;
     text-transform: uppercase;
 }
-.WidgetListFormWithLogo {
+
+.widget-list {
+    width:90%;
+    margin: auto;
+    max-width: 1350px;
+}
+
+.widget-list-form-with-logo {
     margin: 20px 0;
 }
-.WidgetListFormWithLogo hr {
+.widget-list-form-with-logo hr {
     color: var(--color-gray-400);
 }
-.WidgetListLogoContainer {
+.widget-list-logo-container {
     margin: 20px 0;
 }

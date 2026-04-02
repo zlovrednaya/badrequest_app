@@ -4,8 +4,8 @@ function WidgetList({ widgets, onSelect }) {
   const baseLogoUrl = window.location.origin + "/storage/";
   return (
     <div>
-      <div className="title-widget">Widgets</div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="widget-title">Widgets</div>
+      <div className="grid grid-cols-3 gap-4 widget-list">
         {widgets.map((widget) => (
           <div
             id={widget.id}
@@ -16,9 +16,9 @@ function WidgetList({ widgets, onSelect }) {
             <h2 className="font-semibold">{widget.name}</h2>
             <p className="text-sm text-gray-400">{widget.description}</p>
             { widget.logo && (
-              <div className="WidgetListFormWithLogo">
+              <div className="widget-list-form-with-logo">
                 <hr />
-                <div className="WidgetListLogoContainer">
+                <div className="widget-list-logo-container">
                   <img src={`${baseLogoUrl + widget.logo}`}/>
                 </div>
               </div>)  
