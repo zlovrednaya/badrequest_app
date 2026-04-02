@@ -1,24 +1,26 @@
 import React from "react";
 import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
-/*
-import ChoresList from './choresApp/ChoresList';
-import ChoresItem from './choresApp/ChoresItem';
-import AddEditButtons from './choresApp/AddEditButtons';
 
-*/
+import ChoresList from './choresApp/ChoresList';
+import AddEditMenu from './choresApp/AddEditMenu';
+import QuickAddMenu from './choresApp/QuickAddMenu';
+
+
 import UserMenu from './user/UserMenu';
 
 export default function ChoresTrackerAccount() {
     return (
-        <div className="ChoresTrackerAccount">
+        <div className="chores-tracker-account">
             <div className="app-form">
                 <div className="header-menu">
                     <h1>Chores</h1>
                     <UserMenu />
                 </div>
-                <div className="ChoresTrackerMainWindow">
-
+                <div className="chores-tracker-main-window">
+                    <AddEditMenu />
+                    <QuickAddMenu />
+                    <ChoresList />
                 </div>
                 <div className="footer-menu">
                     <div>Footer</div>

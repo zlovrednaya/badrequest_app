@@ -1,0 +1,11 @@
+.add-edit-menu {
+    display: flex;
+}
+
+.add-edit-menu-icon {
+    padding: 5px;
+}
+.add-edit-menu-icon:hover {
+    cursor: pointer;
+    background-color: rgb(203, 203, 191);
+}
