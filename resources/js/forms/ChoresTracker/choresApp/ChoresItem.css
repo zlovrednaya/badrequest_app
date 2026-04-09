@@ -1,0 +1,112 @@
+.color-rose {
+    background-color: #ff99c8;
+}
+
+
+.chores-item {
+    position: absolute;
+    background: #eaf2fa;
+    width: 100%;
+    height: 70%;
+    border-radius: 10px;
+    color: #59586f;
+}
+
+.chores-item-header {
+    color: #59586f;
+}
+.chores-item .chores-item-header-title {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.chores-item hr {
+    color: #d4d4d4;
+}
+
+.chores-item .close-form {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.chores-item .close-form:hover {
+    cursor: pointer;
+}
+
+.chores-item-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chores-item-form-header {
+    color: #59586f;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.chores-item-form-body {
+    color: #59586f;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    max-height: 300px;
+}
+
+.chores-item input:focus, .chores-item textarea:focus {
+  outline: none;
+}
+
+.chores-item-footer {
+    position: absolute;
+    bottom: 0px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.chores-item-footer button {
+    background: #120d80;
+    width: 70px;
+    height: 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    line-height: 15px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.chores-item-footer button:hover {
+    cursor: pointer;
+}
+
+.chores-item-form-datetime-block {
+    margin-top: 10px;
+    display: inline;
+    font-size: 15px;
+    color: #59586f;
+}
+
+.chores-item-form-time {
+    margin-left: 30px;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1)
+            brightness(40%)
+            sepia(70%)
+            saturate(100%)
+            hue-rotate(180deg)
+}
+
+.chores-item-cost {
+    display: flex;
+    align-items: center;
+}
+
+.chores-item-form-cost {
+    width: 50px;
+}
