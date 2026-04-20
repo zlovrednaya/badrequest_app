@@ -15,7 +15,7 @@ import {
 
 import './ChoresTrackerForm.css';
 
-export default function ChoresTracker() {
+export default function ChoresTracker({widget, onClose}) {
   //  const navigate = useNavigate();
     const title = "Chores";
 
@@ -28,7 +28,14 @@ export default function ChoresTracker() {
                     <Route path="/account" element={<ProtectedRoute><ChoresTrackerAccount/></ProtectedRoute>}></Route>
                 </Routes>
             </Router>
-
+            <div className="gap-2 close-btn-container rounded-xl absolute">
+            <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2 rounded cursor-pointer close-btn"
+            >
+            </button>
+            </div>
             
         </div>
     );

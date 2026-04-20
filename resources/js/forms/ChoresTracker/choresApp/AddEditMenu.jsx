@@ -12,18 +12,22 @@ export default function AddEditMenu() {
     
     const [showForm, setShowForm] = useState();
     const [noteId, setNoteId] = useState();
-    const openAddEditForm = () => {
+    const openForm = () => {
         setShowForm(true);
+    };
+
+    const closeForm = () => {
+        setShowForm(false);
     };
     return (
         <div>
             <div className="add-edit-menu">
-                <div className="add-edit-menu-icon" onClick={openAddEditForm}><MdAddCircleOutline /></div>
-                <div className="add-edit-menu-icon" onClick={openAddEditForm}><MdEdit /></div>
+                <div className="add-edit-menu-icon" onClick={openForm}><MdAddCircleOutline /></div>
+                <div className="add-edit-menu-icon" onClick={openForm}><MdEdit /></div>
                 <div className="add-edit-menu-icon"><MdDeleteOutline /></div>
                 <div className="add-edit-menu-icon"><MdShare /></div>
             </div>
-            {showForm && (<ChoresItem noteId={noteId} />)}
+            {showForm && (<ChoresItem noteId={noteId} onClose={closeForm} />)}
         </div>
     );
 }

@@ -5,16 +5,16 @@ import { SlStar } from "react-icons/sl";
 
 import './choresApp.css';
 import './choresItem.css';
-export default function ChoresItem(noteId) {
+export default function ChoresItem( {noteId, onClose}) {
 
-    const [categorie, setCategorie] = useState('');
-    const [header, setHeader] = useState('');
-    const [body, setBody] = useState('');
-    const [date, setDate] = useState();
-    const [time, setTime] = useState();
-    const [category, setCategory] = useState();
-    const [color, setColor] = useState();
-    const [cost, setCost] = useState('');
+    const [formData, setFormData] = useState({
+        title: "",
+        text: "",
+        due_datetime: "",
+        category: "",
+        color: "",
+        cost: "",
+    });
 
     const categoryList = [
         {'name': 'Home'},
@@ -28,10 +28,44 @@ export default function ChoresItem(noteId) {
         {'color': '#d0f4de', 'className': 'color-green', 'name': 'Pastel green'},
         {'color': '#a9def9', 'className': 'color-blue', 'name': 'Blue'},
         {'color': '#e4c1f9', 'className': 'color-violet', 'name': 'Violet'},
-    ]
-    const closeForm = () => {
+    ];
 
+    const closeForm = () => {
+        // control changes - if yes - than - modal window
+        /* modal window "are you sure" */
+        onClose();
     };
+
+    function handleChange(e) {
+        const {name, value} = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    function handleSave(e) {
+        e.preventDefault();
+        axios( window.location.origin+'/chores/add', {
+            method: 'POST', 
+            data: JSON.stringify(formData),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }),
+        })
+        .then(res => {
+            debugger;
+           
+            onClose();
+        })
+        .catch(err => {
+            console.log(err);
+            let errors = err.response.data.errors;
+            let errorText = err.response.data.message;
+        })
+    };
+
     return (
         <div className="chores-item">
             <div className="chores-item-header">
@@ -44,38 +78,35 @@ export default function ChoresItem(noteId) {
             <div className="chores-item-form">
                 <input
                     type="text"
-                    id="header"
+                    id="title"
+                    name="title"
                     className="chores-item-form-header"
                     placeholder="Type header..."
-                    onChange={(e) => setHeader(e.target.value)}
+                    onChange={handleChange}
                 />
                 <textarea
-                    id="body"
+                    id="text"
+                    name="text"
                     className="chores-item-form-body"
                     placeholder="Insert text..."
-                    onChange={(e) => setBody(e.target.value)}
+                    onChange={handleChange}
                 />
                 <div className="chores-item-form-datetime-block">
                     <input
-                        type="date"
+                        type="datetime-local"
+                        name="due_datetime"
                         className="chores-item-form-date"
                         placeholder="DD.MM.YY"
-                        onChange={(e) => setDate(e.target.value)}
-                    />
-                    <input
-                        type="time"
-                        className="chores-item-form-time"
-                        id="time"
-                        name="time"
-                        onChange={(e) => setTime(e.target.value)}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="chores-item-categories">
                     <label for="category">Category: </label>
                     <input 
                         placeholder="Choose category" 
+                        name="category"
                         list="category"
-                        onChange={(e) => setCategory(e.target.value)}
+                        onChange={handleChange}
                     />
                     <datalist id="category">
                         {categoryList.map((category) => (
@@ -88,7 +119,8 @@ export default function ChoresItem(noteId) {
                     <input 
                         placeholder="Choose color" 
                         list="color"
-                        onChange={(e) => setColor(e.target.value)}
+                        name="color"
+                        onChange={handleChange}
                     />
                     <datalist id="color">
                         {colorList.map((color) => (
@@ -100,14 +132,15 @@ export default function ChoresItem(noteId) {
                     <input
                         type="text"
                         id="cost"
+                        name="cost"
                         className="chores-item-form-cost"
                         placeholder="cost.."
-                        onChange={(e) => setCost(e.target.value)}
+                        onChange={handleChange}
                     />
                     <label for="cost"><SlStar /> </label>
                 </div>
             </div>
-            <div className="chores-item-footer">
+            <div className="chores-item-footer" onClick={handleSave}>
                 <button>Save</button>
             </div>
         </div>
