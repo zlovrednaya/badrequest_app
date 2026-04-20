@@ -36,14 +36,19 @@
 
 }
 
+.widgets-tab {
+    background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0), rgb(203 212 255));
+    padding-bottom: 20px;
+}
 .widget-title {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     text-transform: uppercase;
 }
 
 .widget-list {
-    width:90%;
+    width: 60%;
     margin: auto;
     max-width: 1350px;
 }
@@ -56,4 +61,11 @@
 }
 .widget-list-logo-container {
     margin: 20px 0;
+}
+
+.widget-item {
+    background-color: white;
+    box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.20);
+    border-radius: 8px;
+    border: 0.5px solid #c5c5c5;
 }

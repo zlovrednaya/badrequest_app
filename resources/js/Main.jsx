@@ -16,7 +16,7 @@ function Main() {
   ];
 
   return (
-    <div className = "p-6">
+    <div>
       <Header/>
       <Introduction/>
       <WidgetList
