@@ -27,7 +27,6 @@ export default function QuickAddMenu() {
                         </div>
                         <div>{chore.cost}</div>
                     </div>)}
-                    
                 </div>
             ))}
         </div>

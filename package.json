@@ -17,6 +17,7 @@
         "vite": "^7.0.4"
     },
     "dependencies": {
+        "@dnd-kit/react": "^0.4.0",
         "animejs": "^4.2.2",
         "create-react-app": "^1.2.1",
         "prop-types": "^15.8.1",

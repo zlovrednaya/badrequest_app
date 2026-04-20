@@ -17,12 +17,12 @@ class ChoreService
 
             return $chore;
         } catch(\Exception $e) {
-            echo print_r($e->getMessage());
             DB::rollback();
             
             return [
                 'success' => false,
                 'error' => 'Unable to create chore item',
+                'description' => $e->getMessage()
             ];
         }
     }
@@ -30,5 +30,12 @@ class ChoreService
     public function update(int $id, array $data)
     {
 
+    }
+
+    public function getAll($userId)
+    {
+       return Chore::where('user_id', $userId)
+        ->orderBy('created_at', 'desc')
+        ->get();
     }
 }

@@ -67,7 +67,7 @@ export default function ChoresItem( {noteId, onClose}) {
     };
 
     return (
-        <div className="chores-item">
+        <div className="chores-item-add-edit">
             <div className="chores-item-header">
                 <span className="chores-item-header-title">Add chore </span>
                 <div className="close-form" onClick={closeForm}>
@@ -102,31 +102,31 @@ export default function ChoresItem( {noteId, onClose}) {
                 </div>
                 <div className="chores-item-categories">
                     <label for="category">Category: </label>
-                    <input 
+                    <select 
+                        id="category"
                         placeholder="Choose category" 
                         name="category"
                         list="category"
                         onChange={handleChange}
-                    />
-                    <datalist id="category">
+                    >
                         {categoryList.map((category) => (
                             <option>{category.name}</option>
                         ))}
-                    </datalist>
+                    </select>
                 </div>
                 <div className="chores-item-color">
                     <label for="color">Color: </label>
-                    <input 
+                    <select 
+                        id="color"
                         placeholder="Choose color" 
                         list="color"
                         name="color"
                         onChange={handleChange}
-                    />
-                    <datalist id="color">
+                    >
                         {colorList.map((color) => (
-                            <option className={color.className}>{color.name}</option>
+                            <option className={color.className} value={color.color}>{color.name}</option>
                         ))}
-                    </datalist>
+                    </select>
                 </div>
                 <div className="chores-item-cost">
                     <input

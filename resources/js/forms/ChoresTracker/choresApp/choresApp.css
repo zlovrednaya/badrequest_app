@@ -1,3 +1,8 @@
+.menu-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .add-edit-menu {
     display: flex;
 }

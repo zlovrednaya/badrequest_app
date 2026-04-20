@@ -3,7 +3,8 @@
 }
 
 
-.chores-item {
+.chores-item-add-edit {
+    z-index: 100;
     position: absolute;
     background: #eaf2fa;
     width: 100%;
@@ -15,24 +16,24 @@
 .chores-item-header {
     color: #59586f;
 }
-.chores-item .chores-item-header-title {
+.chores-item-add-edit .chores-item-header-title {
     padding-left: 10px;
     padding-right: 10px;
     font-size: 15px;
     font-weight: 600;
 }
 
-.chores-item hr {
+.chores-item-add-edit hr {
     color: #d4d4d4;
 }
 
-.chores-item .close-form {
+.chores-item-add-edit .close-form {
     position: absolute;
     right: 5px;
     top: 5px;
 }
 
-.chores-item .close-form:hover {
+.chores-item-add-edit .close-form:hover {
     cursor: pointer;
 }
 
@@ -56,7 +57,7 @@
     max-height: 300px;
 }
 
-.chores-item input:focus, .chores-item textarea:focus {
+.chores-item-add-edit input:focus, .chores-item-add-edit textarea:focus {
   outline: none;
 }
 

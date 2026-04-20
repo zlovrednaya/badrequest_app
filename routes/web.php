@@ -15,3 +15,4 @@ Route::post('/register', [ RegisterController::class, 'postRegister' ]);
 Route::post('/login', [ LoginController::class, 'authenticate' ]);
 Route::post('/logout', [ LoginController::class, 'logout' ]);
 Route::post('/chores/add', [ ChoresController::class, 'add']);
+Route::post('/chores/getList', [ ChoresController::class, 'getList']);
