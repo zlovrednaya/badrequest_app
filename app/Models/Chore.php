@@ -14,6 +14,7 @@ class Chore extends Model
         'cost',
         'due_datetime',
         'color',
+        'drawing',
         'user_id'
     ];
 }
