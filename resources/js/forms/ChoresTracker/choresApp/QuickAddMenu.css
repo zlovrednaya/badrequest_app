@@ -3,20 +3,30 @@
     display: flex;
 }
 .quick-add-item {
+    position: relative;
     width: 200px;
     border: 0.5px solid  #a5a5a5;
     border-radius: 5px;
     font-size: 12px;
+    padding: 5px
 }
 
 .quick-add-item:hover {
-    background-color: #a5a5a5;
+    cursor: pointer;
+    background-color: #c3c2c2;
 }
 
 .quick-add-item:not(:first-child) {
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
-.item-cost {
+.quick-item-cost {
     display: flex;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    align-items: center;
+}
+.item-cost-star {
+    font-size: 10px;
 }

@@ -14,3 +14,11 @@
     cursor: pointer;
     background-color: rgb(203, 203, 191);
 }
+
+.menu-bar.disabled {
+    color: rgb(163, 163, 163);
+}
+
+.menu-bar.disabled > .add-edit-menu-icon:hover {
+    cursor: default;
+}

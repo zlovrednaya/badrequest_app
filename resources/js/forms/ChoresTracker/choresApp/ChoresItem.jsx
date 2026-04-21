@@ -23,6 +23,7 @@ export default function ChoresItem( {noteId, onClose}) {
     ];
 
     const colorList = [
+        {'color': '#ffffff', 'className': 'color-white', 'name': 'White',},
         {'color': '#ff99c8', 'className': 'color-rose', 'name': 'Rose',},
         {'color': '#fcf6bd', 'className': 'color-yellow', 'name': 'Yellow'},
         {'color': '#d0f4de', 'className': 'color-green', 'name': 'Pastel green'},

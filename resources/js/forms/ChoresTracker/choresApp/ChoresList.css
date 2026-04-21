@@ -3,6 +3,7 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     max-height: 85%;
     overflow-y: auto;
 }
@@ -14,10 +15,10 @@
     
     width: 200px;
     height: 100px;
-    border: 0.5px solid #a62f2f;
-    border-radius: 2px;
+    border: 0.5px solid #e9f2ff;
+    border-radius: 5px;
     padding: 5px;
-    margin: 10px;
+    margin: 10px 10px 0 0;
     background-color: white;
     cursor: pointer;
 }
@@ -41,5 +42,10 @@
     display: flex;
     align-items: center;
     top: 10px;
-    right: 12px;
+    right: 15px;
+    color: #545454;
+}
+
+.chore-item-cost svg {
+    font-size: 10px;
 }

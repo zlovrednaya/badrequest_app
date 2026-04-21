@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IoIosStarOutline } from "react-icons/io";
+import { SlStar } from "react-icons/sl";
 
 import './QuickAddMenu.css';
 
@@ -12,7 +12,7 @@ export default function QuickAddMenu() {
         },
         {
             'name': 'Schedule an appointment',
-            'cost': 0,
+            'cost': null,
         }
     ];
 
@@ -21,9 +21,9 @@ export default function QuickAddMenu() {
             {defaultChoreList.map((chore) => (
                 <div className="quick-add-item">
                     <div className="item-name">{chore.name}</div>
-                    {chore.cost && (<div className="item-cost">
+                    {chore.cost && (<div className="quick-item-cost">
                         <div className="item-cost-star">
-                            <IoIosStarOutline />
+                            <SlStar />
                         </div>
                         <div>{chore.cost}</div>
                     </div>)}

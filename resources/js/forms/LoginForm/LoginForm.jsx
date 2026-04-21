@@ -32,12 +32,17 @@ export default function LoginForm (widget) {
             }),
         })
         .then(res => {
-            debugger;
             console.log(res.data);
-            //setToken(token);
-            localStorage.setItem('token', res.data.token);
-            sessionStorage.setItem('token', res.data.token);
-            navigate('account');
+            if(res.data.token){
+                localStorage.setItem('token', res.data.token);
+                sessionStorage.setItem('token', res.data.token);
+                navigate('account');
+            } else {
+                setServerMessage({ 
+                success: false, 
+                text: 'Incorrect login or password' 
+            });
+            }
         })
         .catch(err => {
             console.log(err);

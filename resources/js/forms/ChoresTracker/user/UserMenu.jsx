@@ -20,7 +20,7 @@ export default function UserMenu() {
         setOpen(!open);
     }
     return (
-        <div className="userMenu">
+        <div className="user-menu">
             <div className="user-profile">
                 <div className="user-profile-child" onClick={toggleMenu}>
                     <div className="user-avatar"></div>
@@ -28,7 +28,7 @@ export default function UserMenu() {
                     
                 </div>
             </div>
-            {open && (<div className="dropdownMenu">
+            {open && (<div className="dropdown-menu">
                 <div className="dropdown-menu-item" onClick={() => navigate("/account-edit")}>
                     <CgProfile />
                     <div className="dropdown-menu-item-text">Profile</div>

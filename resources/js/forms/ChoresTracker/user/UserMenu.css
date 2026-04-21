@@ -1,16 +1,16 @@
-.userMenu {
+.user-menu {
+    font-size: 13px;
     width: 150px;
     text-align: left;
     user-select: none;
     border-radius: 2px;
 }
-.userMenu .user-profile-child {
-    margin: 0 0 0 13px;
+.user-menu .user-profile-child {
     display: flex;
-    justify-content: start;
     align-items: center;
+    padding-right: 20px;
 }
-.userMenu .user-avatar {
+.user-menu .user-avatar {
     background: rgb(29, 22, 80);
     width: 20px;
     height: 20px;
@@ -18,13 +18,13 @@
     flex-shrink: 0;
     margin: 5px;
 }
-.dropdownMenu {
+.dropdown-menu {
     position: absolute;
     margin: 10px 0 0 0;
     border-radius: 5px;
     box-shadow: 4px 4px 9px 0px #888888;
 }
-.dropdownMenu .dropdown-menu-item {
+.dropdown-menu .dropdown-menu-item {
     display: flex;
     align-items: center;
     width: 150px;
@@ -34,14 +34,14 @@
     cursor: pointer;
 
 }
-.dropdownMenu .dropdown-menu-item-text {
+.dropdown-menu .dropdown-menu-item-text {
     margin-left: 10px;
 }
 
-.userMenu:hover  {
+.user-menu:hover  {
     background-color: rgb(216, 216, 216);
 }
 
-.dropdownMenu .dropdown-menu-item:hover  {
+.dropdown-menu .dropdown-menu-item:hover  {
     background-color: rgb(231, 231, 231);
 }
