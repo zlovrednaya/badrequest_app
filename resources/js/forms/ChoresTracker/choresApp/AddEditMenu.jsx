@@ -30,18 +30,22 @@ export default function AddEditMenu() {
     };
 
     const openDrawForm = () => {
+        setDisabledForm(false);
         setShowDrawForm(true);
     };
 
     const closeDrawForm = () => {
+        setDisabledForm(false);
         setShowDrawForm(false);
     };
 
     const openSettingsForm = () => {
+        setDisabledForm(true);
         setShowSettingsForm(true);
     };
 
     const closeSettingsForm = () => {
+        setDisabledForm(false);
         setShowSettingsForm(false);
     };
     return (

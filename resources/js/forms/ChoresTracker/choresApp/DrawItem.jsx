@@ -1,27 +1,62 @@
 import React, {useState, useRef, useEffect} from "react";
 
+import { PiPencilCircleLight } from "react-icons/pi";
+import { IoIosCloseCircle } from "react-icons/io";
+import { PiPalette } from "react-icons/pi";
+
+import { GrClearOption } from "react-icons/gr";
+
+
 import './DrawItem.css';
-export default function DrawItem() {
+
+export default function DrawItem({onClose}) {
 
     const canvasReference = useRef();
-    const contextReferece = useRef();
+    const contextReference = useRef();
 
     const [isPressed, setIfPressed] = useState(false);
+    const [isVisiblePenSize, setIsVisiblePenSize] = useState(false);
+    const [isVisibleColorPalette, setIsVisibleColorPalette] = useState(false);
+    const [circleSize, setCircleSize] = useState(10);
+
     const beginDraw = (e) => {
-        contextReferece.current.beginPath();
-        contextReferece.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+        contextReference.current.beginPath();
+        contextReference.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
         setIfPressed(true);
         console.log(e);
     };
     const endDraw = () => {
-        contextReferece.current.closePath();
+        contextReference.current.closePath();
         setIfPressed(false);
     };
     const updateDraw = (e) => {
         if(!isPressed) return;
-        contextReferece.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-        contextReferece.current.stroke();
+        contextReference.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+        contextReference.current.stroke();
     };
+
+    const changeSize = (e) => {
+        debugger;
+        const canvas = canvasReference.current;
+        const context = canvas.getContext("2d");
+        let sizeValue = e.currentTarget.value;
+        context.lineWidth = sizeValue;
+        setCircleSize(sizeValue/2);
+    };
+
+    const changeColor = (e) => {
+        const canvas = canvasReference.current;
+        const context = canvas.getContext("2d");
+        context.strokeStyle = e.currentTarget.value;
+    };
+    const clearCanvas = () => {
+        const canvas = canvasReference.current;
+        const context = canvas.getContext("2d");
+        context.fillStyle = "white";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+    };
+
     const handleSave = () => {
         const drawing = canvasReference.current.toDataURL();
         axios( window.location.origin+'/chores/add', {
@@ -47,17 +82,54 @@ export default function DrawItem() {
     useEffect(()=>{
         const canvas = canvasReference.current;
         canvas.width = 400;
-        canvas.height = 400;
+        canvas.height = 300;
 
         const context = canvas.getContext("2d");
         context.lineCap = "round";
         context.lineWidth = 5;
         context.strokeStyle = "black";
-        
-        contextReferece.current = context;
+
+        contextReference.current = context;
     },[]);
+
     return (
-        <div className="draw-item">
+        <div className="draw-item chores-item-add-edit">
+            <div className="chores-item-header">
+                <span className="chores-item-header-title">Draw</span>
+                <div className="close-form" onClick={onClose}>
+                    <IoIosCloseCircle />
+                </div>
+            </div>
+            <hr />
+            <div className="draw-item-menu">
+                <div className="draw-item-menu-item" onClick={()=>{setIsVisiblePenSize(!isVisiblePenSize)}}>
+                    <PiPencilCircleLight />
+                </div>
+                <div className="draw-item-menu-item" onClick={()=>{setIsVisibleColorPalette(!isVisibleColorPalette)}}>
+                    <PiPalette />
+                </div>
+                <div className="draw-item-menu-item-clear" onClick={clearCanvas}>
+                    <GrClearOption />
+                    <span>Clear</span>
+                </div>
+            </div>
+            { isVisiblePenSize && (
+                <div className="draw-item-setting-size">
+                    <div class="size-value-left">1</div>
+                    <input type="range" min="1" max="20" onChange={changeSize}></input>
+                    <div class="size-value-right">20</div>
+                    <div class="size-value-image">
+                        <svg xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50%" cy="50%" r={circleSize} fill="black" />
+                        </svg>
+                    </div>
+                </div> )
+            }
+            { isVisibleColorPalette && (
+                <div className="draw-item-setting-color">
+                    <input type="color" id="favcolor" name="favcolor" value="#000000" onChange={changeColor}></input>
+                </div> )
+            }
             <canvas id="canvas"
                 ref={canvasReference}
                 onMouseDown={beginDraw}
