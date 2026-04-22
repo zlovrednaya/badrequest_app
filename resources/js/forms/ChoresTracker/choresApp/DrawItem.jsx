@@ -123,7 +123,8 @@ export default function DrawItem({onClose}) {
                             <circle cx="50%" cy="50%" r={circleSize} fill="black" />
                         </svg>
                     </div>
-                </div> )
+                </div>
+                )
             }
             { isVisibleColorPalette && (
                 <div className="draw-item-setting-color">

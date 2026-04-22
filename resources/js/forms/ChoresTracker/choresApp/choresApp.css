@@ -15,6 +15,9 @@
     background-color: rgb(203, 203, 191);
 }
 
+.menu-bar {
+    color: #59586f;
+}
 .menu-bar.disabled {
     color: rgb(163, 163, 163);
 }
