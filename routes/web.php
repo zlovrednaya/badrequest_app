@@ -18,6 +18,7 @@ Route::post('/login', [ LoginController::class, 'authenticate' ]);
 Route::post('/logout', [ LoginController::class, 'logout' ]);
 Route::post('/chores/add', [ ChoresController::class, 'add']);
 Route::post('/chores/getList', [ ChoresController::class, 'getList']);
+Route::post('/chores/getChoresStructure', [ ChoresController::class, 'getChoresStructure']);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

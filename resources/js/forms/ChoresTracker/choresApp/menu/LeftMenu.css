@@ -1,17 +1,29 @@
 .left-menu {
+    padding-top: 5px;
     background-color: rgb(232, 232, 232);
     height: 100%;
+    box-shadow: 4px 3px 6px 0px rgba(0,0,0,0.10);
+;
 }
 .left-menu-content-item {
     cursor: pointer;
-    padding: 0 5px 0 10px;
+    padding: 0 10px 0 10px;
     font-size: 15px;
 }
 .left-menu-content-item-parent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-weight: 600;
 }
 .left-menu-content-item-child {
-    padding: 0 5px 0 15px;
+    padding: 0 0 0 5px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.left-menu-item-color-circle svg {
+    border: 0.5px solid #b3b3b3;
+    border-radius: 10px;
 }

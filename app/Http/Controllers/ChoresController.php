@@ -22,4 +22,11 @@ class ChoresController extends Controller
             $choreService->getAll($request->user()->id)
         );
     }
+
+    public function getChoresStructure(Request $request, ChoreService $choreService)
+    {
+        return response()->json(
+            $choreService->getChoresStructure($request->user()->id)
+        );
+    }
 }

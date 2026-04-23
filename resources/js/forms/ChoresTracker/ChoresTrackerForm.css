@@ -9,6 +9,9 @@
 }
 
 .ChoresTrackerForm h1  {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
     font-size: 36px;
     text-align: center;
     color: #2c2d59;
