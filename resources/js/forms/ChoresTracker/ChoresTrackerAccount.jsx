@@ -1,14 +1,16 @@
 import React from "react";
-import {useSortable} from '@dnd-kit/react/sortable';
-import './ChoresTrackerAccount.css';
-import './ChoresTrackerForm.css';
+import { useSortable } from '@dnd-kit/react/sortable';
 
 import ChoresList from './choresApp/ChoresList';
 import AddEditMenu from './choresApp/AddEditMenu';
 import QuickAddMenu from './choresApp/QuickAddMenu';
 import UserMenu from './user/UserMenu';
 
+import './ChoresTrackerAccount.css';
+import './ChoresTrackerForm.css';
+
 export default function ChoresTrackerAccount() {
+
     return (
         <div className="chores-tracker-account">
             <div className="app-form">

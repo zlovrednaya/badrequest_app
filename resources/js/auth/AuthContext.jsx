@@ -11,36 +11,35 @@ export function AuthProvider({children}) {
     });
 
     const login = async (userData) => {
-        await axios( window.location.href + 'login', {
-            method: 'POST', 
-            data: JSON.stringify(userData),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }),
-        })
-        .then(res => {
-            console.log(res.data);
+        try {
+            const res = await axios( window.location.href + 'login', {
+                method: 'POST', 
+                data: JSON.stringify(userData),
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }),
+            });
             if(res.data.token) {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user', JSON.stringify(res.data.user));
                 setUser(res.data.user);
+
+                return {
+                    success: true, 
+                };
             } else {
-                setServerMessage({
+                return {
                     success: false, 
-                    text: 'Incorrect login or password' 
-                });
+                    text: 'Incorrect login or password',
+                };
             }
-        })
-        .catch(err => {
-            console.log(err);
-            let errors = err.response.data.errors;
-            let errorText = err.response.data.message;
-            setServerMessage({ 
+        } catch (err) {
+            return {
                 success: false, 
                 text: err.response?.data?.message || 'Something went wrong' 
-            });
-        });
+            }
+        }
     }
 
     const logout = () => {

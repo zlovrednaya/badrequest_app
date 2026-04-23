@@ -1,14 +1,17 @@
 import React, { useState, useEffect }  from "react";
+import { useAuth } from "../../../auth/useAuth";
 
 import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
 
-
 import './ChoresList.css';
+
 export default function ChoresList() {
+    const {user} = useAuth();
     const [chores, setChores] = useState([]);
 
     async function loadChores() {
+        console.log("load chores");
         axios( window.location.origin+'/chores/getList', {
             method: 'POST', 
             headers: new Headers({
@@ -22,8 +25,10 @@ export default function ChoresList() {
         })
     };
     useEffect(() => {
+        if (!user) return;
+
         loadChores();
-    }, []);
+    }, [user]);
 
     return (
         <div className="chores-list">

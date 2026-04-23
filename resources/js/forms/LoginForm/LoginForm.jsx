@@ -29,67 +29,21 @@ export default function LoginForm (widget) {
             console.log('navigate to account')
             navigate('account');
         }
-     }, [navigate])
-
-
-    /*const logout = () => {
-        setUser(null);
-        localStorage.removeItem("token");
-    };
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if(token) {
-            axios.get('/user')
-                .then(res => {
-                    setUser(res.data);
-                    navigate("account");
-
-                })
-                .catch(() => {
-                    logout();
-                })
-        }
-     }, [navigate]);*/
-
-    /*const login = (userData) => {
-        userData.appName = widget.appName;
-
-        axios( window.location.href+'login', {
-            method: 'POST', 
-            data: JSON.stringify(userData),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }),
-        })
-        .then(res => {
-            console.log(res.data);
-            if(res.data.token){
-                localStorage.setItem('token', res.data.token);
-                localStorage.setItem('token', res.data.token);
-                navigate('account');
-            } else {
-                setServerMessage({ 
-                success: false, 
-                text: 'Incorrect login or password' 
-            });
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            let errors = err.response.data.errors;
-            let errorText = err.response.data.message;
-            setServerMessage({ 
-                success: false, 
-                text: err.response?.data?.message || 'Something went wrong' 
-            });
-        })
-    };*/
+     }, [navigate]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await login({email, password, appName});
-        navigate("account");
+        const res = await login({email, password, appName});
+
+        if (res.success) {
+            navigate("account");
+        } else {
+            setServerMessage({ 
+                success: false, 
+                text: res.text,
+            });
+        }
+        
     };
 
     return (
