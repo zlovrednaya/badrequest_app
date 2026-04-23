@@ -9,16 +9,29 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import './LoginForm.css';
 
 export default function LoginForm (widget) {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const [user, setUser] = useState(null);
     const [serverMessage, setServerMessage] = useState(null);
 
-    const navigate = useNavigate();
+    
+    const logout = () => {
+        setUser(null);
+        sessionStorage.removeItem("token");
+    };
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if(token) {
-            navigate("account");
+            axios.get('/user')
+                .then(res => {
+                    setUser(res.data);
+                    navigate("account");
+
+                })
+                .catch(() => {
+                    logout();
+                })
         }
      }, [navigate]);
 
@@ -100,6 +113,6 @@ export default function LoginForm (widget) {
     );
 }
 
-LoginForm.propTypes = {
+/*LoginForm.propTypes = {
   setToken: PropTypes.func.isRequired
-};
+};*/

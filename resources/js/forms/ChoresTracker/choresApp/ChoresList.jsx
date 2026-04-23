@@ -14,6 +14,7 @@ export default function ChoresList() {
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
             }),
         })
         .then(res => {

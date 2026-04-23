@@ -79,7 +79,7 @@ export default function DrawItem({onClose}) {
         })
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         const canvas = canvasReference.current;
         canvas.width = 400;
         canvas.height = 300;

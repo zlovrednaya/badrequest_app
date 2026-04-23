@@ -15,7 +15,7 @@ import {
 
 import './ChoresTrackerForm.css';
 
-export default function ChoresTracker({widget, onClose}) {
+export default function ChoresTracker({widget, onClose}) {    
   //  const navigate = useNavigate();
     const title = "Chores";
 
