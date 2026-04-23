@@ -102,7 +102,7 @@ export default function ChoresItem( {noteId, onClose}) {
                     />
                 </div>
                 <div className="chores-item-categories">
-                    <label for="category">Category: </label>
+                    <label htmlFor="category">Category: </label>
                     <select 
                         id="category"
                         placeholder="Choose category" 
@@ -116,7 +116,7 @@ export default function ChoresItem( {noteId, onClose}) {
                     </select>
                 </div>
                 <div className="chores-item-color">
-                    <label for="color">Color: </label>
+                    <label htmlFor="color">Color: </label>
                     <select 
                         id="color"
                         placeholder="Choose color" 
@@ -138,7 +138,7 @@ export default function ChoresItem( {noteId, onClose}) {
                         placeholder="cost.."
                         onChange={handleChange}
                     />
-                    <label for="cost"><SlStar /> </label>
+                    <label htmlFor="cost"><SlStar /> </label>
                 </div>
             </div>
             <div className="chores-item-footer" onClick={handleSave}>

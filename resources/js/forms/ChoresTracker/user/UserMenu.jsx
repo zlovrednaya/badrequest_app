@@ -1,19 +1,19 @@
 import React, { Component, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../auth/useAuth";
+
 import { CiLogout } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 
 import "./userMenu.css";
 
 export default function UserMenu() {
+    const {user, logout} = useAuth();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
-
-    const user = {
-        name: 'Test Iva',
-    }
-    function logout() {
-        sessionStorage.removeItem("token");
+    
+    function handleLogout() {
+        logout();
         navigate("/");
     }
     function toggleMenu() {
@@ -33,7 +33,7 @@ export default function UserMenu() {
                     <CgProfile />
                     <div className="dropdown-menu-item-text">Profile</div>
                 </div>
-                <div className="dropdown-menu-item" onClick={logout}>
+                <div className="dropdown-menu-item" onClick={handleLogout}>
                     <CiLogout />
                     <div className="dropdown-menu-item-text">Logout</div>
                 </div>

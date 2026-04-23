@@ -3,25 +3,41 @@ import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as InputComponents from "../../components/elements/Inputs";
 
+import { useAuth } from "../../auth/useAuth";
+
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { RiCheckboxBlankCircleLine } from "react-icons/ri";
+import { RiCheckboxCircleLine } from "react-icons/ri";
+
+
 
 import './LoginForm.css';
 
 export default function LoginForm (widget) {
+    const appName = widget.appName;
+    const {user, login, logout} = useAuth();
+
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [user, setUser] = useState(null);
     const [serverMessage, setServerMessage] = useState(null);
-
+    const [rememberMe, setRememberMe] = useState(null);
     
-    const logout = () => {
+    useEffect(() => {
+        if (user) {
+            console.log('navigate to account')
+            navigate('account');
+        }
+     }, [navigate])
+
+
+    /*const logout = () => {
         setUser(null);
-        sessionStorage.removeItem("token");
+        localStorage.removeItem("token");
     };
     useEffect(() => {
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
         if(token) {
             axios.get('/user')
                 .then(res => {
@@ -33,9 +49,11 @@ export default function LoginForm (widget) {
                     logout();
                 })
         }
-     }, [navigate]);
+     }, [navigate]);*/
 
-    const login = (userData) => {
+    /*const login = (userData) => {
+        userData.appName = widget.appName;
+
         axios( window.location.href+'login', {
             method: 'POST', 
             data: JSON.stringify(userData),
@@ -48,7 +66,7 @@ export default function LoginForm (widget) {
             console.log(res.data);
             if(res.data.token){
                 localStorage.setItem('token', res.data.token);
-                sessionStorage.setItem('token', res.data.token);
+                localStorage.setItem('token', res.data.token);
                 navigate('account');
             } else {
                 setServerMessage({ 
@@ -66,11 +84,12 @@ export default function LoginForm (widget) {
                 text: err.response?.data?.message || 'Something went wrong' 
             });
         })
-    };
+    };*/
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        login({email, password});
+        await login({email, password, appName});
+        navigate("account");
     };
 
     return (
@@ -92,8 +111,11 @@ export default function LoginForm (widget) {
                         placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <div className="remember-forgot">
-                        <label><input type="checkbox" />Remember me</label>
+                    <div className="remember-forgot" onClick={() => {setRememberMe(!rememberMe)}}>
+                        <div className="set-remember">
+                            {rememberMe ? (<RiCheckboxCircleLine />) : (<RiCheckboxBlankCircleLine />)}
+                            <span>Remember me</span>
+                        </div>
                         <a href="#">Forgot password?</a>
                     </div>
                     {serverMessage?.text && 

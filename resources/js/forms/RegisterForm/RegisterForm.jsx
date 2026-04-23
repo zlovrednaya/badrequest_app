@@ -14,6 +14,8 @@ export default function RegisterForm(widget) {
     const [serverMessage, setServerMessage] = useState(null);
 
     const signUp = (signUpData) => {
+
+        signUpData.appName = widget.appName;
         axios( window.location.href, {
             method: 'POST', 
             data: JSON.stringify(signUpData),

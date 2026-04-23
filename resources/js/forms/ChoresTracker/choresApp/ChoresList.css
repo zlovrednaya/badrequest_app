@@ -3,7 +3,7 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     max-height: 85%;
     overflow-y: auto;
 }

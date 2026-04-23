@@ -18,7 +18,6 @@ export default function ChoresList() {
             }),
         })
         .then(res => {
-            debugger;
             setChores(res.data);
         })
     };
