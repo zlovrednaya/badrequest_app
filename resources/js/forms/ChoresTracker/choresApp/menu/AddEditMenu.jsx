@@ -8,10 +8,10 @@ import { IoIosSettings } from "react-icons/io";
 
 import { useNavigate } from "react-router-dom";
 
-import ChoresItem from "./ChoresItem";
-import ChoresSettingsForm from "./ChoresSettingsForm";
-import DrawItem from "./DrawItem";
-import './choresApp.css';
+import ChoresItem from "../ChoresItem";
+import ChoresSettingsForm from "../ChoresSettingsForm";
+import DrawItem from "../DrawItem";
+import '../choresApp.css';
 
 export default function AddEditMenu() {
     const [disabledForm, setDisabledForm] = useState('');

@@ -33,8 +33,8 @@ export default function ChoresList() {
     return (
         <div className="chores-list">
             {
-                chores.map(choreItem => (
-                    <div className="choreItemMain">
+                chores.map((choreItem, i) => (
+                    <div className="choreItemMain" key={i}>
                         <div className="chore-item" style={{backgroundColor:choreItem.color}}>
                             <div className="chore-item-title">{choreItem.title}</div>
                             <div className="chore-item-text">

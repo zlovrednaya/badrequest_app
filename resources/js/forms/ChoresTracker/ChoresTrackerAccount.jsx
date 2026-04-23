@@ -2,8 +2,9 @@ import React from "react";
 import { useSortable } from '@dnd-kit/react/sortable';
 
 import ChoresList from './choresApp/ChoresList';
-import AddEditMenu from './choresApp/AddEditMenu';
-import QuickAddMenu from './choresApp/QuickAddMenu';
+import AddEditMenu from './choresApp/menu/AddEditMenu';
+import LeftMenu from "./choresApp/menu/LeftMenu";
+import QuickAddMenu from './choresApp/menu/QuickAddMenu';
 import UserMenu from './user/UserMenu';
 
 import './ChoresTrackerAccount.css';
@@ -20,7 +21,7 @@ export default function ChoresTrackerAccount() {
                 </div>
                 <div className="chores-tracker-window">
                     <div className="chores-tracker-left-window">
-                        left Menu
+                        <LeftMenu />
                     </div>
                     <div className="chores-tracker-main-window">
                         <AddEditMenu />

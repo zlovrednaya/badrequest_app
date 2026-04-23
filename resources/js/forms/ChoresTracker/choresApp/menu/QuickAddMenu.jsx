@@ -18,8 +18,8 @@ export default function QuickAddMenu() {
 
     return (
         <div className="quick-add-menu">
-            {defaultChoreList.map((chore) => (
-                <div className="quick-add-item">
+            {defaultChoreList.map((chore, i) => (
+                <div className="quick-add-item" key={i}>
                     <div className="item-name">{chore.name}</div>
                     {chore.cost && (<div className="quick-item-cost">
                         <div className="item-cost-star">

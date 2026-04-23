@@ -1,0 +1,17 @@
+.left-menu {
+    background-color: rgb(232, 232, 232);
+    height: 100%;
+}
+.left-menu-content-item {
+    cursor: pointer;
+    padding: 0 5px 0 10px;
+    font-size: 15px;
+}
+.left-menu-content-item-parent {
+    font-weight: 600;
+}
+.left-menu-content-item-child {
+    padding: 0 5px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}

@@ -115,10 +115,10 @@ export default function DrawItem({onClose}) {
             </div>
             { isVisiblePenSize && (
                 <div className="draw-item-setting-size">
-                    <div class="size-value-left">1</div>
+                    <div className="size-value-left">1</div>
                     <input type="range" min="1" max="20" onChange={changeSize}></input>
-                    <div class="size-value-right">20</div>
-                    <div class="size-value-image">
+                    <div className="size-value-right">20</div>
+                    <div className="size-value-image">
                         <svg xmlns="http://www.w3.org/2000/svg">
                             <circle cx="50%" cy="50%" r={circleSize} fill="black" />
                         </svg>
