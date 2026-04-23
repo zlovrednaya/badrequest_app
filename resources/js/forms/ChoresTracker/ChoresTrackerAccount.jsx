@@ -18,10 +18,15 @@ export default function ChoresTrackerAccount() {
                     <h1>Chores</h1>
                     <UserMenu />
                 </div>
-                <div className="chores-tracker-main-window">
-                    <AddEditMenu />
-                    <QuickAddMenu />
-                    <ChoresList />
+                <div className="chores-tracker-window">
+                    <div className="chores-tracker-left-window">
+                        left Menu
+                    </div>
+                    <div className="chores-tracker-main-window">
+                        <AddEditMenu />
+                        <QuickAddMenu />
+                        <ChoresList />
+                    </div>
                 </div>
                 <div className="footer-menu">
                     <div>Footer</div>

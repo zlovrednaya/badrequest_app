@@ -62,3 +62,25 @@
     font-size: 12px;
     font-weight: 700;
 }
+
+.draw-item-setting-size input{
+  -webkit-appearance: none;
+  width: 60%;
+  height: 3px;
+  background: #ddd;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  z-index: 2222;
+}
+
+.draw-item-setting-size input::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  background: red;
+  border-radius: 50%;
+  background: #120d80;
+  border: 1px solid #120d80;
+  cursor: pointer;
+}

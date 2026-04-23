@@ -12,7 +12,7 @@ class ChoresController extends Controller
     {
         $data = $request->all();
         $response = $choreService->add($data);
-        
+    
         return response()->json($response);
     }
 

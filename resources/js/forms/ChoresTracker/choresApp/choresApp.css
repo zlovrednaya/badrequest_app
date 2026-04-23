@@ -12,7 +12,7 @@
 }
 .add-edit-menu-icon:hover {
     cursor: pointer;
-    background-color: rgb(203, 203, 191);
+    transform: scale(1.2);
 }
 
 .menu-bar {

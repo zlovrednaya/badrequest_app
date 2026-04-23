@@ -1,6 +1,5 @@
 .user-menu {
     font-size: 13px;
-    width: 150px;
     text-align: left;
     user-select: none;
     border-radius: 2px;
@@ -22,7 +21,7 @@
     position: absolute;
     margin: 10px 0 0 0;
     border-radius: 5px;
-    box-shadow: 4px 4px 9px 0px #888888;
+    box-shadow: 4px 4px 6px 0px #d6d5d5;
 }
 .dropdown-menu .dropdown-menu-item {
     display: flex;
@@ -44,4 +43,8 @@
 
 .dropdown-menu .dropdown-menu-item:hover  {
     background-color: rgb(231, 231, 231);
+}
+
+.user-name {
+    font-weight: 600;
 }
