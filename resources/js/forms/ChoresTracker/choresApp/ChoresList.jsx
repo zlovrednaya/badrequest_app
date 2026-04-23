@@ -55,6 +55,12 @@ export default function ChoresList() {
                                 <div >{choreItem.cost}</div>
                             </div>
                         )}
+                        {choreItem.drawing && (
+                            <div className="chore-item-drawing">
+                                 <img src={choreItem.drawing} alt="preview" />
+                                <div ></div>
+                            </div>
+                        )}
                     </div>
                 ))
             }

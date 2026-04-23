@@ -90,6 +90,7 @@ class ChoreService
                 if (empty($resultArray['drawings']['amount'])) {
                     $resultArray['drawings']['amount'] = 0;
                 }
+                $resultArray['drawings']['name'] = 'Drawings';
                 $resultArray['drawings']['amount']++;
             }
         }

@@ -26,7 +26,6 @@ export default function LeftMenu() {
 
     return (
         <div className="left-menu">
-            Left menu
             <div className="left-menu-content">
                 {leftMenuTree?.map((treeItem, i) => (
                     <div className="left-menu-content-item" key={i}>
