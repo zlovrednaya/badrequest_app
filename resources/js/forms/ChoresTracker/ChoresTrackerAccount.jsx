@@ -6,8 +6,6 @@ import './ChoresTrackerForm.css';
 import ChoresList from './choresApp/ChoresList';
 import AddEditMenu from './choresApp/AddEditMenu';
 import QuickAddMenu from './choresApp/QuickAddMenu';
-
-
 import UserMenu from './user/UserMenu';
 
 export default function ChoresTrackerAccount() {
@@ -29,7 +27,7 @@ export default function ChoresTrackerAccount() {
                     </div>
                 </div>
                 <div className="footer-menu">
-                    <div>Footer</div>
+                    <div></div>
                 </div>
             </div>
         </div>

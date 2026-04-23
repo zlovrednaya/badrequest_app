@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import ChoresTrackerAccount from "./ChoresTrackerAccount";
+import UserProfile from "./user/UserProfile";
 
 import ProtectedRoute from "../../components/ProtectedRoute";
 import {
@@ -26,6 +27,7 @@ export default function ChoresTracker({widget, onClose}) {
                     <Route path="/" element={<LoginForm title={title}/>}></Route>
                     <Route path="/register" element={<RegisterForm title={title}/>}></Route>
                     <Route path="/account" element={<ProtectedRoute><ChoresTrackerAccount/></ProtectedRoute>}></Route>
+                    <Route path="/account-edit" element={<ProtectedRoute><UserProfile/></ProtectedRoute>}></Route>
                 </Routes>
             </Router>
             <div className="gap-2 close-btn-container rounded-xl absolute">
