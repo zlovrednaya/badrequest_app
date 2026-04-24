@@ -8,7 +8,11 @@
 .left-menu-content-item {
     cursor: pointer;
     padding: 0 10px 0 10px;
-    font-size: 15px;
+    font-size: 13px;
+}
+
+.left-menu-content-item-child:hover,.left-menu-content-item-parent:hover{
+    font-weight: 700;
 }
 .left-menu-content-item-parent {
     display: flex;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSortable } from '@dnd-kit/react/sortable';
 
 import ChoresList from './choresApp/ChoresList';
@@ -11,6 +11,7 @@ import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
 
 export default function ChoresTrackerAccount() {
+    const [selectedFilter, setSelectedFilter] = useState(null);
 
     return (
         <div className="chores-tracker-account">
@@ -21,12 +22,12 @@ export default function ChoresTrackerAccount() {
                 </div>
                 <div className="chores-tracker-window">
                     <div className="chores-tracker-left-window">
-                        <LeftMenu />
+                        <LeftMenu onSelectFilter = {setSelectedFilter}/>
                     </div>
                     <div className="chores-tracker-main-window">
                         <AddEditMenu />
                         <QuickAddMenu />
-                        <ChoresList />
+                        <ChoresList filter = {selectedFilter} />
                     </div>
                 </div>
                 <div className="footer-menu">

@@ -25,7 +25,7 @@ export default function UserMenu() {
                 <div className="user-profile-child" onClick={toggleMenu}>
                     <div className="user-avatar"></div>
                     <div className="user-name">{user.name}</div>
-                    
+                    {user.balance && (<div className="user-balance">{user.balance}</div>)}
                 </div>
             </div>
             {open && (<div className="dropdown-menu">

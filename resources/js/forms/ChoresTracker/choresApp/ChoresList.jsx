@@ -6,14 +6,18 @@ import { SlStar } from "react-icons/sl";
 
 import './ChoresList.css';
 
-export default function ChoresList() {
+export default function ChoresList({filter}) {
     const {user} = useAuth();
     const [chores, setChores] = useState([]);
 
     async function loadChores() {
+        let url = window.location.origin + '/chores/getList';
+        if(filter) {
+            url +=`?column=${filter.column}&filterWord=${encodeURIComponent(filter.filterWord)}`
+        }
         console.log("load chores");
-        axios( window.location.origin+'/chores/getList', {
-            method: 'POST', 
+        axios(url , {
+            method: 'GET', 
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -28,7 +32,7 @@ export default function ChoresList() {
         if (!user) return;
 
         loadChores();
-    }, [user]);
+    }, [user,filter]);
 
     return (
         <div className="chores-list">

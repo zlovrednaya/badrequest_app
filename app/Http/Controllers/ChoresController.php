@@ -18,15 +18,24 @@ class ChoresController extends Controller
 
     public function getList(Request $request, ChoreService $choreService)
     {
+        $filterData = $request->all();
+
         return response()->json(
-            $choreService->getAll($request->user()->id)
+            $choreService->getAll($filterData)
         );
     }
 
     public function getChoresStructure(Request $request, ChoreService $choreService)
     {
         return response()->json(
-            $choreService->getChoresStructure($request->user()->id)
+            $choreService->getChoresStructure()
+        );
+    }
+
+    public function filterChores(Request $request, ChoreService $choreService) {
+        $filterData = $request->all();
+        return response()->json(
+            $choreService->filterChores($filterData)
         );
     }
 }

@@ -5,10 +5,10 @@ import { FaCircle } from "react-icons/fa";
 
 import './LeftMenu.css';
 
-export default function LeftMenu() {
+export default function LeftMenu({onSelectFilter}) {
     const [leftMenuTree, setLeftMenuTree] = useState([]);
     const getMenuStructure = async () => {
-        axios( window.location.origin+'/chores/getChoresStructure', {
+        axios( window.location.origin + '/chores/getChoresStructure', {
             method: 'POST', 
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -18,8 +18,17 @@ export default function LeftMenu() {
         })
         .then(res => {
             setLeftMenuTree(res.data);
-        })
+        });
     };
+
+    const filterChores = (column, filterWord) => {
+        const filterData = {
+            column: column,
+            filterWord: filterWord,
+        };
+        onSelectFilter(filterData);
+    };
+
     useEffect(() => {
         getMenuStructure();
     }, []);
@@ -29,7 +38,7 @@ export default function LeftMenu() {
             <div className="left-menu-content">
                 {leftMenuTree?.map((treeItem, i) => (
                     <div className="left-menu-content-item" key={i}>
-                        <div className="left-menu-content-item-parent">
+                        <div className="left-menu-content-item-parent" onClick={()=>{filterChores(treeItem.name,'all')}}>
                             {treeItem.name}
                             {treeItem.amount && (
                                 <div className="left-menu-content-item-parent-amount">
@@ -38,7 +47,7 @@ export default function LeftMenu() {
                             )}
                         </div>
                         {treeItem.items?.map((treeItemChild, k) => (
-                            <div className="left-menu-content-item-child">
+                            <div className="left-menu-content-item-child" key={k} onClick={()=>{filterChores(treeItem.name, treeItemChild.filterName)}}>
                                 {treeItemChild.color && (
                                     <div className="left-menu-item-color-circle" style={{color:treeItemChild.color}}>
                                         <FaCircle />
