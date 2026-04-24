@@ -30,9 +30,6 @@ export default function ChoresTrackerAccount() {
                         <ChoresList filter = {selectedFilter} />
                     </div>
                 </div>
-                <div className="footer-menu">
-                    <div></div>
-                </div>
             </div>
         </div>
     );

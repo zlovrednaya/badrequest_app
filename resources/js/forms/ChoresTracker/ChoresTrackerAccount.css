@@ -18,7 +18,7 @@
 .chores-tracker-account .header-menu {
     width: 100%;
     max-width: 1140px;
-    height: 5vh;   
+    height: 10%;   
     display: inline-flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -27,14 +27,14 @@
 
 .chores-tracker-window {
     display: flex;
-    padding-top: 20px;
-    height: 85vh;
+    height: 90%;
 }
 .chores-tracker-main-window {
     height: 90%;
+    width: 80%;
     padding-left: 20px;
 }
 
 .chores-tracker-left-window {
-    width: 700px;
+    width: 20%;
 }

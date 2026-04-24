@@ -1,8 +1,9 @@
 .left-menu {
     padding-top: 5px;
-    background-color: rgb(232, 232, 232);
+    background-color: rgb(244 244 244);
     height: 100%;
-    box-shadow: 3px 0px 3px 0px rgba(0, 0, 0, 0.10);
+    box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.10);
+    border-bottom-left-radius: 10px;
 ;
 }
 .left-menu-content-item {
