@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { FaCircle } from "react-icons/fa";
+import Calendar from "../../../../components/elements/Calendar";
 
 import './LeftMenu.css';
 
@@ -68,7 +69,9 @@ export default function LeftMenu({onSelectFilter}) {
                 ))}
                 
             </div>
-            <div className="calendar"></div>
+            <div className="calendar">
+                <Calendar />
+            </div>
         </div>
     );
 }

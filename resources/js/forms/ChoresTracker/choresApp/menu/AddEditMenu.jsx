@@ -6,6 +6,9 @@ import { IoEyeSharp } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdShare } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
+import { CiCalendarDate } from "react-icons/ci";
+import { CiBoxList } from "react-icons/ci";
+
 
 import { useNavigate } from "react-router-dom";
 
@@ -80,18 +83,21 @@ export default function AddEditMenu({selectedChores}) {
         <div>
             <div className={`menu-bar ${disabledForm && ('disabled')}`}>
                 <div className="add-edit-menu">
-                    <div className="add-edit-menu-icon" onClick={openForm}><MdAddCircleOutline /></div>
-                    <div className="add-edit-menu-icon" onClick={openDrawForm}><MdDraw /></div>
+                    <div className="add-edit-menu-icon" title="Add chore" onClick={openForm}><MdAddCircleOutline /></div>
+                    <div className="add-edit-menu-icon" title="Add drawing" onClick={openDrawForm}><MdDraw /></div>
                     {isActionRequired > 0 && (
                         <div className="add-edit-menu edit-menu ">
-                            <div className="add-edit-menu-icon" onClick={openForm}><IoEyeSharp /></div>
-                            <div className="add-edit-menu-icon" onClick={deleteChores}> <MdDeleteOutline /></div>
-                            <div className="add-edit-menu-icon" onClick={shareChores}><MdShare /></div>
+                            <div className="add-edit-menu-icon" title="Show chore" onClick={openForm}><IoEyeSharp /></div>
+                            <div className="add-edit-menu-icon" title="Delete chores" onClick={deleteChores}> <MdDeleteOutline /></div>
+                            <div className="add-edit-menu-icon" title="Shore chores" onClick={shareChores}><MdShare /></div>
                         </div>
                     )}
                 </div>
-                <div className="add-edit-menu-icon" onClick={openSettingsForm}><IoIosSettings /></div>
-                
+                <div className="menu-shape-settings">
+                    <div className="add-edit-menu-icon" title="Switch to calendar"><CiCalendarDate/></div>
+                    <div className="add-edit-menu-icon" title="Switch to ToDo list"><CiBoxList/></div>
+                    <div className="add-edit-menu-icon" title="Settings" onClick={openSettingsForm}><IoIosSettings /></div>
+                </div>
             </div>
             {showForm && (<ChoresItem noteId={noteId} onClose={closeForm} />)}
             {showDrawForm && (<DrawItem onClose={closeDrawForm} />)}

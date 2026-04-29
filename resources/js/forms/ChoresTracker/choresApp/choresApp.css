@@ -25,3 +25,8 @@
 .menu-bar.disabled > .add-edit-menu-icon:hover {
     cursor: default;
 }
+
+.menu-shape-settings {
+    display: flex;
+    padding-right: 10px;
+}
