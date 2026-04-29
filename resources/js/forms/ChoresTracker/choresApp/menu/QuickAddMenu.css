@@ -1,6 +1,7 @@
 .quick-add-menu {
     width: 100%;
     display: flex;
+    align-items: center;
 }
 .quick-add-item {
     position: relative;

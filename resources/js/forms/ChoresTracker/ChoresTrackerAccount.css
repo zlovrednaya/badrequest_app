@@ -8,6 +8,9 @@
     box-shadow: 4px 4px 9px 0px #888888;    
     color: #59586f;
 }
+.chores-tracker-account .app-name {
+    width: 20%;
+}
 
 .chores-tracker-account .app-form {
     width: 100%;

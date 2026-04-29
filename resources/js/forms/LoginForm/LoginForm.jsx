@@ -50,7 +50,7 @@ export default function LoginForm (widget) {
         <div className="LoginRegisterForm LoginForm">
             <div className="LoginRegisterFormBody">
                 <form onSubmit={onSubmit}>
-                    <h1 className="LoginRegisterFormTitle">{widget.title} | Login</h1>
+                    <h1 className="login-register-form-title">{widget.title} | Login</h1>
                     <InputComponents.CustomTextInput 
                         name="username"
                         required={true}

@@ -6,7 +6,6 @@ import { SlStar } from "react-icons/sl";
 import './choresApp.css';
 import './choresItem.css';
 export default function ChoresItem( {noteId, onClose}) {
-
     const [formData, setFormData] = useState({
         title: "",
         text: "",

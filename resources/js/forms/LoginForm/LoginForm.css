@@ -11,6 +11,7 @@
     box-sizing: border-box;
 }
 .LoginForm h1 {
+    width:100%;
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
     -webkit-user-select: none;

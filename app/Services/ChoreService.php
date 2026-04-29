@@ -173,4 +173,13 @@ class ChoreService
 
         return array_values($resultArray);
     }
+
+    public function deleteChores($ids) {
+
+        $deleteCount = Chore::where('user_id', (int)$this->userId)
+            ->whereIn('id',$ids)
+            ->delete();
+
+        return $deleteCount;    
+    }
 }

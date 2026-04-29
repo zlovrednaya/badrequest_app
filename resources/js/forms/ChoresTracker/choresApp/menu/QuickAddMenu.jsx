@@ -1,6 +1,8 @@
 import React from "react";
 
 import { SlStar } from "react-icons/sl";
+import { PiGreaterThanLight } from "react-icons/pi";
+
 
 import './QuickAddMenu.css';
 
@@ -18,6 +20,8 @@ export default function QuickAddMenu() {
 
     return (
         <div className="quick-add-menu">
+            <span>Quick add </span>
+            <PiGreaterThanLight />
             {defaultChoreList.map((chore, i) => (
                 <div className="quick-add-item" key={i}>
                     <div className="item-name">{chore.name}</div>

@@ -12,22 +12,23 @@ import './ChoresTrackerForm.css';
 
 export default function ChoresTrackerAccount() {
     const [selectedFilter, setSelectedFilter] = useState(null);
+    const [selectedChores, setSelectedChores] = useState({});
 
     return (
         <div className="chores-tracker-account">
             <div className="app-form">
                 <div className="header-menu">
-                    <h1>Chores</h1>
+                    <h1 className="app-name">Chores</h1>
                     <UserMenu />
                 </div>
                 <div className="chores-tracker-window">
                     <div className="chores-tracker-left-window">
-                        <LeftMenu onSelectFilter = {setSelectedFilter}/>
+                        <LeftMenu onSelectFilter={setSelectedFilter}/>
                     </div>
                     <div className="chores-tracker-main-window">
-                        <AddEditMenu />
+                        <AddEditMenu selectedChores={selectedChores} />
                         <QuickAddMenu />
-                        <ChoresList filter = {selectedFilter} />
+                        <ChoresList filter={selectedFilter} selectedChores={selectedChores} setSelectedChores={setSelectedChores} />
                     </div>
                 </div>
             </div>
