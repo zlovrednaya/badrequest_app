@@ -39,6 +39,19 @@ export default function ChoresList({filter, selectedChores, setSelectedChores}) 
     const editItem = () => {
         console.log('edit');
     }
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+
+        const hh = String(date.getHours()).padStart(2, '0');
+        const mm = String(date.getMinutes()).padStart(2, '0');
+        const dd = String(date.getDate()).padStart(2, '0');
+        const MM = String(date.getMonth() + 1).padStart(2, '0');
+        const yyyy = date.getFullYear();
+
+        return `${dd}.${MM}.${yyyy} ${hh}:${mm}`;
+    };
+
     useEffect(() => {
         if (!user) return;
 
@@ -59,7 +72,7 @@ export default function ChoresList({filter, selectedChores, setSelectedChores}) 
                             {choreItem.due_datetime && (
                                 <div className="chore-item-date">
                                     <LuClock />
-                                    <span>{choreItem.due_datetime}</span>
+                                    <span>{formatDate(choreItem.due_datetime)}</span>
                                 </div>
                             )} 
                             

@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthProvider } from "../../auth/AuthContext";
+import { WarningProvider } from "../../components/elements/Warning";
 
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
@@ -24,7 +25,8 @@ export default function ChoresTracker({widget, onClose}) {
     const appName = "chores";
 
     return (
-        <AuthProvider>
+        <WarningProvider>
+        <AuthProvider> 
             <div className="ChoresTrackerForm fixed inset-0 flex items-center justify-center bg-black/40">            
                 <Router>
                     <Routes>
@@ -45,5 +47,6 @@ export default function ChoresTracker({widget, onClose}) {
                 
             </div>
         </AuthProvider>
+        </WarningProvider>
     );
 };

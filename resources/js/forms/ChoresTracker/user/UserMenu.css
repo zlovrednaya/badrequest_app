@@ -1,4 +1,5 @@
 .user-menu {
+    z-index: 100;
     font-size: 13px;
     text-align: left;
     user-select: none;
@@ -37,7 +38,8 @@
     margin-left: 10px;
 }
 
-.user-menu:hover  {
+.user-menu:hover {
+    cursor: pointer;
     background-color: rgb(216, 216, 216);
 }
 

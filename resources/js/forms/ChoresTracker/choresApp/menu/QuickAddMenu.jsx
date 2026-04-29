@@ -9,7 +9,7 @@ import './QuickAddMenu.css';
 export default function QuickAddMenu() {
     const defaultChoreList = [
         {  
-            'name': 'Mopping',
+            'name': 'Cleaning',
             'cost': 5,
         },
         {

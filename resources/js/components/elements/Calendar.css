@@ -1,5 +1,5 @@
 .rdp-root {
-    --rdp-accent-color: #2c2d59; 
+    --rdp-accent-color: #0b0eb1; 
     
     --rdp-day-height: 10px;
     --rdp-day-width: 10px;
@@ -13,5 +13,13 @@
     --rdp-week_number-height:10px;
     --rdp-week_number-width:10px;
 
+    font-size: 12px;
+}
+
+.rdp-month_caption {
+    font-size: 14px;
+}
+
+.rdp-selected {
     font-size: 12px;
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { MdAddCircleOutline } from "react-icons/md";
 import { MdDraw } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
@@ -15,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 import ChoresItem from "../ChoresItem";
 import ChoresSettingsForm from "../ChoresSettingsForm";
 import DrawItem from "../DrawItem";
+
+import { useWarning } from "../../../../components/elements/Warning.jsx";
 import '../choresApp.css';
 import axios from "axios";
 
@@ -24,6 +27,7 @@ export default function AddEditMenu({selectedChores}) {
     const [showDrawForm, setShowDrawForm] = useState();
     const [showSettingsForm, setShowSettingsForm] = useState();
     const [noteId, setNoteId] = useState();
+    const { askWarning } = useWarning();
     const openForm = () => {
         setDisabledForm(true);
         setShowForm(true);
@@ -54,8 +58,19 @@ export default function AddEditMenu({selectedChores}) {
         setShowSettingsForm(false);
     };
 
+
     const deleteChores = async () => {
+        const warningResult = await askWarning({
+            title: 'You want to delete chores',
+            message: 'Are you sure?',
+            confirmText: 'Yes, delete',
+            cancelText: 'No, keep chores'
+        });
+
+        if (!warningResult) return;
+        
         const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
+        
         await axios('/chores/deleteChores', {
             method: 'POST',
             headers: new Headers({
