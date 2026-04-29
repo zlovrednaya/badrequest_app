@@ -21,6 +21,7 @@ Route::get('/chores/getList', [ ChoresController::class, 'getList']);
 Route::post('/chores/getChoresStructure', [ ChoresController::class, 'getChoresStructure']);
 Route::post('/chores/filterChores', [ ChoresController::class, 'filterChores']);
 Route::post('/chores/deleteChores', [ChoresController::class, 'deleteChores']);
+Route::post('/chores/shareChores', [ChoresController::class, 'shareChores']);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

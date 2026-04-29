@@ -30,3 +30,17 @@
     display: flex;
     padding-right: 10px;
 }
+
+.menu-shape-settings-mode {
+    display: flex;
+    border-radius: 5px;
+    border: 0.5px solid;
+}
+.menu-shape-mode {
+    border-radius: 5px;
+
+}
+
+.menu-shape-mode.selected {
+    background-color: rgb(214, 214, 214);
+}

@@ -9,7 +9,7 @@ import { MdShare } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
 import { CiCalendarDate } from "react-icons/ci";
 import { CiBoxList } from "react-icons/ci";
-
+import { RiRectangleFill } from "react-icons/ri";
 
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +21,7 @@ import { useWarning } from "../../../../components/elements/Warning.jsx";
 import '../choresApp.css';
 import axios from "axios";
 
-export default function AddEditMenu({selectedChores}) {
+export default function AddEditMenu({selectedChores, calendarMode, setCalendarMode}) {
     const [disabledForm, setDisabledForm] = useState('');
     const [showForm, setShowForm] = useState();
     const [showDrawForm, setShowDrawForm] = useState();
@@ -60,16 +60,16 @@ export default function AddEditMenu({selectedChores}) {
 
 
     const deleteChores = async () => {
+        const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
+        
         const warningResult = await askWarning({
-            title: 'You want to delete chores',
+            title: 'You want to delete selected chores (' + choreIds.length + (choreIds.length > 1? " pcs" : " pc" ) + ')' ,
             message: 'Are you sure?',
             confirmText: 'Yes, delete',
             cancelText: 'No, keep chores'
         });
 
         if (!warningResult) return;
-        
-        const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
         
         await axios('/chores/deleteChores', {
             method: 'POST',
@@ -89,7 +89,26 @@ export default function AddEditMenu({selectedChores}) {
     };
 
     const shareChores = async () => {
+        const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
+        await axios('/chores/shareChores', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+            data: JSON.stringify({ids:choreIds}),
+        })
+        .then((res) => {
+            debugger;
+        })
+        .catch(() => {
+            debugger;
+        })
+    };
 
+    const switchMode = (mode) => {
+        setCalendarMode(mode);
     };
 
     const isActionRequired = Object.values(selectedChores).filter(Boolean).length;
@@ -109,8 +128,11 @@ export default function AddEditMenu({selectedChores}) {
                     )}
                 </div>
                 <div className="menu-shape-settings">
-                    <div className="add-edit-menu-icon" title="Switch to calendar"><CiCalendarDate/></div>
-                    <div className="add-edit-menu-icon" title="Switch to ToDo list"><CiBoxList/></div>
+                    <div className="menu-shape-settings-mode">
+                        <div className={`add-edit-menu-icon menu-shape-mode ${calendarMode == 'simple' && ('selected')}`} title="Switch to simple mode" onClick={()=>{switchMode('simple')}}><RiRectangleFill/></div>
+                        <div className={`add-edit-menu-icon menu-shape-mode ${calendarMode == 'calendar' && ('selected')}`} title="Switch to calendar" onClick={()=>{switchMode('calendar')}}><CiCalendarDate/></div>
+                        <div className={`add-edit-menu-icon menu-shape-mode ${calendarMode == 'todolist' && ('selected')}`} title="Switch to ToDo list" onClick={()=>{switchMode('todolist')}}><CiBoxList/></div>
+                    </div>
                     <div className="add-edit-menu-icon" title="Settings" onClick={openSettingsForm}><IoIosSettings /></div>
                 </div>
             </div>

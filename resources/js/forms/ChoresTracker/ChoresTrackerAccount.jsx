@@ -13,6 +13,7 @@ import './ChoresTrackerForm.css';
 export default function ChoresTrackerAccount() {
     const [selectedFilter, setSelectedFilter] = useState(null);
     const [selectedChores, setSelectedChores] = useState({});
+    const [calendarMode, setCalendarMode] = useState('simple');
 
     return (
         <div className="chores-tracker-account">
@@ -26,7 +27,7 @@ export default function ChoresTrackerAccount() {
                         <LeftMenu onSelectFilter={setSelectedFilter}/>
                     </div>
                     <div className="chores-tracker-main-window">
-                        <AddEditMenu selectedChores={selectedChores} />
+                        <AddEditMenu selectedChores={selectedChores} calendarMode={calendarMode} setCalendarMode={setCalendarMode}/>
                         <QuickAddMenu />
                         <ChoresList filter={selectedFilter} selectedChores={selectedChores} setSelectedChores={setSelectedChores} />
                     </div>
