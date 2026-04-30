@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\Chore\ChoreBulkRequest;
 use App\Services\ChoreService;
+use App\Services\NotificationService;
+
+use App\Notifications\Messages\ChoreMessage;
 
 
 class ChoresController extends Controller
@@ -52,5 +55,38 @@ class ChoresController extends Controller
             'success' => $count > 0,
             'message' => 'We deleted ' . $count . ' chore/s',
         ]);
+    }
+
+    public function shareChores(ChoreBulkRequest $request, ChoreService $choreService, NotificationService $notificationService) {
+        $ids = $request->input('ids');
+
+        $choresData = $choreService->getByIds($ids);
+        $receiver = [
+            'email' => $request->user()->email,
+            'name'=> $request->user()->name,
+        ];
+
+        if(empty($choresData) || empty($receiver)) {
+            return [
+                'success' => false,
+                'mesage' => 'We didn\'t find chores to share',
+            ];
+        }
+
+        $message = new ChoreMessage();
+
+        foreach($choresData as $chore) {
+            $notificationService->sendMessage([
+                'channel' => 'email',
+                'receiver' => $receiver,
+                'subject' => $chore['title'] || '[note] You have new note',
+                'message' => $message->toText($chore)
+            ]);
+        }
+        
+        return [
+            'success' => true,
+            'message' => 'We\'ve sent an email',
+        ];
     }
 }

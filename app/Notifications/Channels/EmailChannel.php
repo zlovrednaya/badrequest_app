@@ -24,15 +24,16 @@ class EmailChannel extends AbstractNotification
         $mailersend = new MailerSend(['api_key' => $this->apiKey]);
 
         $recipients = [
-            new Recipient('dasha13111997@gmail.com', 'Daria'),
+            new Recipient($sendData['receiver']['email'], $receiver['receiver']['name'] ?? 'User'),
         ];
+
         Log::info($sendData);
         $emailParams = (new EmailParams())
             ->setFrom($this->mainSender)
             ->setFromName('DariasWidgetFactoryInfo')
             ->setRecipients($recipients)
-            ->setSubject('Subject')
-            ->setHtml('This is the HTML content')
+            ->setSubject($sendData['subject'] ?? '[no-reply]')
+            ->setHtml($sendData['message'])
             ->setText($sendData['message']);
 
         $mailersend->email->send($emailParams);

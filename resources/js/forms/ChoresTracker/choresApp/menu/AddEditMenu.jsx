@@ -5,8 +5,10 @@ import { MdStickyNote2 } from "react-icons/md";
 
 import { MdDraw } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
+import { FaRegSquareMinus } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+
 import { MdShare } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
 import { CiCalendarDate } from "react-icons/ci";
@@ -30,6 +32,8 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
     const [showSettingsForm, setShowSettingsForm] = useState();
     const [noteId, setNoteId] = useState();
     const { askWarning } = useWarning();
+    const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
+
     const openForm = () => {
         setDisabledForm(true);
         setShowForm(true);
@@ -62,7 +66,6 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
 
 
     const deleteChores = async () => {
-        const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
         
         const warningResult = await askWarning({
             title: 'You want to delete selected chores (' + choreIds.length + (choreIds.length > 1? " pcs" : " pc" ) + ')' ,
@@ -127,9 +130,14 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
                     <div className="add-edit-menu-icon" title="Add drawing" onClick={openDrawForm}><MdDraw /></div>
                     {isActionRequired > 0 && (
                         <div className="add-edit-menu edit-menu ">
-                            <div className="add-edit-menu-icon" title="Show chore" onClick={openForm}><IoEyeSharp /></div>
-                            <div className="add-edit-menu-icon" title="Delete chores" onClick={deleteChores}> <MdDeleteOutline /></div>
-                            <div className="add-edit-menu-icon" title="Shore chores" onClick={shareChores}><MdShare /></div>
+                            {choreIds && choreIds.length == 1 && (
+                                <div className="edit-menu-one-selected">
+                                    <div className="add-edit-menu-icon" title="Show chore" onClick={openForm}><IoEyeSharp /></div>
+                                    <div className="add-edit-menu-icon" title="Share chores" onClick={shareChores}><MdShare /></div>
+                                </div>
+                            )}
+                            <div className="add-edit-menu-icon" title="Unselect chores" onClick={() => setSelectedChores([])}> <FaRegSquareMinus /></div>
+                            <div className="add-edit-menu-icon" title="Delete chores" onClick={deleteChores}> <MdDelete /></div>
                         </div>
                     )}
                 </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect }  from "react";
-import { useAuth } from "../../../auth/useAuth";
 
 import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
@@ -7,7 +6,6 @@ import { SlStar } from "react-icons/sl";
 import './ChoresList.css';
 
 export default function ChoresList({chores, selectedChores, setSelectedChores}) {
-    const {user} = useAuth();
 
     function selectItem(itemKey) {
         setSelectedChores((prev) => ({

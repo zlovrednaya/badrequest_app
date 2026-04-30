@@ -56,6 +56,13 @@ class ChoreService
 
     }
 
+    public function getByIds($ids)
+    {
+        return Chore::where('user_id', (int)$this->userId)
+            ->whereIn('id', $ids)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
     public function getAll($filterData = [])
     {
        $query = Chore::where('user_id', (int)$this->userId)
@@ -75,7 +82,7 @@ class ChoreService
         return $query->get();    
     }
 
-
+    // need to refactor
     public function getChoresStructure()
     {
         
@@ -175,11 +182,12 @@ class ChoreService
     }
 
     public function deleteChores($ids) {
-
         $deleteCount = Chore::where('user_id', (int)$this->userId)
-            ->whereIn('id',$ids)
+            ->whereIn('id', $ids)
             ->delete();
 
         return $deleteCount;    
     }
+
+
 }
