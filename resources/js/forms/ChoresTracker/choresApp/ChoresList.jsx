@@ -6,9 +6,8 @@ import { SlStar } from "react-icons/sl";
 
 import './ChoresList.css';
 
-export default function ChoresList({filter, selectedChores, setSelectedChores}) {
+export default function ChoresList({chores, selectedChores, setSelectedChores}) {
     const {user} = useAuth();
-    const [chores, setChores] = useState([]);
 
     function selectItem(itemKey) {
         setSelectedChores((prev) => ({
@@ -16,25 +15,6 @@ export default function ChoresList({filter, selectedChores, setSelectedChores}) 
             [itemKey]: !prev[itemKey]
         }));
     }
-
-    async function loadChores() {
-        let url = window.location.origin + '/chores/getList';
-        if(filter) {
-            url +=`?column=${filter.column}&filterWord=${encodeURIComponent(filter.filterWord)}`
-        }
-        console.log("load chores");
-        axios(url , {
-            method: 'GET', 
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
-        })
-        .then(res => {
-            setChores(res.data);
-        })
-    };
 
     const editItem = () => {
         console.log('edit');
@@ -51,12 +31,6 @@ export default function ChoresList({filter, selectedChores, setSelectedChores}) 
 
         return `${dd}.${MM}.${yyyy} ${hh}:${mm}`;
     };
-
-    useEffect(() => {
-        if (!user) return;
-
-        loadChores();
-    }, [user,filter]);
 
     return (
         <div className="chores-list">

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../../auth/useAuth";
 import { useSortable } from '@dnd-kit/react/sortable';
 
 import ChoresList from './choresApp/ChoresList';
@@ -11,9 +12,36 @@ import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
 
 export default function ChoresTrackerAccount() {
+    const {user} = useAuth();
     const [selectedFilter, setSelectedFilter] = useState(null);
+    const [chores, setChores] = useState([]);
     const [selectedChores, setSelectedChores] = useState({});
     const [calendarMode, setCalendarMode] = useState('simple');
+
+    async function loadChores() {
+        let url = window.location.origin + '/chores/getList';
+        if(selectedFilter) {
+            url +=`?column=${selectedFilter.column}&filterWord=${encodeURIComponent(selectedFilter.filterWord)}`
+        }
+        console.log("load chores");
+        axios(url , {
+            method: 'GET', 
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+        })
+        .then(res => {
+            setChores(res.data);
+        })
+    };
+
+    useEffect(() => {
+        if (!user) return;
+    
+        loadChores();
+    }, [user, selectedFilter]);
 
     return (
         <div className="chores-tracker-account">
@@ -27,9 +55,20 @@ export default function ChoresTrackerAccount() {
                         <LeftMenu onSelectFilter={setSelectedFilter}/>
                     </div>
                     <div className="chores-tracker-main-window">
-                        <AddEditMenu selectedChores={selectedChores} calendarMode={calendarMode} setCalendarMode={setCalendarMode}/>
+                        <AddEditMenu 
+                            selectedChores={selectedChores}
+                            setSelectedChores={setSelectedChores}  
+                            calendarMode={calendarMode} 
+                            setCalendarMode={setCalendarMode}
+                            onNoteSaved={loadChores}
+                        />
                         <QuickAddMenu />
-                        <ChoresList filter={selectedFilter} selectedChores={selectedChores} setSelectedChores={setSelectedChores} />
+                        <ChoresList 
+                            filter={selectedFilter} 
+                            selectedChores={selectedChores} 
+                            setSelectedChores={setSelectedChores} 
+                            chores={chores}
+                        />
                     </div>
                 </div>
             </div>

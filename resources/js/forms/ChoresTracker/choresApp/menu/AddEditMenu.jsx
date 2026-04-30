@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import { MdAddCircleOutline } from "react-icons/md";
+import { MdStickyNote2 } from "react-icons/md";
+
 import { MdDraw } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { IoEyeSharp } from "react-icons/io5";
@@ -21,7 +23,7 @@ import { useWarning } from "../../../../components/elements/Warning.jsx";
 import '../choresApp.css';
 import axios from "axios";
 
-export default function AddEditMenu({selectedChores, calendarMode, setCalendarMode}) {
+export default function AddEditMenu({selectedChores, setSelectedChores, calendarMode, setCalendarMode, onNoteSaved}) {
     const [disabledForm, setDisabledForm] = useState('');
     const [showForm, setShowForm] = useState();
     const [showDrawForm, setShowDrawForm] = useState();
@@ -81,10 +83,14 @@ export default function AddEditMenu({selectedChores, calendarMode, setCalendarMo
             data: JSON.stringify({ids:choreIds}),
         })
         .then((res) => {
-            debugger;
+            onNoteSaved();
+            // update selected chores
+            setSelectedChores([]);
         })
-        .catch(() => {
-            debugger;
+         .catch(err => {
+            console.log(err);
+            let errors = err.response.data.errors;
+            let errorText = err.response.data.message;
         })
     };
 
@@ -117,7 +123,7 @@ export default function AddEditMenu({selectedChores, calendarMode, setCalendarMo
         <div>
             <div className={`menu-bar ${disabledForm && ('disabled')}`}>
                 <div className="add-edit-menu">
-                    <div className="add-edit-menu-icon" title="Add chore" onClick={openForm}><MdAddCircleOutline /></div>
+                    <div className="add-edit-menu-icon" title="Add chore" onClick={openForm}><MdStickyNote2 /></div>
                     <div className="add-edit-menu-icon" title="Add drawing" onClick={openDrawForm}><MdDraw /></div>
                     {isActionRequired > 0 && (
                         <div className="add-edit-menu edit-menu ">
@@ -136,7 +142,11 @@ export default function AddEditMenu({selectedChores, calendarMode, setCalendarMo
                     <div className="add-edit-menu-icon" title="Settings" onClick={openSettingsForm}><IoIosSettings /></div>
                 </div>
             </div>
-            {showForm && (<ChoresItem noteId={noteId} onClose={closeForm} />)}
+            {showForm && (<ChoresItem 
+                noteId={noteId} 
+                onClose={closeForm} 
+                onNoteSaved={onNoteSaved} 
+            />)}
             {showDrawForm && (<DrawItem onClose={closeDrawForm} />)}
             {showSettingsForm && (<ChoresSettingsForm onClose={closeSettingsForm} />)}
         </div>
