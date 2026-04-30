@@ -1,14 +1,16 @@
 .user-menu {
+    max-width: 20%;
     z-index: 100;
     font-size: 13px;
     text-align: left;
     user-select: none;
     border-radius: 2px;
+    margin-right: 10px;
 }
 .user-menu .user-profile-child {
     display: flex;
     align-items: center;
-    padding-right: 20px;
+    padding-right: 5px;
 }
 .user-menu .user-avatar {
     background: rgb(29, 22, 80);
@@ -20,19 +22,22 @@
 }
 .dropdown-menu {
     position: absolute;
+    right: 15px;
     margin: 10px 0 0 0;
-    border-radius: 5px;
+    border-radius: 2px;
     box-shadow: 4px 4px 6px 0px #d6d5d5;
 }
 .dropdown-menu .dropdown-menu-item {
     display: flex;
     align-items: center;
-    width: 150px;
+    min-width: 120px;
+    max-width: 150px;
     height: 30px;
-    padding: 0 0 0 10px;
+    padding: 0 10px 0 10px;
     background-color: #fffffa;
     cursor: pointer;
-
+    border-radius: 5px;
+    font-weight: 500;
 }
 .dropdown-menu .dropdown-menu-item-text {
     margin-left: 10px;

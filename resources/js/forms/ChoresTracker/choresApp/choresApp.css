@@ -42,5 +42,6 @@
 }
 
 .menu-shape-mode.selected {
+    transform: scale(1.2);
     background-color: rgb(214, 214, 214);
 }
