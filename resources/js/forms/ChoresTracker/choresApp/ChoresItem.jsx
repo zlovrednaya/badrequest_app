@@ -5,6 +5,7 @@ import { SlStar } from "react-icons/sl";
 
 import './choresApp.css';
 import './choresItem.css';
+
 export default function ChoresItem( {noteId, onClose}) {
     const [formData, setFormData] = useState({
         title: "",
@@ -67,15 +68,15 @@ export default function ChoresItem( {noteId, onClose}) {
     };
 
     return (
-        <div className="chores-item-add-edit">
-            <div className="chores-item-header">
-                <span className="chores-item-header-title">Add chore </span>
+        <div className="chores-form chores-item-add-edit">
+            <div className="chores-form-header chores-item-header">
+                <span className="chores-form-header-title chores-item-header-title">Add chore </span>
                 <div className="close-form" onClick={closeForm}>
                     <IoIosCloseCircle />
                 </div>
             </div>
             <hr />
-            <div className="chores-item-form">
+            <div className="chores-form-main-window chores-item-form">
                 <input
                     type="text"
                     id="title"
@@ -140,7 +141,7 @@ export default function ChoresItem( {noteId, onClose}) {
                     <label htmlFor="cost"><SlStar /> </label>
                 </div>
             </div>
-            <div className="chores-item-footer" onClick={handleSave}>
+            <div className="chores-form-footer chores-item-footer" onClick={handleSave}>
                 <button>Save</button>
             </div>
         </div>

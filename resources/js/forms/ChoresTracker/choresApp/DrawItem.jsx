@@ -6,7 +6,7 @@ import { PiPalette } from "react-icons/pi";
 
 import { GrClearOption } from "react-icons/gr";
 
-
+import './choresApp.css';
 import './DrawItem.css';
 
 export default function DrawItem({onClose}) {
@@ -93,9 +93,9 @@ export default function DrawItem({onClose}) {
     },[]);
 
     return (
-        <div className="draw-item chores-item-add-edit">
-            <div className="chores-item-header">
-                <span className="chores-item-header-title">Draw</span>
+        <div className="chores-form draw-item chores-item-add-edit">
+            <div className="chores-form-header chores-item-header">
+                <span className=" chores-form-header-title chores-item-header-title">Draw</span>
                 <div className="close-form" onClick={onClose}>
                     <IoIosCloseCircle />
                 </div>
@@ -137,7 +137,7 @@ export default function DrawItem({onClose}) {
                 onMouseMove={updateDraw}
                 onMouseUp={endDraw}
             />
-            <div className="chores-item-footer" onClick={handleSave}>
+            <div className="chores-form-footer chores-item-footer" onClick={handleSave}>
                 <button>Save</button>
             </div>
         </div>
