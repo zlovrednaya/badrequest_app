@@ -19,6 +19,11 @@ export default function UserMenu() {
     function toggleMenu() {
         setOpen(!open);
     }
+
+    useEffect(() => {
+        return;
+    }, [user]);
+
     return (
         <div className="user-menu">
             <div className="user-profile">

@@ -68,6 +68,7 @@ export default function ChoresTrackerAccount() {
                             selectedChores={selectedChores} 
                             setSelectedChores={setSelectedChores} 
                             chores={chores}
+                            calendarMode={calendarMode}
                         />
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-.chores-list {
+.chores-list, .chores-list-simple {
     z-index: 50;
     position: relative;
     display: flex;
