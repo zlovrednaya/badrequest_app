@@ -15,7 +15,9 @@ class Chore extends Model
         'due_datetime',
         'color',
         'drawing',
-        'user_id'
+        'user_id',
+        'deleted',
+        'istodo'
     ];
 
     protected static function booted()

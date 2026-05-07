@@ -18,8 +18,8 @@ import { RiRectangleFill } from "react-icons/ri";
 
 import { useNavigate } from "react-router-dom";
 
-import ChoresItem from "../ChoresItem";
-import DrawItem from "../DrawItem";
+import ChoresItem from "../item/ChoresItem.jsx";
+import DrawItem from "../item/DrawItem.jsx";
 import ToDoItem from "../item/ToDoItem.jsx";
 import ChoresSettingsForm from "../ChoresSettingsForm";
 
@@ -145,6 +145,7 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
     const switchMode = (mode) => {
         changeCalendarMode(mode);
         setSelectedChores([]);
+        if (mode!=="todolist") setShowToDoForm(false);
     };
 
     useEffect(() => {

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\Chore\ChoreBulkRequest;
+use App\Http\Requests\Chore\ChoreEditRequest;
+
 use App\Services\ChoreService;
 use App\Services\NotificationService;
 
@@ -20,6 +22,15 @@ class ChoresController extends Controller
         $response = $choreService->add($data);
     
         return response()->json($response);
+    }
+
+    public function update(ChoreEditRequest $request, ChoreService $choreService, int $id)
+    {
+        $data = $request->all();
+
+        return response()->json(
+            $choreService->update($id, $data)
+        );
     }
 
     public function getList(Request $request, ChoreService $choreService)

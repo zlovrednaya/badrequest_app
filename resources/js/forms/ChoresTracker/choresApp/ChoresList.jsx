@@ -9,7 +9,7 @@ import CalendarMode from "./ChoresListModes/CalendarMode";
 
 import './ChoresList.css';
 
-export default function ChoresList({chores, selectedChores, setSelectedChores, calendarMode}) {
+export default function ChoresList({chores, selectedChores, setSelectedChores, calendarMode, onNoteSaved}) {
 
     function selectItem(itemKey) {
         setSelectedChores((prev) => ({
@@ -51,6 +51,7 @@ export default function ChoresList({chores, selectedChores, setSelectedChores, c
                     setSelectedChores={setSelectedChores}
                     formatDate={formatDate}
                     selectItem={selectItem}
+                    onNoteSaved={onNoteSaved}
                 />
             }
             {calendarMode === 'calendar' &&

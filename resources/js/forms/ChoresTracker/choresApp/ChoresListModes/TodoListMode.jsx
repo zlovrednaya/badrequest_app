@@ -10,10 +10,32 @@ import ToDoItem from "../item/ToDoItem";
 import "../ChoresList.css";
 import "./TodoListMode.css";
 
-export default function TodoListMode({chores, selectedChores, setSelectedChores, formatDate, selectItem}) {
+export default function TodoListMode({chores, selectedChores, setSelectedChores, formatDate, selectItem, onNoteSaved}) {
 
     const selectAll = () => {
         console.log('select');
+    };
+
+    const selectTodoElement = async (choreItem, isDone) => {
+        await axios( '/chores/update/'+ choreItem.id, {
+            method: 'PATCH', 
+            data: JSON.stringify({
+                done: isDone
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }),
+        })
+        .then(res => {
+            setSelectedChores([]);
+            onNoteSaved('todolist');
+        })
+        .catch(err => {
+            console.log(err);
+            let errors = err.response.data.errors;
+            let errorText = err.response.data.message;
+        })
     };
 
     const hasSelected = Object.values(selectedChores).filter(Boolean).length;
@@ -40,13 +62,13 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
                     chores && chores.map((choreItem, i)=>(
                         <div className="todo-item" key={choreItem.id} style={{backgroundColor:choreItem.color}}>
                             <div className="todo-item-title-select-element" onClick={() => selectItem(choreItem.id)}>
-                                {selectedChores && selectedChores[choreItem.id] === true && (
-                                    <div className="selected">
+                                {selectedChores && (selectedChores[choreItem.id] === true || choreItem.done === true) && (
+                                    <div className="selected" onClick={() => selectTodoElement(choreItem, false)}>
                                         <MdOutlineCheckBox />
                                     </div>
                                 )}
-                                {selectedChores[choreItem.id] !== true && (
-                                    <div className="unselected">
+                                {(!(selectedChores[choreItem.id] === true || choreItem.done === true)) && (
+                                    <div className="unselected" onClick={() => selectTodoElement(choreItem, true)}>
                                         <MdOutlineCheckBoxOutlineBlank />
                                     </div>
                                 )}

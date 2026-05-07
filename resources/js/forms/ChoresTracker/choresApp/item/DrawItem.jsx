@@ -6,7 +6,7 @@ import { PiPalette } from "react-icons/pi";
 
 import { GrClearOption } from "react-icons/gr";
 
-import './choresApp.css';
+import '../choresApp.css';
 import './DrawItem.css';
 
 export default function DrawItem({onClose}) {

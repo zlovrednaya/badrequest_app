@@ -81,6 +81,7 @@ export default function ChoresTrackerAccount() {
                             setSelectedChores={setSelectedChores} 
                             chores={chores}
                             calendarMode={calendarMode}
+                            onNoteSaved={loadChores}
                         />
                     </div>
                 </div>

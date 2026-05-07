@@ -1,17 +1,26 @@
 .todo-add-edit {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    height: 30px;
     font-size: 12px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: #e1e1e1;
 }
 
 .todo-item-form-text {
-    width: 40%;
+    padding-left: 10px;
+    width: 60%;
 }
 
 .todo-item-form-text input:focus {
     outline: none;
 }
 
+.todo-item-save {
+    margin: 0 10px 0 10px;
+}
 .todo-item-save button {
     border: 0.5px solid #2b2c58;
     width: 70px;

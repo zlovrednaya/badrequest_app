@@ -3,7 +3,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { SlStar } from "react-icons/sl";
 
 
-import './choresApp.css';
+import '../choresApp.css';
 import './choresItem.css';
 
 export default function ChoresItem( {noteId, onClose, onNoteSaved, handleSaveChore}) {

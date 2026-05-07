@@ -32,7 +32,7 @@ class ChoreService
 
     public function add(array $data)
     {
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = $this->userId;
 
         DB::beginTransaction();
         try {
@@ -53,7 +53,23 @@ class ChoreService
 
     public function update(int $id, array $data)
     {
+        $data['user_id'] = $this->userId;
 
+        DB::beginTransaction();
+        try {
+            $chore = Chore::where(['id'=>$id])
+                ->update($data);
+            DB::commit();
+            return $chore;
+        } catch(\Exception $e) {
+            DB::rollback();
+            
+            return [
+                'success' => false,
+                'error' => 'Unable to update item',
+                'description' => $e->getMessage()
+            ];
+        }
     }
 
     public function getByIds($ids)
@@ -81,7 +97,8 @@ class ChoreService
 
         if(!empty($filterData['istodo'])) {
             $query->whereNull('drawing');
-            $query->where('done', false);
+            $query->where('istodo', true);
+            //$query->where('done', false);
         }
          
         return $query->get();    
