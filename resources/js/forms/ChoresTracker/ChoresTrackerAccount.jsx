@@ -18,10 +18,17 @@ export default function ChoresTrackerAccount() {
     const [selectedChores, setSelectedChores] = useState({});
     const [calendarMode, setCalendarMode] = useState('simple');
 
-    async function loadChores() {
+    const changeCalendarMode = (mode) => {
+        setCalendarMode(mode);
+        loadChores(mode);
+    }
+    async function loadChores(mode) {
         let url = window.location.origin + '/chores/getList';
         if(selectedFilter) {
             url +=`?column=${selectedFilter.column}&filterWord=${encodeURIComponent(selectedFilter.filterWord)}`
+        }
+        if(mode === 'todolist') {
+            url +=`?istodo=true`;
         }
         console.log("load chores");
         axios(url , {
@@ -59,10 +66,10 @@ export default function ChoresTrackerAccount() {
                             selectedChores={selectedChores}
                             setSelectedChores={setSelectedChores}  
                             calendarMode={calendarMode} 
-                            setCalendarMode={setCalendarMode}
+                            changeCalendarMode={changeCalendarMode}
                             onNoteSaved={loadChores}
                         />
-                        <QuickAddMenu />
+                        {calendarMode !== 'todolist' && (<QuickAddMenu />)}
                         <ChoresList 
                             filter={selectedFilter} 
                             selectedChores={selectedChores} 

@@ -3,7 +3,7 @@ import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
 import "../ChoresList.css";
 
-export default function SimpleMode({chores, selectedChores, formatDate}) {
+export default function SimpleMode({chores, selectedChores, formatDate, selectItem}) {
 
     return (
         <div className="chores-list-simple">

@@ -1,0 +1,59 @@
+.todo-item {
+    display: flex;
+    width: 100%;
+    border-bottom: 0.2px solid #e2dfdf;
+}
+
+.chores-list-todo {
+    width:100%;
+}
+
+.chores-list-todo-list {
+    width:100%;
+}
+
+.todo-item-title-select-element {
+    width:5%;
+    padding: 5px;
+}
+.todo-item-cost {
+    width: 5%;
+    padding: 3px;
+}
+
+.todo-item-info {
+    width: 85%;
+    padding: 5px;
+    font-size: 12px;
+}
+
+.todo-item-buttons {
+    width: 5%;
+    padding: 5px;
+}
+
+.todo-item-title {
+    font-weight: 600;
+}
+
+.todo-item-cost-value {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-item-cost-value div {
+    font-size: 12px;
+}
+
+.todo-item-cost-value svg {
+    font-size: 14px;
+}
+
+.chores-list-todo-header {
+    display: flex;
+    border-bottom: 0.5px solid #afacac;
+}
+

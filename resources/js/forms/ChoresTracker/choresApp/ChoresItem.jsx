@@ -14,6 +14,7 @@ export default function ChoresItem( {noteId, onClose, onNoteSaved}) {
         category: "",
         color: "",
         cost: "",
+        istodo: false,
     });
 
     const categoryList = [
@@ -138,6 +139,17 @@ export default function ChoresItem( {noteId, onClose, onNoteSaved}) {
                         onChange={handleChange}
                     />
                     <label htmlFor="cost"><SlStar /> </label>
+                </div>
+                <div className="chores-item-istodo">
+                    <input
+                        type="checkbox"
+                        id="istodo"
+                        name="istodo"
+                        className="chores-item-form-istodo"
+                        placeholder="istodo.."
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="istodo">Make ToDo list element </label>
                 </div>
             </div>
             <div className="chores-form-footer chores-item-footer" onClick={handleSave}>

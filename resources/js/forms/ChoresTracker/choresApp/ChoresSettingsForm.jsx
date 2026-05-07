@@ -53,6 +53,17 @@ export default function ChoresSettingsForm({onClose}){
                         ))}
                     </select>
                 </div>
+                <div className="chores-item-changetodo">
+                    <input
+                        type="checkbox"
+                        id="changetodo"
+                        name="changetodo"
+                        className="chores-item-form-changetodo"
+                        placeholder="changetodo.."
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="changetodo">All Chores elements ARE ToDo elements </label>
+                </div>
             </div>
             <div className="chores-form-footer chores-item-footer" onClick={handleSave}>
                 <button>Save</button>

@@ -8,6 +8,7 @@ import { MdEdit } from "react-icons/md";
 import { FaRegSquareMinus } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
+import { FaListCheck } from "react-icons/fa6";
 
 import { MdShare } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
@@ -25,10 +26,11 @@ import { useWarning } from "../../../../components/elements/Warning.jsx";
 import '../choresApp.css';
 import axios from "axios";
 
-export default function AddEditMenu({selectedChores, setSelectedChores, calendarMode, setCalendarMode, onNoteSaved}) {
+export default function AddEditMenu({selectedChores, setSelectedChores, calendarMode, changeCalendarMode, onNoteSaved}) {
     const [disabledForm, setDisabledForm] = useState('');
     const [showForm, setShowForm] = useState();
     const [showDrawForm, setShowDrawForm] = useState();
+    const [showToDoForm, setShowToDoForm] = useState();
     const [showSettingsForm, setShowSettingsForm] = useState();
     const [noteId, setNoteId] = useState();
     const { askWarning } = useWarning();
@@ -64,6 +66,9 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
         setShowSettingsForm(false);
     };
 
+    const openTodoForm = () => {
+        setShowToDoForm(true);
+    };
 
     const deleteChores = async () => {
         
@@ -117,7 +122,8 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
     };
 
     const switchMode = (mode) => {
-        setCalendarMode(mode);
+        changeCalendarMode(mode);
+        setSelectedChores([]);
     };
 
     const isActionRequired = Object.values(selectedChores).filter(Boolean).length;
@@ -126,8 +132,16 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
         <div>
             <div className={`menu-bar ${disabledForm && ('disabled')}`}>
                 <div className="add-edit-menu">
-                    <div className="add-edit-menu-icon" title="Add chore" onClick={openForm}><MdStickyNote2 /></div>
-                    <div className="add-edit-menu-icon" title="Add drawing" onClick={openDrawForm}><MdDraw /></div>
+                    {calendarMode !== 'todolist' && (
+                        <div className="add-edit-menu">
+                            <div className="add-edit-menu-icon" title="Add chore" onClick={openForm}><MdStickyNote2 /></div>
+                            <div className="add-edit-menu-icon" title="Add drawing" onClick={openDrawForm}><MdDraw /></div>
+                        </div>
+                    )}
+                    {calendarMode === 'todolist' && (
+                        <div className="add-edit-menu-icon" title="Add ToDo item" onClick={openTodoForm}><FaListCheck /></div>
+                    )}
+                    
                     {isActionRequired > 0 && (
                         <div className="add-edit-menu edit-menu ">
                             {choreIds && choreIds.length == 1 && (

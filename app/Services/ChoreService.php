@@ -78,6 +78,10 @@ class ChoreService
                 }
             }
         }
+
+        if(!empty($filterData['istodo'])) {
+            $query->whereNull('drawing');
+        }
          
         return $query->get();    
     }

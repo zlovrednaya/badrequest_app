@@ -45,7 +45,13 @@ export default function ChoresList({chores, selectedChores, setSelectedChores, c
                 />
             }
             {calendarMode === 'todolist' &&
-                <TodoListMode chores={chores} />
+                <TodoListMode 
+                    chores={chores}
+                    selectedChores={selectedChores}
+                    setSelectedChores={setSelectedChores}
+                    formatDate={formatDate}
+                    selectItem={selectItem}
+                />
             }
             {calendarMode === 'calendar' &&
                 <CalendarMode chores={chores} />
