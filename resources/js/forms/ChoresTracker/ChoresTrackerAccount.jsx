@@ -24,12 +24,17 @@ export default function ChoresTrackerAccount() {
     }
     async function loadChores(mode) {
         let url = window.location.origin + '/chores/getList';
+
+        const params = new URLSearchParams();
         if(selectedFilter) {
-            url +=`?column=${selectedFilter.column}&filterWord=${encodeURIComponent(selectedFilter.filterWord)}`
+            params.append("column", selectedFilter.column);
+            params.append("filterWord", selectedFilter.filterWord);
         }
         if(mode === 'todolist') {
-            url +=`?istodo=true`;
+            params.append("istodo", "true");
         }
+
+        url += `?${params.toString()}`;
         console.log("load chores");
         axios(url , {
             method: 'GET', 
@@ -47,7 +52,7 @@ export default function ChoresTrackerAccount() {
     useEffect(() => {
         if (!user) return;
     
-        loadChores();
+        loadChores(calendarMode);
     }, [user, selectedFilter]);
 
     return (

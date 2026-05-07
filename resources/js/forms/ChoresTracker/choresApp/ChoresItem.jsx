@@ -6,7 +6,7 @@ import { SlStar } from "react-icons/sl";
 import './choresApp.css';
 import './choresItem.css';
 
-export default function ChoresItem( {noteId, onClose, onNoteSaved}) {
+export default function ChoresItem( {noteId, onClose, onNoteSaved, handleSaveChore}) {
     const [formData, setFormData] = useState({
         title: "",
         text: "",
@@ -47,24 +47,8 @@ export default function ChoresItem( {noteId, onClose, onNoteSaved}) {
     };
 
     function handleSave(e) {
-        e.preventDefault();
-        axios( window.location.origin+'/chores/add', {
-            method: 'POST', 
-            data: JSON.stringify(formData),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }),
-        })
-        .then(res => {
-            onClose();
-            onNoteSaved();
-        })
-        .catch(err => {
-            console.log(err);
-            let errors = err.response.data.errors;
-            let errorText = err.response.data.message;
-        })
+        //e.preventDefault();
+        handleSaveChore(formData);
     };
 
     return (

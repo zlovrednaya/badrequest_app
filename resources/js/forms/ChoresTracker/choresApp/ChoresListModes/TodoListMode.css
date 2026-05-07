@@ -46,9 +46,27 @@
 
 .todo-item-cost-value div {
     font-size: 12px;
+    padding-left: 3px;
 }
 
 .todo-item-cost-value svg {
+    font-size: 14px;
+}
+
+.todo-item-date {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.todo-item-date span {
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.todo-item-date svg {
     font-size: 14px;
 }
 

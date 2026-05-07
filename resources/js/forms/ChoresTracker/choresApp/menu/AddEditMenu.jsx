@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { MdAddCircleOutline } from "react-icons/md";
 import { MdStickyNote2 } from "react-icons/md";
@@ -19,8 +19,10 @@ import { RiRectangleFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 import ChoresItem from "../ChoresItem";
-import ChoresSettingsForm from "../ChoresSettingsForm";
 import DrawItem from "../DrawItem";
+import ToDoItem from "../item/ToDoItem.jsx";
+import ChoresSettingsForm from "../ChoresSettingsForm";
+
 
 import { useWarning } from "../../../../components/elements/Warning.jsx";
 import '../choresApp.css';
@@ -67,9 +69,28 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
     };
 
     const openTodoForm = () => {
-        setShowToDoForm(true);
+        
     };
 
+    const handleSaveChore = async (formData) => {
+        await axios( window.location.origin+'/chores/add', {
+            method: 'POST', 
+            data: JSON.stringify(formData),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }),
+        })
+        .then(res => {
+            closeForm();
+            onNoteSaved(calendarMode);
+        })
+        .catch(err => {
+            console.log(err);
+            let errors = err.response.data.errors;
+            let errorText = err.response.data.message;
+        })
+    };
     const deleteChores = async () => {
         
         const warningResult = await askWarning({
@@ -91,7 +112,7 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
             data: JSON.stringify({ids:choreIds}),
         })
         .then((res) => {
-            onNoteSaved();
+            onNoteSaved(calendarMode);
             // update selected chores
             setSelectedChores([]);
         })
@@ -126,6 +147,11 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
         setSelectedChores([]);
     };
 
+    useEffect(() => {
+        if (calendarMode == "todolist") {
+            setShowToDoForm(true);
+        }
+    },[calendarMode]);
     const isActionRequired = Object.values(selectedChores).filter(Boolean).length;
 
     return (
@@ -167,10 +193,16 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
             {showForm && (<ChoresItem 
                 noteId={noteId} 
                 onClose={closeForm} 
-                onNoteSaved={onNoteSaved} 
+                onNoteSaved={onNoteSaved}
+                handleSaveChore={handleSaveChore} 
             />)}
-            {showDrawForm && (<DrawItem onClose={closeDrawForm} />)}
+            {showDrawForm && (<DrawItem 
+                onClose={closeDrawForm} />)}
             {showSettingsForm && (<ChoresSettingsForm onClose={closeSettingsForm} />)}
+            {showToDoForm && (<ToDoItem 
+                onClose={closeForm}
+                handleSaveChore={handleSaveChore} 
+            />)}
         </div>
     );
 }

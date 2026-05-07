@@ -17,4 +17,11 @@ class Chore extends Model
         'drawing',
         'user_id'
     ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('deleted', function ($query) {
+            $query->where('deleted', false);
+        });
+    }
 }

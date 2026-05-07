@@ -81,6 +81,7 @@ class ChoreService
 
         if(!empty($filterData['istodo'])) {
             $query->whereNull('drawing');
+            $query->where('done', false);
         }
          
         return $query->get();    
@@ -188,7 +189,7 @@ class ChoreService
     public function deleteChores($ids) {
         $deleteCount = Chore::where('user_id', (int)$this->userId)
             ->whereIn('id', $ids)
-            ->delete();
+            ->update(array('deleted' => true));;
 
         return $deleteCount;    
     }

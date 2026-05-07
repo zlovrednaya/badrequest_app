@@ -5,6 +5,8 @@ import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
 
+import ToDoItem from "../item/ToDoItem";
+
 import "../ChoresList.css";
 import "./TodoListMode.css";
 
@@ -58,14 +60,19 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
                                 )}
                             </div>
                             <div className="todo-item-info">
-                                <div className="todo-item-title">
-                                    {choreItem.title}
-                                </div>
-                                <div className="todo-item-text">
-                                    {choreItem.text}
-                                </div>
+                                {choreItem.title && (
+                                    <div className="todo-item-title">
+                                        {choreItem.title}
+                                    </div>
+                                )}
+                                {choreItem.text && (
+                                    <div className="todo-item-text">
+                                        {choreItem.text}
+                                    </div>
+                                )}
+                                
                                 {choreItem.due_datetime && (
-                                    <div className="chore-item-date">
+                                    <div className="todo-item-date">
                                         <LuClock />
                                         <span>{formatDate(choreItem.due_datetime)}</span>
                                     </div>
