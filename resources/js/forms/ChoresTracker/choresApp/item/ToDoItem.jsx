@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SlStar } from "react-icons/sl";
 import "./ToDoItem.css";
 
-export default function ToDoItem ( {handleSaveChore}) {
+export default function ToDoItem ( {actions}) {
 
     const baseFormState = {
             cost: "",
@@ -15,7 +15,7 @@ export default function ToDoItem ( {handleSaveChore}) {
 
     
     function handleSave () {
-        handleSaveChore(formData);
+        actions.chore.saveChore(formData);
         setFormData(baseFormState);
     };
     

@@ -6,7 +6,7 @@ import { IoIosSettings } from "react-icons/io";
 import './choresApp.css';
 import './ChoresSettingsForm.css';
 
-export default function ChoresSettingsForm({onClose}){
+export default function ChoresSettingsForm({actions}){
 
     const modeList = [
         {'displayName': 'Simple mode', 'name': 'simple'},
@@ -15,7 +15,7 @@ export default function ChoresSettingsForm({onClose}){
     ];
 
     const closeForm = () => {
-        onClose();
+        actions.form.closeForm();
     };
 
     const handleChange = () => {
@@ -48,8 +48,8 @@ export default function ChoresSettingsForm({onClose}){
                         name="mode"
                         onChange={handleChange}
                     >
-                        {modeList.map((mode) => (
-                            <option value={mode.name}>{mode.displayName}</option>
+                        {modeList.map((mode, i) => (
+                            <option key={i} value={mode.name}>{mode.displayName}</option>
                         ))}
                     </select>
                 </div>

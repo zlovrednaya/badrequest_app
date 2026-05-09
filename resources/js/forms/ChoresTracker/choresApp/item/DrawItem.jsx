@@ -9,7 +9,7 @@ import { GrClearOption } from "react-icons/gr";
 import '../choresApp.css';
 import './DrawItem.css';
 
-export default function DrawItem({onClose}) {
+export default function DrawItem({actions}) {
 
     const canvasReference = useRef();
     const contextReference = useRef();
@@ -59,24 +59,8 @@ export default function DrawItem({onClose}) {
 
     const handleSave = () => {
         const drawing = canvasReference.current.toDataURL();
-        axios( window.location.origin+'/chores/add', {
-            method: 'POST', 
-            data: JSON.stringify({drawing: drawing}),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }),
-        })
-        .then(res => {
-            debugger;
-           
-            onClose();
-        })
-        .catch(err => {
-            console.log(err);
-            let errors = err.response.data.errors;
-            let errorText = err.response.data.message;
-        })
+
+        actions.chore.saveChore({drawing: drawing});
     };
 
     useEffect(() => {
@@ -96,7 +80,7 @@ export default function DrawItem({onClose}) {
         <div className="chores-form draw-item chores-item-add-edit">
             <div className="chores-form-header chores-item-header">
                 <span className=" chores-form-header-title chores-item-header-title">Draw</span>
-                <div className="close-form" onClick={onClose}>
+                <div className="close-form" onClick={()=>actions.form.closeForm()}>
                     <IoIosCloseCircle />
                 </div>
             </div>

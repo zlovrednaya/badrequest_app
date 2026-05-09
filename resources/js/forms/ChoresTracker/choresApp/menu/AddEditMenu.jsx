@@ -28,51 +28,24 @@ import { useWarning } from "../../../../components/elements/Warning.jsx";
 import '../choresApp.css';
 import axios from "axios";
 
-export default function AddEditMenu({selectedChores, setSelectedChores, calendarMode, changeCalendarMode, onNoteSaved}) {
+export default function AddEditMenu({selectedChores, setSelectedChores, calendarMode, actions}) {
     const [disabledForm, setDisabledForm] = useState('');
-    const [showForm, setShowForm] = useState();
-    const [showDrawForm, setShowDrawForm] = useState();
-    const [showToDoForm, setShowToDoForm] = useState();
-    const [showSettingsForm, setShowSettingsForm] = useState();
+    const [activeForm, setActiveForm] = useState(null);
     const [noteId, setNoteId] = useState();
     const { askWarning } = useWarning();
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
 
-    const openForm = () => {
+    const openForm = (formName) => {
+        setActiveForm(formName);
         setDisabledForm(true);
-        setShowForm(true);
     };
 
     const closeForm = () => {
         setDisabledForm(false);
-        setShowForm(false);
+        setActiveForm(null);
     };
 
-    const openDrawForm = () => {
-        setDisabledForm(true);
-        setShowDrawForm(true);
-    };
-
-    const closeDrawForm = () => {
-        setDisabledForm(false);
-        setShowDrawForm(false);
-    };
-
-    const openSettingsForm = () => {
-        setDisabledForm(true);
-        setShowSettingsForm(true);
-    };
-
-    const closeSettingsForm = () => {
-        setDisabledForm(false);
-        setShowSettingsForm(false);
-    };
-
-    const openTodoForm = () => {
-        
-    };
-
-    const handleSaveChore = async (formData) => {
+    const saveChore = async (formData) => {
         await axios( window.location.origin+'/chores/add', {
             method: 'POST', 
             data: JSON.stringify(formData),
@@ -83,7 +56,7 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
         })
         .then(res => {
             closeForm();
-            onNoteSaved(calendarMode);
+            actions.chore.onChoreSaved(calendarMode);
         })
         .catch(err => {
             console.log(err);
@@ -91,6 +64,7 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
             let errorText = err.response.data.message;
         })
     };
+
     const deleteChores = async () => {
         
         const warningResult = await askWarning({
@@ -112,7 +86,7 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
             data: JSON.stringify({ids:choreIds}),
         })
         .then((res) => {
-            onNoteSaved(calendarMode);
+            actions.chore.onChoreSaved(calendarMode);
             // update selected chores
             setSelectedChores([]);
         })
@@ -143,16 +117,23 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
     };
 
     const switchMode = (mode) => {
-        changeCalendarMode(mode);
+        actions.mode.changeCalendarMode(mode);
         setSelectedChores([]);
-        if (mode!=="todolist") setShowToDoForm(false);
     };
 
-    useEffect(() => {
-        if (calendarMode == "todolist") {
-            setShowToDoForm(true);
-        }
-    },[calendarMode]);
+    const listActions = {
+        ...actions,
+        chore: {
+            ...actions.chore,
+            saveChore: saveChore,
+            deleteChores: deleteChores,
+            shareChores: shareChores,
+        },
+        form: {
+            closeForm
+        },
+    };
+
     const isActionRequired = Object.values(selectedChores).filter(Boolean).length;
 
     return (
@@ -161,12 +142,12 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
                 <div className="add-edit-menu">
                     {calendarMode !== 'todolist' && (
                         <div className="add-edit-menu">
-                            <div className="add-edit-menu-icon" title="Add chore" onClick={openForm}><MdStickyNote2 /></div>
-                            <div className="add-edit-menu-icon" title="Add drawing" onClick={openDrawForm}><MdDraw /></div>
+                            <div className="add-edit-menu-icon" title="Add chore" onClick={() => openForm("ChoresItem")}><MdStickyNote2 /></div>
+                            <div className="add-edit-menu-icon" title="Add drawing" onClick={() => openForm("DrawItem")}><MdDraw /></div>
                         </div>
                     )}
                     {calendarMode === 'todolist' && (
-                        <div className="add-edit-menu-icon" title="Add ToDo item" onClick={openTodoForm}><FaListCheck /></div>
+                        <div className="add-edit-menu-icon" title="Add ToDo item" onClick={() => openForm("ToDoItem")}><FaListCheck /></div>
                     )}
                     
                     {isActionRequired > 0 && (
@@ -174,11 +155,11 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
                             {choreIds && choreIds.length == 1 && (
                                 <div className="edit-menu-one-selected">
                                     <div className="add-edit-menu-icon" title="Show chore" onClick={openForm}><IoEyeSharp /></div>
-                                    <div className="add-edit-menu-icon" title="Share chores" onClick={shareChores}><MdShare /></div>
+                                    <div className="add-edit-menu-icon" title="Share chores" onClick={listActions.chore.shareChores}><MdShare /></div>
                                 </div>
                             )}
                             <div className="add-edit-menu-icon" title="Unselect chores" onClick={() => setSelectedChores([])}> <FaRegSquareMinus /></div>
-                            <div className="add-edit-menu-icon" title="Delete chores" onClick={deleteChores}> <MdDelete /></div>
+                            <div className="add-edit-menu-icon" title="Delete chores" onClick={listActions.chore.deleteChores}> <MdDelete /></div>
                         </div>
                     )}
                 </div>
@@ -188,21 +169,21 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
                         <div className={`add-edit-menu-icon menu-shape-mode ${calendarMode == 'calendar' && ('selected')}`} title="Switch to calendar" onClick={()=>{switchMode('calendar')}}><CiCalendarDate/></div>
                         <div className={`add-edit-menu-icon menu-shape-mode ${calendarMode == 'todolist' && ('selected')}`} title="Switch to ToDo list" onClick={()=>{switchMode('todolist')}}><CiBoxList/></div>
                     </div>
-                    <div className="add-edit-menu-icon" title="Settings" onClick={openSettingsForm}><IoIosSettings /></div>
+                    <div className="add-edit-menu-icon" title="Settings" onClick={() => openForm("ChoresSettingsForm")}><IoIosSettings /></div>
                 </div>
             </div>
-            {showForm && (<ChoresItem 
+            {activeForm === "ChoresItem" && (<ChoresItem 
                 noteId={noteId} 
-                onClose={closeForm} 
-                onNoteSaved={onNoteSaved}
-                handleSaveChore={handleSaveChore} 
+                actions={listActions} 
             />)}
-            {showDrawForm && (<DrawItem 
-                onClose={closeDrawForm} />)}
-            {showSettingsForm && (<ChoresSettingsForm onClose={closeSettingsForm} />)}
-            {showToDoForm && (<ToDoItem 
-                onClose={closeForm}
-                handleSaveChore={handleSaveChore} 
+            {activeForm === "DrawItem" && (<DrawItem 
+                actions={listActions} 
+            />)}
+            {activeForm === "ChoresSettingsForm" && (<ChoresSettingsForm 
+                actions={listActions} 
+                />)}
+            {calendarMode == "todolist" && (<ToDoItem 
+                actions={listActions} 
             />)}
         </div>
     );

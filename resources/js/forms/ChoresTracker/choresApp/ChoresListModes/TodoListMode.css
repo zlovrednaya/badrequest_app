@@ -1,5 +1,6 @@
 .todo-item {
     display: flex;
+    align-items: center;
     width: 100%;
     border-bottom: 0.2px solid #e2dfdf;
 }

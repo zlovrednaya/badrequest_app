@@ -4,13 +4,14 @@ import { MdOutlineCheckBox } from "react-icons/md";
 import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
+import { MdDelete } from "react-icons/md";
 
 import ToDoItem from "../item/ToDoItem";
 
 import "../ChoresList.css";
 import "./TodoListMode.css";
 
-export default function TodoListMode({chores, selectedChores, setSelectedChores, formatDate, selectItem, onNoteSaved}) {
+export default function TodoListMode({chores, selectedChores, setSelectedChores, actions}) {
 
     const selectAll = () => {
         console.log('select');
@@ -29,7 +30,7 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
         })
         .then(res => {
             setSelectedChores([]);
-            onNoteSaved('todolist');
+            actions.chore.onChoreSaved('todolist');
         })
         .catch(err => {
             console.log(err);
@@ -61,7 +62,7 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
                 {
                     chores && chores.map((choreItem, i)=>(
                         <div className="todo-item" key={choreItem.id} style={{backgroundColor:choreItem.color}}>
-                            <div className="todo-item-title-select-element" onClick={() => selectItem(choreItem.id)}>
+                            <div className="todo-item-title-select-element" onClick={() => actions.selection.selectItem(choreItem.id)}>
                                 {selectedChores && (selectedChores[choreItem.id] === true || choreItem.done === true) && (
                                     <div className="selected" onClick={() => selectTodoElement(choreItem, false)}>
                                         <MdOutlineCheckBox />
@@ -96,12 +97,13 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
                                 {choreItem.due_datetime && (
                                     <div className="todo-item-date">
                                         <LuClock />
-                                        <span>{formatDate(choreItem.due_datetime)}</span>
+                                        <span>{actions.format.formatDate(choreItem.due_datetime)}</span>
                                     </div>
                                 )} 
                             </div>
                             
                             <div className="todo-item-buttons">
+                                <div className="add-edit-menu-icon" title="Delete chores" onClick={actions.chore.deleteChores}> <MdDelete /></div>
                             </div>
                         </div>
                     ))

@@ -9,7 +9,7 @@ import CalendarMode from "./ChoresListModes/CalendarMode";
 
 import './ChoresList.css';
 
-export default function ChoresList({chores, selectedChores, setSelectedChores, calendarMode, onNoteSaved}) {
+export default function ChoresList({chores, selectedChores, setSelectedChores, calendarMode, actions}) {
 
     function selectItem(itemKey) {
         setSelectedChores((prev) => ({
@@ -34,14 +34,27 @@ export default function ChoresList({chores, selectedChores, setSelectedChores, c
         return `${dd}.${MM}.${yyyy} ${hh}:${mm}`;
     };
 
+    const listActions = {
+        ...actions,
+        format: {
+            formatDate,
+        },
+        selection: {
+            selectItem,
+        },
+        chore: {
+            ...actions.chore,
+            editItem,
+        }
+    }
+
     return (
         <div className="chores-list">
             {calendarMode === 'simple' &&
                 <SimpleMode 
                     chores={chores} 
                     selectedChores={selectedChores}
-                    formatDate={formatDate}
-                    selectItem={selectItem}
+                    actions={listActions}
                 />
             }
             {calendarMode === 'todolist' &&
@@ -49,13 +62,14 @@ export default function ChoresList({chores, selectedChores, setSelectedChores, c
                     chores={chores}
                     selectedChores={selectedChores}
                     setSelectedChores={setSelectedChores}
-                    formatDate={formatDate}
-                    selectItem={selectItem}
-                    onNoteSaved={onNoteSaved}
+                    actions={listActions}
                 />
             }
             {calendarMode === 'calendar' &&
-                <CalendarMode chores={chores} />
+                <CalendarMode 
+                    chores={chores}
+                    actions={listActions}
+             />
             }
         </div>
     );

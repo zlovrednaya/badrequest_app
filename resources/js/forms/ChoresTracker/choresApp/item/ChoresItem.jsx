@@ -6,7 +6,7 @@ import { SlStar } from "react-icons/sl";
 import '../choresApp.css';
 import './choresItem.css';
 
-export default function ChoresItem( {noteId, onClose, onNoteSaved, handleSaveChore}) {
+export default function ChoresItem( {noteId, actions}) {
     const [formData, setFormData] = useState({
         title: "",
         text: "",
@@ -35,7 +35,7 @@ export default function ChoresItem( {noteId, onClose, onNoteSaved, handleSaveCho
     const closeForm = () => {
         // control changes - if yes - than - modal window
         /* modal window "are you sure" */
-        onClose();
+        actions.form.closeForm();
     };
 
     function handleChange(e) {
@@ -48,7 +48,7 @@ export default function ChoresItem( {noteId, onClose, onNoteSaved, handleSaveCho
 
     function handleSave(e) {
         //e.preventDefault();
-        handleSaveChore(formData);
+        actions.chore.saveChore(formData);
     };
 
     return (
@@ -94,8 +94,8 @@ export default function ChoresItem( {noteId, onClose, onNoteSaved, handleSaveCho
                         list="category"
                         onChange={handleChange}
                     >
-                        {categoryList.map((category) => (
-                            <option>{category.name}</option>
+                        {categoryList.map((category, i) => (
+                            <option key={i}>{category.name}</option>
                         ))}
                     </select>
                 </div>
@@ -108,8 +108,8 @@ export default function ChoresItem( {noteId, onClose, onNoteSaved, handleSaveCho
                         name="color"
                         onChange={handleChange}
                     >
-                        {colorList.map((color) => (
-                            <option className={color.className} value={color.color}>{color.name}</option>
+                        {colorList.map((color, i) => (
+                            <option key={i} className={color.className} value={color.color}>{color.name}</option>
                         ))}
                     </select>
                 </div>

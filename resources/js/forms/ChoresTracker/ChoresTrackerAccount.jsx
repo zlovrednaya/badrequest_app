@@ -21,7 +21,8 @@ export default function ChoresTrackerAccount() {
     const changeCalendarMode = (mode) => {
         setCalendarMode(mode);
         loadChores(mode);
-    }
+    };
+
     async function loadChores(mode) {
         let url = window.location.origin + '/chores/getList';
 
@@ -49,6 +50,26 @@ export default function ChoresTrackerAccount() {
         })
     };
 
+    async function onChoreSaved(mode) {
+        await loadChores(mode);
+    };
+
+    const appSettings = {
+        chores,
+        calendarMode,
+        selectedFilter,
+    };
+
+    const actions = {
+        mode: {
+            changeCalendarMode: changeCalendarMode
+        },
+        chore: {
+            loadChores: loadChores,
+            onChoreSaved: onChoreSaved,
+        },
+    };
+
     useEffect(() => {
         if (!user) return;
     
@@ -71,8 +92,7 @@ export default function ChoresTrackerAccount() {
                             selectedChores={selectedChores}
                             setSelectedChores={setSelectedChores}  
                             calendarMode={calendarMode} 
-                            changeCalendarMode={changeCalendarMode}
-                            onNoteSaved={loadChores}
+                            actions={actions}
                         />
                         {calendarMode !== 'todolist' && (<QuickAddMenu />)}
                         <ChoresList 
@@ -81,7 +101,7 @@ export default function ChoresTrackerAccount() {
                             setSelectedChores={setSelectedChores} 
                             chores={chores}
                             calendarMode={calendarMode}
-                            onNoteSaved={loadChores}
+                            actions={actions} 
                         />
                     </div>
                 </div>
