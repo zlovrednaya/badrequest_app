@@ -104,6 +104,11 @@ class ChoreService
             $query->where('istodo', true);
             //$query->where('done', false);
         }
+
+        if(!empty($filterData['done'])) {
+            $query->where('done', $filterData['done']);
+        }
+       
          
         return $query->get();    
     }

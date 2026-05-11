@@ -37,6 +37,7 @@ export default function ChoresTrackerAccount() {
         }
         if(mode === 'todolist') {
             params.append("istodo", "true");
+            params.append("done", "false");
         }
 
         url += `?${params.toString()}`;
@@ -59,16 +60,19 @@ export default function ChoresTrackerAccount() {
     };
 
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
-    const deleteChores = async (ids) => {
+    const deleteChores = async (ids, needWarning = true) => {
         const toDeleteIds = ids || choreIds;
-        const warningResult = await askWarning({
-            title: 'You want to delete selected chores (' + toDeleteIds.length + (toDeleteIds.length > 1? " pcs" : " pc" ) + ')' ,
-            message: 'Are you sure?',
-            confirmText: 'Yes, delete',
-            cancelText: 'No, keep chores'
-        });
 
-        if (!warningResult) return;
+        if (needWarning) {
+            const warningResult = await askWarning({
+                title: 'You want to delete selected chores (' + toDeleteIds.length + (toDeleteIds.length > 1? " pcs" : " pc" ) + ')' ,
+                message: 'Are you sure?',
+                confirmText: 'Yes, delete',
+                cancelText: 'No, keep chores'
+            });
+
+            if (!warningResult) return;
+        }
         
         await axios('/chores/deleteChores', {
             method: 'POST',
