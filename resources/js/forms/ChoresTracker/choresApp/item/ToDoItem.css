@@ -14,7 +14,7 @@
     width: 60%;
 }
 
-.todo-item-form-text input:focus {
+.chores-tracker-main-window input:focus {
     outline: none;
 }
 
@@ -31,6 +31,9 @@
     font-size: 12px;
     text-align: center;
     font-weight: 600;
+}
+.todo-item-save button:hover {
+    cursor: pointer;
 }
 
 .todo-item-form-cost {

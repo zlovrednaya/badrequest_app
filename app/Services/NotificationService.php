@@ -18,4 +18,10 @@ class NotificationService
             'message' => $subscriber['message'],
         ]);
     }
+
+    public function getUpdates(array $subscriber)
+    {
+        $notifier = NotificationFactory::create($subscriber['channel']);
+        $r = $notifier->getUpdates();
+    }
 }

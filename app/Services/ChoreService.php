@@ -3,6 +3,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Chore;
+use App\Models\User;
 
 class ChoreService 
 {
@@ -25,14 +26,17 @@ class ChoreService
 
     private $user;
 
-    public function __construct() {
+    public function __construct() {}
+
+    protected function user(): User
+    {
         $this->user = auth()->user();
-        $this->userId = $this->user->id;
+        return $this->user;
     }
 
     public function add(array $data)
     {
-        $data['user_id'] = $this->userId;
+        $data['user_id'] = $this->user()->id;
 
         DB::beginTransaction();
         try {
@@ -53,7 +57,7 @@ class ChoreService
 
     public function update(int $id, array $data)
     {
-        $data['user_id'] = $this->userId;
+        $data['user_id'] = $this->user()->id;
 
         DB::beginTransaction();
         try {
@@ -74,14 +78,14 @@ class ChoreService
 
     public function getByIds($ids)
     {
-        return Chore::where('user_id', (int)$this->userId)
+        return Chore::where('user_id', (int)$this->user()->id)
             ->whereIn('id', $ids)
             ->orderBy('created_at', 'desc')
             ->get();
     }
     public function getAll($filterData = [])
     {
-       $query = Chore::where('user_id', (int)$this->userId)
+       $query = Chore::where('user_id', (int)$this->user()->id)
             ->orderBy('created_at', 'desc');
 
         if(!empty($filterData['column'])) {
@@ -204,7 +208,7 @@ class ChoreService
     }
 
     public function deleteChores($ids) {
-        $deleteCount = Chore::where('user_id', (int)$this->userId)
+        $deleteCount = Chore::where('user_id', (int)$this->user()->id)
             ->whereIn('id', $ids)
             ->update(array('deleted' => true));;
 

@@ -38,7 +38,10 @@ return [
         'token' => env('AVIATION_STACK_TOKEN'),
     ],
     'mailersend' => [
-        'token' => env('MAILERSENDER_TOKEN')
+        'token' => env('MAILERSENDER_TOKEN'),
+    ],
+    'telegram' => [
+        'token' => env('TELEGRAM_WIDGET_FACTORY_TOKEN'),
     ],
 
 ];

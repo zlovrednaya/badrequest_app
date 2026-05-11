@@ -16,51 +16,56 @@ use App\Notifications\Messages\ChoreMessage;
 
 class ChoresController extends Controller
 {
-    public function add(Request $request, ChoreService $choreService)
+    public function __construct(private ChoreService $choreService)
+    {
+    }
+
+    public function add(Request $request)
     {
         $data = $request->all();
-        $response = $choreService->add($data);
+        $response = $this->choreService->add($data);
     
         return response()->json($response);
     }
 
-    public function update(ChoreEditRequest $request, ChoreService $choreService, int $id)
+    public function update(ChoreEditRequest $request, int $id)
     {
         $data = $request->all();
 
         return response()->json(
-            $choreService->update($id, $data)
+            $this->choreService->update($id, $data)
         );
     }
 
-    public function getList(Request $request, ChoreService $choreService)
+    public function getList(Request $request)
     {
         $filterData = $request->all();
 
         return response()->json(
-            $choreService->getAll($filterData)
+            $this->choreService->getAll($filterData)
         );
     }
 
-    public function getChoresStructure(Request $request, ChoreService $choreService)
+    public function getChoresStructure(Request $request)
     {
         return response()->json(
-            $choreService->getChoresStructure()
+            $this->choreService->getChoresStructure()
         );
     }
 
-    public function filterChores(Request $request, ChoreService $choreService) {
+    public function filterChores(Request $request) {
         $filterData = $request->all();
 
         return response()->json(
-            $choreService->filterChores($filterData)
+            $this->choreService->filterChores($filterData)
         );
     }
 
-    public function deleteChores(ChoreBulkRequest $request, ChoreService $choreService) {
+    public function deleteChores(ChoreBulkRequest $request) 
+    {
         $data = $request->input('ids');
 
-        $count = $choreService->deleteChores($data);
+        $count = $this->choreService->deleteChores($data);
 
         return response()->json([
             'success' => $count > 0,
@@ -68,10 +73,11 @@ class ChoresController extends Controller
         ]);
     }
 
-    public function shareChores(ChoreBulkRequest $request, ChoreService $choreService, NotificationService $notificationService) {
+    public function shareChores(ChoreBulkRequest $request, NotificationService $notificationService) 
+    {
         $ids = $request->input('ids');
 
-        $choresData = $choreService->getByIds($ids);
+        $choresData = $this->choreService->getByIds($ids);
         $receiver = [
             'email' => $request->user()->email,
             'name'=> $request->user()->name,
@@ -99,5 +105,31 @@ class ChoresController extends Controller
             'success' => true,
             'message' => 'We\'ve sent an email',
         ];
+    }
+
+    public function shareTelegramChores(ChoreBulkRequest $request, NotificationService $notificationService)
+    {
+        $ids = $request->input('ids');
+
+        $choresData = $this->choreService->getByIds($ids);
+        $receiver = [
+            'email' => $request->user()->email,
+            'name'=> $request->user()->name,
+        ];
+
+        if(empty($choresData) || empty($receiver)) {
+            return [
+                'success' => false,
+                'mesage' => 'We didn\'t find chores to share',
+            ];
+        }
+        foreach($choresData as $chore) {
+            $notificationService->getUpdates([
+                    'channel' => 'telegram',
+                    'receiver' => $receiver,
+                    'subject' => $chore['title'] || '[note] You have new note',
+                    'message' => 'text tst',
+            ]);
+        }
     }
 }

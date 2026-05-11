@@ -60,6 +60,16 @@ export function AuthProvider({children}) {
         })
     };
 
+    const updateUser = async () => {
+        await axios.get('/user')
+        .then(res => {
+            setUser(res.data);
+            localStorage.setItem('user', JSON.stringify(res.data));
+        })
+        .catch(() => {
+        })
+    };
+
     useEffect(() => {
         if(localStorage.getItem("token")) {
             getUser();
@@ -68,7 +78,7 @@ export function AuthProvider({children}) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{user, login, logout}}>
+        <AuthContext.Provider value={{user, login, logout, updateUser}}>
             {children}
         </AuthContext.Provider>
     );

@@ -9,7 +9,7 @@ export default function SimpleMode({chores, selectedChores, actions}) {
         <div className="chores-list-simple">
             {
                 chores.map((choreItem, i) => (
-                    <div className="chore-item-main" key={choreItem.id} onClick={()=>actions.selection.selectItem(choreItem.id)} onDoubleClick={() => editItem()}>
+                    <div className="chore-item-main" key={choreItem.id} onClick={()=>actions.selection.selectItem(choreItem.id)} onDoubleClick={() => editChore()}>
                         <div className={`chore-item ${selectedChores[choreItem.id] === true && "selected"}`} style={{backgroundColor:choreItem.color}}>
                             <div className="chore-item-title">{choreItem.title}</div>
                             <div className="chore-item-text">

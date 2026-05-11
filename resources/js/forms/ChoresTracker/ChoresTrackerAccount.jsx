@@ -7,12 +7,16 @@ import AddEditMenu from './choresApp/menu/AddEditMenu';
 import LeftMenu from "./choresApp/menu/LeftMenu";
 import QuickAddMenu from './choresApp/menu/QuickAddMenu';
 import UserMenu from './user/UserMenu';
+import { useWarning } from "../../components/elements/Warning";
+import { useNavigate } from "react-router-dom";
 
 import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
 
 export default function ChoresTrackerAccount() {
     const {user} = useAuth();
+    const navigate = useNavigate();
+    const {askWarning} = useWarning();
     const [selectedFilter, setSelectedFilter] = useState(null);
     const [chores, setChores] = useState([]);
     const [selectedChores, setSelectedChores] = useState({});
@@ -54,6 +58,39 @@ export default function ChoresTrackerAccount() {
         await loadChores(mode);
     };
 
+    const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
+    const deleteChores = async (ids) => {
+        const toDeleteIds = ids || choreIds;
+        const warningResult = await askWarning({
+            title: 'You want to delete selected chores (' + toDeleteIds.length + (toDeleteIds.length > 1? " pcs" : " pc" ) + ')' ,
+            message: 'Are you sure?',
+            confirmText: 'Yes, delete',
+            cancelText: 'No, keep chores'
+        });
+
+        if (!warningResult) return;
+        
+        await axios('/chores/deleteChores', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+            data: JSON.stringify({ids:toDeleteIds}),
+        })
+        .then((res) => {
+            actions.chore.onChoreSaved(calendarMode);
+            // update selected chores
+            setSelectedChores([]);
+        })
+         .catch(err => {
+            console.log(err);
+            let errors = err.response.data.errors;
+            let errorText = err.response.data.message;
+        });
+    };
+
     const appSettings = {
         chores,
         calendarMode,
@@ -67,6 +104,7 @@ export default function ChoresTrackerAccount() {
         chore: {
             loadChores: loadChores,
             onChoreSaved: onChoreSaved,
+            deleteChores: deleteChores,
         },
     };
 
@@ -80,7 +118,7 @@ export default function ChoresTrackerAccount() {
         <div className="chores-tracker-account">
             <div className="app-form">
                 <div className="header-menu">
-                    <h1 className="app-name">Chores</h1>
+                    <h1 className="app-name" onClick={()=>navigate('/')}>Chores</h1>
                     <UserMenu />
                 </div>
                 <div className="chores-tracker-window">

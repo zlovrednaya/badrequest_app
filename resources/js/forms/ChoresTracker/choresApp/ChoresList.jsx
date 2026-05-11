@@ -18,7 +18,7 @@ export default function ChoresList({chores, selectedChores, setSelectedChores, c
         }));
     }
 
-    const editItem = () => {
+    const editChore = () => {
         console.log('edit');
     }
 
@@ -44,7 +44,7 @@ export default function ChoresList({chores, selectedChores, setSelectedChores, c
         },
         chore: {
             ...actions.chore,
-            editItem,
+            editChore,
         }
     }
 

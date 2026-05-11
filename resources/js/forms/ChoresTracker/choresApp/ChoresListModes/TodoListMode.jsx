@@ -103,7 +103,7 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
                             </div>
                             
                             <div className="todo-item-buttons">
-                                <div className="add-edit-menu-icon" title="Delete chores" onClick={actions.chore.deleteChores}> <MdDelete /></div>
+                                <div className="add-edit-menu-icon" title="Delete chores" onClick={()=>actions.chore.deleteChores([choreItem.id])}> <MdDelete /></div>
                             </div>
                         </div>
                     ))

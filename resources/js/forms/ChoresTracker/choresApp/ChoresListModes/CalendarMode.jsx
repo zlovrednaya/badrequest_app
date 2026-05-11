@@ -7,7 +7,7 @@ export default function CalendarMode({chores}) {
         <div className="chores-list-calendar">calendar
             {
                 chores.map((item, key)=>(
-                    <div>
+                    <div key="key">
 
                     </div>
                 ))

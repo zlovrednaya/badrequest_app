@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ChoresController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -23,6 +24,9 @@ Route::post('/chores/getChoresStructure', [ ChoresController::class, 'getChoresS
 Route::post('/chores/filterChores', [ ChoresController::class, 'filterChores']);
 Route::post('/chores/deleteChores', [ChoresController::class, 'deleteChores']);
 Route::post('/chores/shareChores', [ChoresController::class, 'shareChores']);
+Route::post('/chores/shareTelegramChores',[ChoresController::class, 'shareTelegramChores']);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::post('/user/save', [UserController::class, 'update']);

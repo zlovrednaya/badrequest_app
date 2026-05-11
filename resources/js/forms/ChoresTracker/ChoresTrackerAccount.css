@@ -12,6 +12,10 @@
     width: 20%;
 }
 
+.app-name {
+    cursor: pointer;
+}
+
 .chores-tracker-account .app-form {
     width: 100%;
     height: 100%;
