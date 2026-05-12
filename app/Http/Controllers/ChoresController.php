@@ -132,4 +132,10 @@ class ChoresController extends Controller
             ]);
         }
     }
+
+    public function getAmount(Request $request){
+        return response()->json(
+            $this->choreService->getAmount()
+        );
+    }
 }

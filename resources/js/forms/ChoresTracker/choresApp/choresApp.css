@@ -132,3 +132,18 @@
 .chores-form-footer button:hover {
     cursor: pointer;
 }
+
+.chores-tracker-footer {
+    display: flex;
+    height: 5%;
+    width: 80%;
+    position: absolute;
+    bottom: 0;
+}
+
+.amount-component {
+    font-size: 14px;
+}
+.amount-component span {
+    padding-right: 5px;
+}

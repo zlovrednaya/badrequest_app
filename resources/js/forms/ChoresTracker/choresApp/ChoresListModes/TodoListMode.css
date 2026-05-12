@@ -26,6 +26,10 @@
     padding: 3px;
 }
 
+.chores-list-todo-header .todo-item-info {
+    font-weight: 600;
+}
+
 .todo-item-info {
     width: 85%;
     padding: 5px;
@@ -81,10 +85,31 @@
 }
 
 .chores-list-todo-list-done {
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .list-header {
+    display: flex;
+    align-items: center;
     font-size: 14px;
+    font-weight: 700;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+}
+.list-header:hover {
+    cursor: pointer;
+}
+.amount-component {
+    display: flex;
+    align-items: center;
+}
+
+hr {
+    margin: 20px 0 0 0;
 }
 

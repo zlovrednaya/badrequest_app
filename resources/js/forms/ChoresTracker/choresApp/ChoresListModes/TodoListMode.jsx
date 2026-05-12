@@ -5,15 +5,21 @@ import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
 import { MdDelete } from "react-icons/md";
+import { RiArrowDownWideFill } from "react-icons/ri";
+import { RiArrowRightWideFill } from "react-icons/ri";
+
+
 
 import ToDoItem from "../item/ToDoItem";
 
 import "../ChoresList.css";
 import "./TodoListMode.css";
 
-export default function TodoListMode({chores, selectedChores, setSelectedChores, actions}) {
+export default function TodoListMode({chores, selectedChores, setSelectedChores, actions, appSettings}) {
 
     const [doneChores, setDoneChores] = useState([]);
+    const [isHiddenDone, setIsHiddenDone] = useState(true); 
+
     const selectAll = () => {
         console.log('select');
     };
@@ -61,6 +67,7 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
         })
         .then(res => {
             setDoneChores(res.data);
+            actions.amount.updateAmount();
         })
     };
 
@@ -85,7 +92,7 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
                         </div>
                     )}
                 </div>
-                <div className="todo-item-info"></div>        
+                <div className="todo-item-info">Mark all as done</div>        
             </div>
             <div  className="chores-list-todo-list">
                 {
@@ -138,58 +145,68 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
                     ))
                 }
             </div>
-            <div  className="chores-list-todo-list-done">
-                <div className="list-header">Done</div>
-                {
-                    doneChores && doneChores.map((choreItem, i)=>(
-                        <div className="todo-item" key={`done-${choreItem.id}`} style={{backgroundColor:choreItem.color}}>
-                            <div className="todo-item-title-select-element" onClick={() => actions.selection.selectItem(choreItem.id)}>
-                                {selectedChores && (selectedChores[choreItem.id] === true || choreItem.done === true) && (
-                                    <div className="selected" onClick={() => selectTodoElement(choreItem, false)}>
-                                        <MdOutlineCheckBox />
-                                    </div>
-                                )}
-                                {(!(selectedChores[choreItem.id] === true || choreItem.done === true)) && (
-                                    <div className="unselected" onClick={() => selectTodoElement(choreItem, true)}>
-                                        <MdOutlineCheckBoxOutlineBlank />
-                                    </div>
-                                )}
-                            </div>
-                            <div className="todo-item-cost">
-                                {choreItem.cost && (
-                                    <div className="todo-item-cost-value">
-                                        <SlStar /> 
-                                        <div >{choreItem.cost}</div>
-                                    </div>
-                                )}
-                            </div>
-                            <div className="todo-item-info">
-                                {choreItem.title && (
-                                    <div className="todo-item-title">
-                                        {choreItem.title}
-                                    </div>
-                                )}
-                                {choreItem.text && (
-                                    <div className="todo-item-text">
-                                        {choreItem.text}
-                                    </div>
-                                )}
-                                
-                                {choreItem.due_datetime && (
-                                    <div className="todo-item-date">
-                                        <LuClock />
-                                        <span>{actions.format.formatDate(choreItem.due_datetime)}</span>
-                                    </div>
-                                )} 
-                            </div>
-                            
-                            <div className="todo-item-buttons">
-                                <div className="add-edit-menu-icon" title="Delete chores" onClick={()=>actions.chore.deleteChores([choreItem.id], false)}> <MdDelete /></div>
-                            </div>
-                        </div>
-                    ))
-                }
+            <hr />
+
+            <div className="list-header" onClick={()=>setIsHiddenDone(!isHiddenDone)}>
+                Done 
+                {isHiddenDone && (<RiArrowDownWideFill />)}
+                {!isHiddenDone && (<RiArrowRightWideFill />)}
             </div>
+            {!isHiddenDone && (
+                <div  className="chores-list-todo-list-done">
+                    
+                    {
+                        doneChores && doneChores.map((choreItem, i)=>(
+                            <div className="todo-item" key={`done-${choreItem.id}`} style={{backgroundColor:choreItem.color}}>
+                                <div className="todo-item-title-select-element" onClick={() => actions.selection.selectItem(choreItem.id)}>
+                                    {selectedChores && (selectedChores[choreItem.id] === true || choreItem.done === true) && (
+                                        <div className="selected" onClick={() => selectTodoElement(choreItem, false)}>
+                                            <MdOutlineCheckBox />
+                                        </div>
+                                    )}
+                                    {(!(selectedChores[choreItem.id] === true || choreItem.done === true)) && (
+                                        <div className="unselected" onClick={() => selectTodoElement(choreItem, true)}>
+                                            <MdOutlineCheckBoxOutlineBlank />
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="todo-item-cost">
+                                    {choreItem.cost && (
+                                        <div className="todo-item-cost-value">
+                                            <SlStar /> 
+                                            <div >{choreItem.cost}</div>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="todo-item-info">
+                                    {choreItem.title && (
+                                        <div className="todo-item-title">
+                                            {choreItem.title}
+                                        </div>
+                                    )}
+                                    {choreItem.text && (
+                                        <div className="todo-item-text">
+                                            {choreItem.text}
+                                        </div>
+                                    )}
+                                    
+                                    {choreItem.due_datetime && (
+                                        <div className="todo-item-date">
+                                            <LuClock />
+                                            <span>{actions.format.formatDate(choreItem.due_datetime)}</span>
+                                        </div>
+                                    )} 
+                                </div>
+                                
+                                <div className="todo-item-buttons">
+                                    <div className="add-edit-menu-icon" title="Delete chores" onClick={()=>actions.chore.deleteChores([choreItem.id], false)}> <MdDelete /></div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            )}
+            
         </div>
     );
 }

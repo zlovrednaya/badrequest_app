@@ -4,10 +4,11 @@ import { useAuth } from "../../../auth/useAuth";
 
 import { CiLogout } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
+import { SlStar } from "react-icons/sl";
 
 import "./userMenu.css";
 
-export default function UserMenu() {
+export default function UserMenu({ appSettings }) {
     const {user, logout} = useAuth();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -29,8 +30,15 @@ export default function UserMenu() {
             <div className="user-profile">
                 <div className="user-profile-child" onClick={toggleMenu}>
                     <div className="user-avatar"></div>
-                    <div className="user-name">{user.name}</div>
-                    {user.balance && (<div className="user-balance">{user.balance}</div>)}
+                    <div className="user-profile-info">
+                        <div className="user-name">{user.name}</div>
+                        {appSettings.currentAmount && (
+                            <div className="user-balance">
+                                <SlStar /> 
+                                <div>{appSettings.currentAmount.all_chores_done_amount}</div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
             {open && (<div className="dropdown-menu">

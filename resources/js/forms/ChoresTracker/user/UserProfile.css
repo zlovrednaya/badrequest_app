@@ -17,12 +17,14 @@
 .user-profile-data-item {
     padding: 10px 0 0 0 ;
     display: flex;
+    align-items: center;
     height: 40px;
     width: 50%;
 }
 
 .user-profile-data-item input {
     width: 300px;
+    height: 30px;
     border-radius: 3px;
     background-color: #e5e5e5;
     padding: 0 5px 0 10px;
@@ -105,6 +107,11 @@
 
 .status-error {
     border: 0.5px solid #e0903a;
+}
+.window-footer {
+    position: absolute;
+    bottom: 0;
+    height: 10%;
 }
 
 

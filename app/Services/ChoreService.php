@@ -213,11 +213,30 @@ class ChoreService
     }
 
     public function deleteChores($ids) {
-        $deleteCount = Chore::where('user_id', (int)$this->user()->id)
-            ->whereIn('id', $ids)
+        $deleteCount = Chore::whereIn('id', $ids)
             ->update(array('deleted' => true));;
 
         return $deleteCount;    
+    }  
+
+
+    /**
+     * Receive gained sum of done chores
+     */
+    public function getAmount() {
+        $amount = Chore::selectRaw('
+                SUM (CASE WHEN istodo = true THEN cost else 0 END) todo_amount,
+                SUM (CASE WHEN istodo is not true THEN cost else 0 END) simplechores_amount,
+                SUM (CASE WHEN istodo = true AND done = true THEN cost else 0 END) todo_done_amount,
+                SUM (CASE WHEN istodo is not true AND done = true THEN cost else 0 END) simplechores_done_amount,
+                SUM (CASE WHEN done = true THEN cost else 0 END) all_chores_done_amount
+            ')
+            ->first()->toArray();
+
+
+        return [
+            'amount' => $amount
+        ];
     }
 
 

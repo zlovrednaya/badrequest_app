@@ -17,6 +17,7 @@ Route::post('/observeFlight', [ FlightController::class, 'postObserveFlight' ]);
 Route::post('/register', [ RegisterController::class, 'postRegister' ]);
 Route::post('/login', [ LoginController::class, 'authenticate' ]);
 Route::post('/logout', [ LoginController::class, 'logout' ]);
+
 Route::post('/chores/add', [ ChoresController::class, 'add']);
 Route::patch('/chores/update/{chore}', [ ChoresController::class, 'update']);
 Route::get('/chores/getList', [ ChoresController::class, 'getList']);
@@ -24,7 +25,9 @@ Route::post('/chores/getChoresStructure', [ ChoresController::class, 'getChoresS
 Route::post('/chores/filterChores', [ ChoresController::class, 'filterChores']);
 Route::post('/chores/deleteChores', [ChoresController::class, 'deleteChores']);
 Route::post('/chores/shareChores', [ChoresController::class, 'shareChores']);
-Route::post('/chores/shareTelegramChores',[ChoresController::class, 'shareTelegramChores']);
+Route::post('/chores/shareTelegramChores', [ChoresController::class, 'shareTelegramChores']);
+Route::get('/chores/getAmount', [ChoresController::class, 'getAmount']);
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

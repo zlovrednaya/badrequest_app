@@ -22,8 +22,12 @@ class Chore extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope('deleted', function ($query) {
+
+        static::addGlobalScope('deleted', function ($query ) {
+            $userId = auth()->user()->id;
+
             $query->where('deleted', false);
+            $query->where('user_id', $userId);
         });
     }
 }

@@ -10,6 +10,8 @@ import UserMenu from './user/UserMenu';
 import { useWarning } from "../../components/elements/Warning";
 import { useNavigate } from "react-router-dom";
 
+import { SlStar } from "react-icons/sl";
+
 import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
 
@@ -19,6 +21,7 @@ export default function ChoresTrackerAccount() {
     const {askWarning} = useWarning();
     const [selectedFilter, setSelectedFilter] = useState(null);
     const [chores, setChores] = useState([]);
+    const [currentAmount, setCurrentAmount] = useState(0);
     const [selectedChores, setSelectedChores] = useState({});
     const [calendarMode, setCalendarMode] = useState('simple');
 
@@ -52,12 +55,27 @@ export default function ChoresTrackerAccount() {
         })
         .then(res => {
             setChores(res.data);
-        })
+        });
     };
 
     async function onChoreSaved(mode) {
         await loadChores(mode);
     };
+
+    function updateAmount() {
+        axios('/chores/getAmount' , {
+            method: 'GET', 
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+        })
+        .then(res => {
+            debugger;
+            setCurrentAmount(res.data.amount);
+        })
+    }
 
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
     const deleteChores = async (ids, needWarning = true) => {
@@ -85,6 +103,7 @@ export default function ChoresTrackerAccount() {
         })
         .then((res) => {
             actions.chore.onChoreSaved(calendarMode);
+            actions.amount.updateAmount();
             // update selected chores
             setSelectedChores([]);
         })
@@ -99,6 +118,7 @@ export default function ChoresTrackerAccount() {
         chores,
         calendarMode,
         selectedFilter,
+        currentAmount,
     };
 
     const actions = {
@@ -110,12 +130,17 @@ export default function ChoresTrackerAccount() {
             onChoreSaved: onChoreSaved,
             deleteChores: deleteChores,
         },
+        amount: {
+            updateAmount,
+        }
     };
 
     useEffect(() => {
         if (!user) return;
     
         loadChores(calendarMode);
+
+        updateAmount();
     }, [user, selectedFilter]);
 
     return (
@@ -123,7 +148,9 @@ export default function ChoresTrackerAccount() {
             <div className="app-form">
                 <div className="header-menu">
                     <h1 className="app-name" onClick={()=>navigate('/')}>Chores</h1>
-                    <UserMenu />
+                    <UserMenu 
+                        appSettings={appSettings}
+                    />
                 </div>
                 <div className="chores-tracker-window">
                     <div className="chores-tracker-left-window">
@@ -137,14 +164,24 @@ export default function ChoresTrackerAccount() {
                             actions={actions}
                         />
                         {calendarMode !== 'todolist' && (<QuickAddMenu />)}
-                        <ChoresList 
+                        <ChoresList
+                            appSettings={appSettings} 
                             filter={selectedFilter} 
                             selectedChores={selectedChores} 
                             setSelectedChores={setSelectedChores} 
                             chores={chores}
                             calendarMode={calendarMode}
-                            actions={actions} 
+                            actions={actions}
+                            appSettings={appSettings}
                         />
+                        <div className="chores-tracker-footer">
+                            {calendarMode == 'todolist' && (
+                                <div className="amount-component">
+                                    <span>ToDo list amount:</span> <SlStar /> 
+                                    <div>{appSettings.currentAmount.todo_done_amount}</div>
+                                </div> 
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

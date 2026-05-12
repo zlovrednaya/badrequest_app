@@ -55,3 +55,17 @@
 .user-name {
     font-weight: 600;
 }
+
+.user-profile-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 14px;
+}
+
+.user-balance {
+    display: flex;
+    font-size: 11px;
+}
+.user-balance div {
+    padding-left: 3px;
+}
