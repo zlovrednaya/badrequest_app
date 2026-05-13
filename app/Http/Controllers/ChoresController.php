@@ -12,6 +12,7 @@ use App\Services\ChoreService;
 use App\Services\NotificationService;
 
 use App\Notifications\Messages\ChoreMessage;
+use App\Models\User;
 
 
 class ChoresController extends Controller
@@ -107,16 +108,21 @@ class ChoresController extends Controller
         ];
     }
 
-    public function shareTelegramChores(ChoreBulkRequest $request, NotificationService $notificationService)
+    public function shareTelegramChores(ChoreBulkRequest $request, NotificationService $notificationService, User $user)
     {
         $ids = $request->input('ids');
-
         $choresData = $this->choreService->getByIds($ids);
         $receiver = [
+            'channel' => 'telegram',
             'email' => $request->user()->email,
             'name'=> $request->user()->name,
         ];
+        $notificationService->getReceiver(
+            $user, 
+            $receiver
+        );
 
+        die;
         if(empty($choresData) || empty($receiver)) {
             return [
                 'success' => false,
@@ -124,13 +130,14 @@ class ChoresController extends Controller
             ];
         }
         foreach($choresData as $chore) {
-            $notificationService->getUpdates([
+            $res = $notificationService->getUpdates([
                     'channel' => 'telegram',
                     'receiver' => $receiver,
                     'subject' => $chore['title'] || '[note] You have new note',
                     'message' => 'text tst',
             ]);
         }
+        return $res;
     }
 
     public function getAmount(Request $request){

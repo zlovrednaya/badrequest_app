@@ -31,5 +31,6 @@ Route::get('/chores/getAmount', [ChoresController::class, 'getAmount']);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+Route::post('/user/syncTelegram', [UserController::class, 'syncTelegram']);
 
 Route::post('/user/save', [UserController::class, 'update']);

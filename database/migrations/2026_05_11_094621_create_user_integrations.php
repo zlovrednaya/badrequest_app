@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_integrations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->foreignId('user_id')->index();
             $table->text('channel');
             $table->text('username');
             $table->text('username_type');

@@ -1,8 +1,8 @@
 <?php
-use App\Models;
+namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
  
-class UserIntegrations extends Model
+class UserIntegration extends Model
 {
     protected $fillable = [
         'channel',

@@ -114,4 +114,14 @@
     height: 10%;
 }
 
+.user-profile-data-sync {
+    width: 50px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+.user-profile-data-sync:hover {
+    cursor: pointer;
+}
+
 

@@ -4,13 +4,15 @@ namespace App\Services;
 
 use App\Notifications\NotificationFactory;
 
+use App\Models\User;
+
 class NotificationService 
 {
     public function __construct() 
     {
     }
 
-    public function sendMessage(array $subscriber)
+    public function sendMessage(array $subscriber): void
     {
         $notifier = NotificationFactory::create($subscriber['channel']);
         $notifier->sendMessage([
@@ -19,9 +21,4 @@ class NotificationService
         ]);
     }
 
-    public function getUpdates(array $subscriber)
-    {
-        $notifier = NotificationFactory::create($subscriber['channel']);
-        $r = $notifier->getUpdates();
-    }
 }

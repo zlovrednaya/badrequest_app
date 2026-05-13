@@ -5,7 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import { PiKeyReturnLight } from "react-icons/pi";
 import { MdSave } from "react-icons/md";
+import { IoSyncCircle } from "react-icons/io5";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import { HiOutlineInformationCircle } from "react-icons/hi2";
+import { IoIosWarning } from "react-icons/io";
 
+import InfoBox from "../../../components/elements/InfoBox";
 
 import '../ChoresTrackerForm.css';
 import './UserProfile.css';
@@ -15,12 +20,16 @@ export default function UserProfile() {
     const navigate = useNavigate();
 
     const [formStatus, setFormStatus] = useState(null);
+    const [telegramSyncStatus, setTelegramSyncStatus] = useState('');
     const [formData, setFormData] = useState({
             email: user.email,
             name: user.name,
             phone: user?.phone,
             telegram_name: user?.telegram_name,
     });
+
+    const infoMessage = "<p>For correct usage you need to find <b>@WidgetFactoryBot</b> in telegram and send to bot message: <br> \"<i>/start your_e-mail</i>\"</p>";
+    
 
     function handleLogout() {
         logout();
@@ -64,6 +73,38 @@ export default function UserProfile() {
             });
         });
     }
+
+    const syncTelegramName = async () => {
+        setTelegramSyncStatus('load');
+        await axios('/user/syncTelegram', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+            data: JSON.stringify({telegram_name:formData.telegram_name}),
+        })
+        .then((res) => {
+            if(res?.data?.success) {
+                setTelegramSyncStatus('success');
+            } else {
+                setTelegramSyncStatus('error');
+            }
+            
+        })
+         .catch(err => {
+            setTelegramSyncStatus('error');
+            console.log(err);
+            let errors = err.response.data.errors;
+            let errorText = err.response.data.message;
+
+            setFormStatus({
+                success: false,
+                message: 'Something went wrong!'
+            });
+        });
+    };
 
     useEffect(() => {
         if (!user) return;
@@ -116,6 +157,12 @@ export default function UserProfile() {
                                         name="telegram_name"
                                     >
                                     </input>
+                                    <div className="user-profile-data-sync" onClick={()=> syncTelegramName()}>
+                                        <IoSyncCircle />
+                                        {telegramSyncStatus === 'success' && <IoIosCheckmarkCircle />} 
+                                        {telegramSyncStatus === 'error' && <div> <IoIosWarning /> </div>}
+                                    </div>
+                                    <InfoBox infoMessage={infoMessage}/>
                                 </div>
                             </div>
                         </div>
