@@ -10,6 +10,7 @@ use App\Http\Requests\Chore\ChoreEditRequest;
 
 use App\Services\ChoreService;
 use App\Services\NotificationService;
+use App\Services\UserService;
 
 use App\Notifications\Messages\ChoreMessage;
 use App\Models\User;
@@ -108,7 +109,7 @@ class ChoresController extends Controller
         ];
     }
 
-    public function shareTelegramChores(ChoreBulkRequest $request, NotificationService $notificationService, User $user)
+    public function shareTelegramChores(ChoreBulkRequest $request, UserService $userService, NotificationService $notificationService, User $user)
     {
         $ids = $request->input('ids');
         $choresData = $this->choreService->getByIds($ids);
@@ -117,24 +118,30 @@ class ChoresController extends Controller
             'email' => $request->user()->email,
             'name'=> $request->user()->name,
         ];
-        $notificationService->getReceiver(
+        $receiver = $userService->getReceiver(
             $user, 
             $receiver
         );
 
-        die;
+        if(empty($receiver)) {
+            return [
+                'success' => false,
+                'error' => 'Unable to get receiver',
+            ];
+        }
         if(empty($choresData) || empty($receiver)) {
             return [
                 'success' => false,
-                'mesage' => 'We didn\'t find chores to share',
+                'message' => 'We didn\'t find chores to share',
             ];
         }
+
         foreach($choresData as $chore) {
-            $res = $notificationService->getUpdates([
+            $res = $notificationService->sendMessage([
                     'channel' => 'telegram',
                     'receiver' => $receiver,
                     'subject' => $chore['title'] || '[note] You have new note',
-                    'message' => 'text tst',
+                    'message' => '<b>' . $chore['title']. '</b>'. $chore['text'],
             ]);
         }
         return $res;

@@ -53,8 +53,6 @@ class User extends Authenticatable
 
     public function integrations()
     {
-        return $this->hasMany(UserIntegration::class)
-        ->where('channel', 'telegram')
-            ->first();
+        return $this->hasMany(UserIntegration::class);
     }
 }

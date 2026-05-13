@@ -11,7 +11,6 @@ class UserService
 {
     public function __construct()
     {
-        $this->userModel = new User();
     }
 
     protected function user(): User
@@ -41,21 +40,14 @@ class UserService
         }
     }
 
-    public function getReceiver(array $receiver)
+    public function getReceiver()
     {
-        $receiverDB = $this->userModel->integrations();
-        if (!$receiverDB) {
-            
-        }
-        
-        return $receiverDB ?? [];
-    }
+        $receiverDB = $this->user()->integrations()
+        ->where('channel', 'telegram')
+        ->first();
+        if (!$receiverDB) return [];
 
-    public function getUpdates(array $subscriber): array
-    {
-        $telegram = new TelegramApi();
-        $r = $telegram->getUpdates();
-        return $r;
+        return $receiverDB->toArray();
     }
 
     public function syncTelegram(string $telegramName)
@@ -87,7 +79,7 @@ class UserService
                     break;
                 } catch (\Exception $e) {
                     DB::rollback();
-                    
+
                     $success = false;
                     $error = 'Unable to create new connection';
                 }
