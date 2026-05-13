@@ -34,3 +34,5 @@ Route::get('/user', function (Request $request) {
 Route::post('/user/syncTelegram', [UserController::class, 'syncTelegram']);
 
 Route::post('/user/save', [UserController::class, 'update']);
+
+Route::post('/notifications/getUpdates', [NotificationController::class, 'getUpdates']);

@@ -24,7 +24,6 @@ class TelegramChannel extends AbstractNotification
         $res = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        echo print_r([$url, $res, $httpCode]);
         return [$res, $httpCode];
     }
 
