@@ -33,8 +33,8 @@ export default function ToDoItem ( {actions}) {
     };
 
     return (
-        <div className="todo-add-edit">
-            <input onKeyUp={onKeyUp}
+        <div className="todo-add-edit" onKeyUp={onKeyUp}>
+            <input
                     type="text"
                     name="text"
                     className="todo-item-form-text"

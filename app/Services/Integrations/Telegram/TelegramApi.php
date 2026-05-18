@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services\Integrations\Telegram;
+use Illuminate\Support\Facades\Log;
+
 
 class TelegramApi {
 
@@ -36,7 +38,12 @@ class TelegramApi {
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        $decoded = json_decode($res ,true);
+        $decoded = json_decode($res, true);
+
+        if ($method === 'sendMessage') {
+            Log::info('httpcode: ' . $httpCode);
+            Log::info($res);
+        }
         return $decoded;
     }
 
@@ -51,6 +58,15 @@ class TelegramApi {
         ];
 
         $request = $this->request('getUpdates', 'POST', $data);
+        return $request['result'] ?? [];
+    }
+
+    public function getMessage(int $id)
+    {
+        $data = [
+            'id' => $id,
+        ];
+         $request = $this->request('messages.getMessages', 'POST', $data);
         return $request['result'] ?? [];
     }
 }

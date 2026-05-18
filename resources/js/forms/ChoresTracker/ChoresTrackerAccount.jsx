@@ -126,9 +126,10 @@ export default function ChoresTrackerAccount() {
             changeCalendarMode: changeCalendarMode
         },
         chore: {
-            loadChores: loadChores,
-            onChoreSaved: onChoreSaved,
-            deleteChores: deleteChores,
+            loadChores,
+            onChoreSaved,
+            deleteChores,
+            setSelectedChores
         },
         amount: {
             updateAmount,
@@ -158,8 +159,8 @@ export default function ChoresTrackerAccount() {
                     </div>
                     <div className="chores-tracker-main-window">
                         <AddEditMenu 
+                            chores={chores}  
                             selectedChores={selectedChores}
-                            setSelectedChores={setSelectedChores}  
                             calendarMode={calendarMode} 
                             actions={actions}
                         />

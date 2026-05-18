@@ -19,7 +19,7 @@ class EmailChannel extends AbstractNotification
         $this->mainSender = 'info@dgoitdepot.com';
     }
 
-    public function sendMessage(array $sendData): void
+    public function sendMessage(array $sendData): array
     {
         $mailersend = new MailerSend(['api_key' => $this->apiKey]);
 
@@ -38,7 +38,7 @@ class EmailChannel extends AbstractNotification
 
         $mailersend->email->send($emailParams);
 
-        return;
+        return [];
     }
 }
 

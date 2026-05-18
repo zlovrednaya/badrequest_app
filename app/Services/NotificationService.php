@@ -12,13 +12,15 @@ class NotificationService
     {
     }
 
-    public function sendMessage(array $subscriber): void
+    public function sendMessage(array $subscriber): array
     {
         $notifier = NotificationFactory::create($subscriber['channel']);
-        $notifier->sendMessage([
+        $result = $notifier->sendMessage([
             'receiver' => $subscriber['receiver'],
             'message' => $subscriber['message'],
         ]);
+
+        return $result;
     }
 
 }

@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-       /* Schema::table('subscribers', function (Blueprint $table) {
-            $table->dropUnique('subscribers_channel_unique');
-            $table->dropUnique('subscribers_receiver_unique');
-        });*/
+        Schema::table('telegram_messages', function (Blueprint $table) {
+            $table->string('reaction')->nullable();
+            $table->boolean('done')->nullable();
+            $table->boolean('deleted')->nullable();
+        });
     }
 
     /**

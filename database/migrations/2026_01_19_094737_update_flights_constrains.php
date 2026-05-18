@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('flights', function (Blueprint $table) {
+        /*Schema::table('flights', function (Blueprint $table) {
             $table->dropUnique('flights_flight_number_unique');
             $table->dropUnique('flights_flight_date_unique');
             $table->dropUnique('flights_status_unique');
-        });
+        });*/
     }
 
     /**

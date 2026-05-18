@@ -10,6 +10,8 @@ import { IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { FaListCheck } from "react-icons/fa6";
 import { FaPaperPlane } from "react-icons/fa6";
+import { MdOutlineSave } from "react-icons/md";
+
 
 import { MdShare } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
@@ -29,7 +31,7 @@ import { useWarning } from "../../../../components/elements/Warning.jsx";
 import '../choresApp.css';
 import axios from "axios";
 
-export default function AddEditMenu({selectedChores, setSelectedChores, calendarMode, actions}) {
+export default function AddEditMenu({chores, selectedChores, calendarMode, actions}) {
     const [disabledForm, setDisabledForm] = useState('');
     const [activeForm, setActiveForm] = useState(null);
     const [noteId, setNoteId] = useState();
@@ -65,8 +67,14 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
         })
     };
 
-    const shareChores = async () => {
-        const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
+    const shareChores = async (mode) => {
+        let choreIds = {};
+        if(mode === 'todolist') {
+            choreIds = chores.map(chore => chore.id);
+        } else {
+            choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
+        }
+        
         await axios('/chores/shareChores', {
             method: 'POST',
             headers: new Headers({
@@ -84,8 +92,13 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
         })
     };
 
-    const shareTelegramChores = async () => {
-        const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
+    const shareTelegramChores = async (mode) => {
+        let choreIds = [];
+        if(mode === 'todolist') {
+            choreIds = chores.map(chore => chore.id);
+        } else {
+            choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
+        }
         await axios('/chores/shareTelegramChores', {
             method: 'POST',
             headers: new Headers({
@@ -93,7 +106,10 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
             }),
-            data: JSON.stringify({ids:choreIds}),
+            data: JSON.stringify({
+                ids:choreIds,
+                mode: mode,
+            }),
         })
         .then((res) => {
             debugger;
@@ -105,7 +121,7 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
 
     const switchMode = (mode) => {
         actions.mode.changeCalendarMode(mode);
-        setSelectedChores([]);
+        actions.chore.setSelectedChores([]);
     };
 
     const listActions = {
@@ -134,7 +150,10 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
                         </div>
                     )}
                     {calendarMode === 'todolist' && (
-                        <div className="add-edit-menu-icon" title="Add ToDo item" onClick={() => openForm("ToDoItem")}><FaListCheck /></div>
+                        <div className="add-edit-menu">
+                            <div className="add-edit-menu-icon" title="Share ToDo list" onClick={() => shareTelegramChores('todolist')}><MdShare /></div>
+                            <div className="add-edit-menu-icon" title="Save ToDo batch" onClick={() => openForm("ToDoItem")}><MdOutlineSave /></div>
+                        </div>
                     )}
                     
                     {isActionRequired > 0 && (
@@ -146,7 +165,7 @@ export default function AddEditMenu({selectedChores, setSelectedChores, calendar
                                     <div className="add-edit-menu-icon" title="Share to telegram" onClick={listActions.chore.shareTelegramChores}><FaPaperPlane /></div>
                                 </div>
                             )}
-                            <div className="add-edit-menu-icon" title="Unselect chores" onClick={() => setSelectedChores([])}> <FaRegSquareMinus /></div>
+                            <div className="add-edit-menu-icon" title="Unselect chores" onClick={() => actions.chore.setSelectedChores([])}> <FaRegSquareMinus /></div>
                             <div className="add-edit-menu-icon" title="Delete chores" onClick={()=>listActions.chore.deleteChores()}> <MdDelete /></div>
                         </div>
                     )}

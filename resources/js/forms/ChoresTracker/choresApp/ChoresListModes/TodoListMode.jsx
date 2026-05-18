@@ -15,7 +15,7 @@ import ToDoItem from "../item/ToDoItem";
 import "../ChoresList.css";
 import "./TodoListMode.css";
 
-export default function TodoListMode({chores, selectedChores, setSelectedChores, actions, appSettings}) {
+export default function TodoListMode({chores, selectedChores, actions, appSettings}) {
 
     const [doneChores, setDoneChores] = useState([]);
     const [isHiddenDone, setIsHiddenDone] = useState(true); 
@@ -36,7 +36,7 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
             }),
         })
         .then(res => {
-            setSelectedChores([]);
+            actions.chore.setSelectedChores([]);
             actions.chore.onChoreSaved('todolist');
             getDoneItems();
         })
@@ -82,7 +82,7 @@ export default function TodoListMode({chores, selectedChores, setSelectedChores,
             <div className="chores-list-todo-header" >
                 <div className="todo-item-title-select-element">
                     {hasSelected > 0 && (
-                        <div className="selected" onClick={() => setSelectedChores([])}>
+                        <div className="selected" onClick={() => actions.chore.setSelectedChores([])}>
                             <MdOutlineCheckBox />
                         </div>
                     )}

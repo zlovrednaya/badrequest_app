@@ -2,8 +2,11 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
+
 use App\Models\Chore;
 use App\Models\User;
+
+use Illuminate\Support\Facades\Log;
 
 class ChoreService 
 {
@@ -239,5 +242,10 @@ class ChoreService
         ];
     }
 
-
+    /**
+     * Updates chore mark it as done using telegram
+     */
+    public function updateChore(int $messageId) {
+        Log::info('update message' . $messageId);
+    }
 }

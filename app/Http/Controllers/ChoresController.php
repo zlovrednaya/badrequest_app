@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Http\Requests\Chore\ChoreBulkRequest;
 use App\Http\Requests\Chore\ChoreEditRequest;
@@ -11,6 +12,7 @@ use App\Http\Requests\Chore\ChoreEditRequest;
 use App\Services\ChoreService;
 use App\Services\NotificationService;
 use App\Services\UserService;
+use App\Services\Integrations\Telegram\TelegramUpdateService;
 
 use App\Notifications\Messages\ChoreMessage;
 use App\Models\User;
@@ -109,10 +111,10 @@ class ChoresController extends Controller
         ];
     }
 
-    public function shareTelegramChores(ChoreBulkRequest $request, UserService $userService, NotificationService $notificationService, User $user)
+    public function shareTelegramChores(ChoreBulkRequest $request, UserService $userService, NotificationService $notificationService, User $user, TelegramUpdateService $telegramUpdate)
     {
         $ids = $request->input('ids');
-        $choresData = $this->choreService->getByIds($ids);
+        $choresData = $this->choreService->getByIds($ids)->toArray();
         $receiver = [
             'channel' => 'telegram',
             'email' => $request->user()->email,
@@ -137,14 +139,19 @@ class ChoresController extends Controller
         }
 
         foreach($choresData as $chore) {
-            $res = $notificationService->sendMessage([
+            $createdMessage = $notificationService->sendMessage([
                     'channel' => 'telegram',
                     'receiver' => $receiver,
-                    'subject' => $chore['title'] || '[note] You have new note',
+                    'subject' => $chore['title'] || '[note] You have a new note',
                     'message' => '<b>' . $chore['title']. '</b>'. $chore['text'],
             ]);
+            Log::info('received message');
+            Log::info($createdMessage);
+            $telegramUpdate->createTelegramMessage($createdMessage, $chore);
         }
-        return $res;
+        return [
+            'success' => true,
+        ];
     }
 
     public function getAmount(Request $request){

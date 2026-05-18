@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Channels;
 
+use Illuminate\Support\Facades\Log;
 use App\Notifications\AbstractNotification;
 
 class TelegramChannel extends AbstractNotification
@@ -12,7 +13,7 @@ class TelegramChannel extends AbstractNotification
         $this->apiKey = $apiKey;
     }
     
-    public function request(string $method, array $data)
+    public function request(string $method, array $data): array
     {
         $url = $this->botUrl. $this->apiKey . '/' . $method;
         $ch = curl_init();
@@ -24,10 +25,16 @@ class TelegramChannel extends AbstractNotification
         $res = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        return [$res, $httpCode];
+
+        Log::info('httpcode: ' . $httpCode);
+        Log::info($res);
+
+        $decoded = json_decode($res, true);
+
+        return $decoded ?? [];
     }
 
-    public function sendMessage(array $sendData): void
+    public function sendMessage(array $sendData): array
     {
         $method = 'sendMessage';
         
@@ -38,7 +45,9 @@ class TelegramChannel extends AbstractNotification
             "parse_mode"=> "HTML",
         ];
 
-        $this->request($method, $data);
+        $res = $this->request($method, $data);
+
+        return $res;
        
     }
 }
