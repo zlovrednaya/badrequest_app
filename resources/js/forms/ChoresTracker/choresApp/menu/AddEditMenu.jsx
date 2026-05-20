@@ -93,28 +93,24 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
     };
 
     const shareTelegramChores = async (mode) => {
-        let choreIds = [];
-        if(mode === 'todolist') {
-            choreIds = chores.map(chore => chore.id);
-        } else {
-            choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
-        }
+        const choreIds = (mode === "todolist") ? chores.map(chore => chore.id) : Object.keys(selectedChores).filter(key=>selectedChores[key]);
+
         await axios('/chores/shareTelegramChores', {
             method: 'POST',
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
-            data: JSON.stringify({
-                ids:choreIds,
+            },
+            data: {
+                ids: choreIds,
                 mode: mode,
-            }),
+            },
         })
         .then((res) => {
             debugger;
         })
-        .catch(() => {
+        .catch((err) => {
             debugger;
         })
     }
@@ -161,8 +157,8 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                             {choreIds && choreIds.length == 1 && (
                                 <div className="edit-menu-one-selected">
                                     <div className="add-edit-menu-icon" title="Show chore" onClick={openForm}><IoEyeSharp /></div>
-                                    <div className="add-edit-menu-icon" title="Share chores" onClick={listActions.chore.shareChores}><MdShare /></div>
-                                    <div className="add-edit-menu-icon" title="Share to telegram" onClick={listActions.chore.shareTelegramChores}><FaPaperPlane /></div>
+                                    <div className="add-edit-menu-icon" title="Share chores" onClick={() => listActions.chore.shareChores()}><MdShare /></div>
+                                    <div className="add-edit-menu-icon" title="Share to telegram" onClick={() => listActions.chore.shareTelegramChores()}><FaPaperPlane /></div>
                                 </div>
                             )}
                             <div className="add-edit-menu-icon" title="Unselect chores" onClick={() => actions.chore.setSelectedChores([])}> <FaRegSquareMinus /></div>

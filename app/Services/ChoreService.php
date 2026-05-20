@@ -217,7 +217,7 @@ class ChoreService
 
     public function deleteChores($ids) {
         $deleteCount = Chore::whereIn('id', $ids)
-            ->update(array('deleted' => true));;
+            ->update(array('deleted' => true));
 
         return $deleteCount;    
     }  

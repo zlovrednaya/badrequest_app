@@ -5,10 +5,9 @@ namespace App\Services\Integrations\Telegram;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Services\Integrations\Telegram\TelegramApi;
-use App\Services\ChoreService;
 
 use App\Models\TelegramMessage;
-use App\Models\User;
+use App\Models\Chore;
 
 class TelegramUpdateService
 {
@@ -38,7 +37,7 @@ class TelegramUpdateService
     public function createTelegramMessage(array $createdService, array $chore): void
     { 
         if(empty($createdService['result']['message_id'])) return;  
-        $data['user_id'] = $this->user()->id;
+
         DB::beginTransaction();
         try {
             $data = [
@@ -68,22 +67,42 @@ class TelegramUpdateService
 
         return in_array($reaction, self::REACTIONS_DONE_MAP, true);
     }
-    public function updateTelegramMessage($updateData) {
+    public function updateTelegramMessage(array $updateData) {
 
         $reaction = $updateData['new_reaction'][0]['emoji'] ?? null; 
-        Log::info('resction' , $reaction .  $this->getReactionValue($reaction));
+        
+        $isDone = $this->getReactionValue($reaction);
+
         DB::beginTransaction();
         try {
-            $chore = TelegramMessage::where(['message_id'=>$updateData['message_id']])
-                ->update([
-                    'done' => $this->getReactionValue($reaction),
-                    'reaction' => $reaction, 
-                ]);
+            $messageObj = TelegramMessage::where(['message_id' => $updateData['message_id']]);
+            $messageData = $messageObj->first()->toArray();
+
+            if(empty($messageData)) return;
+
+            $messageObj->update([
+                'done' => $isDone,
+                'reaction' => $reaction, 
+            ]);
+
+            $choreObj = Chore::where(['id' => $messageData['note_id']]);
+        
+            Chore::where(['id' => $messageData['note_id']])
+            ->update([
+                'done' => $isDone,
+            ]);
+
             DB::commit();
-            return $chore;
+
+            return [
+                'success' => true,
+            ];
         } catch(\Exception $e) {
             DB::rollback();
-            
+
+            Log::info('update chore error');
+            Log::info($e->getMessage());
+
             return [
                 'success' => false,
                 'error' => 'Unable to update message',

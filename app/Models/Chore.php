@@ -24,10 +24,12 @@ class Chore extends Model
     {
 
         static::addGlobalScope('deleted', function ($query ) {
-            $userId = auth()->user()->id;
-
+            $userId = auth()->id();
+            if($userId) {
+                $query->where('user_id', $userId);
+            }
             $query->where('deleted', false);
-            $query->where('user_id', $userId);
+            
         });
     }
 }
