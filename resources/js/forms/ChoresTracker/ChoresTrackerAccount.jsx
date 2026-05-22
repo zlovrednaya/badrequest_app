@@ -164,7 +164,7 @@ export default function ChoresTrackerAccount() {
                             calendarMode={calendarMode} 
                             actions={actions}
                         />
-                        {calendarMode !== 'todolist' && (<QuickAddMenu />)}
+                        {calendarMode == 'simple' && (<QuickAddMenu />)}
                         <ChoresList
                             appSettings={appSettings} 
                             filter={selectedFilter} 

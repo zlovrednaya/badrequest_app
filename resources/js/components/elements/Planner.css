@@ -1,0 +1,60 @@
+.planner-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.planner-body {
+    width: 100%;
+}
+
+.planner-body-days,.planner-body-weekdays {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+/* weekday styles */
+.weekday {
+    flex: 1 0 14%;
+    width: 100px;
+    height: 20px;
+    border:1px solid #000000;
+}
+
+.weekend {
+    color: rgb(209, 121, 121);
+}
+/* day styles */
+.planner-day-cell {
+    flex: 1 0 14%;
+    height: 100px;
+    border:1px solid #000000;
+    font-weight: 500;
+}
+
+.planner-day-cell:first-child{
+  border-right:0;
+}
+
+.planner-day-cell:last-child{
+  border-left:0;
+}
+
+
+.today {
+    color: #0b0eb1;
+}
+.no-current {
+    color:rgb(152, 152, 152);
+}
+
+
+/* navigation bar styles*/
+.navigation-bar {
+    display: flex;
+    align-items: center;
+}
+
+.day-today {
+    padding: 0 5px 0 5px;
+}
