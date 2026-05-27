@@ -4,21 +4,45 @@
     justify-content: space-between;
 }
 
-.planner-body {
-    width: 100%;
+.planner-header .current-date {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 20px;
+}
+.planner-header .month {
+    font-weight: 600;
+    padding-right: 5px;
 }
 
-.planner-body-days,.planner-body-weekdays {
+
+.planner-body {
     width: 100%;
+    border-right: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    min-height: 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+}
+.planner-body-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: end;
+    font-size: 14px;
+    min-height: 0;
+    width: 100%;
+    flex: 1;
+}
+.planner-body-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    min-height: 0;
+    flex: 1;
 }
 /* weekday styles */
-.weekday {
-    flex: 1 0 14%;
-    width: 100px;
-    height: 20px;
-    border:1px solid #000000;
+.weekday { 
+    
 }
 
 .weekend {
@@ -26,18 +50,27 @@
 }
 /* day styles */
 .planner-day-cell {
-    flex: 1 0 14%;
-    height: 100px;
-    border:1px solid #000000;
+    aspect-ratio: 7 / 6;
+    font-size: 14px;
     font-weight: 500;
+    border-left: 1px solid #dedede;
+    border-top: 1px solid #dedede;
+    background-color: #fff;
+
+    overflow: hidden;
 }
 
-.planner-day-cell:first-child{
-  border-right:0;
+.weekday,
+.planner-day-cell {
+    min-width: 0;
 }
 
-.planner-day-cell:last-child{
-  border-left:0;
+.cell:nth-child(7n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(-n + 7) {
+  border-top: none;
 }
 
 
@@ -55,6 +88,15 @@
     align-items: center;
 }
 
+.navigation-bar:hover {
+    cursor: pointer;
+}
+
 .day-today {
     padding: 0 5px 0 5px;
+    font-size: 14px;
+}
+
+.day-cell-date {
+
 }

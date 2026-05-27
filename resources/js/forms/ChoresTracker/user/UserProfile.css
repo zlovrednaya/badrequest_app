@@ -25,10 +25,12 @@
 .user-profile-data-item input {
     width: 300px;
     height: 30px;
-    border-radius: 3px;
-    background-color: #e5e5e5;
+    border: 0.5px solid #eee;
+    border-radius: 5px;
+    background-color: #fff;
     padding: 0 5px 0 10px;
-    outline-color:#2b2c58;
+    outline-color: #2b2c58;
+    box-shadow: 1px 1px 3px #e0dddd;
 }
 
 .user-profile-data-label {

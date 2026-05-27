@@ -15,7 +15,8 @@ class ChoreService
         'color' => 'Color',
         'drawing' => 'Drawings',
         'category' => 'Category',
-        'all' => 'All chores'
+        'all' => 'All chores',
+        'done' => 'Done',
     ];
 
     private const COLOR_MAP = [

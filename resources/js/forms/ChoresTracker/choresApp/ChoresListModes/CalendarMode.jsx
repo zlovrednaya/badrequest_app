@@ -5,7 +5,7 @@ import "../ChoresList.css";
 
 export default function CalendarMode({chores}) {
     return (
-        <div className="chores-list-calendar">calendar
+        <div className="chores-list-calendar">
             {
                 <Planner items={chores}/>
             }

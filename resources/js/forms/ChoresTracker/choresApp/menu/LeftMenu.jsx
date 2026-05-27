@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { FaCircle } from "react-icons/fa";
+import { GoPlus } from "react-icons/go";
+import { FaPenFancy } from "react-icons/fa6";
+import { MdStickyNote2 } from "react-icons/md";
+
 import Calendar from "../../../../components/elements/Calendar";
 
 import './LeftMenu.css';
 
-export default function LeftMenu({onSelectFilter}) {
+export default function LeftMenu({onSelectFilter, actions, appSettings}) {
     const [leftMenuTree, setLeftMenuTree] = useState([]);
+    const [selected, setSelected] = useState();
     const getMenuStructure = async () => {
         axios( window.location.origin + '/chores/getChoresStructure', {
             method: 'POST', 
@@ -71,6 +76,18 @@ export default function LeftMenu({onSelectFilter}) {
             </div>
             <div className="calendar">
                 <Calendar />
+            </div>
+            <div className="add-element add-chore" onClick={() => actions.form.openForm("ChoresItem")}>
+                <div className="add-button ">
+                    <MdStickyNote2 />
+                    <span>New chore</span>
+                </div>
+            </div>
+            <div className="add-element add-drawing" onClick={() => actions.form.openForm("DrawItem")}>
+                <div className="add-button">
+                    <FaPenFancy />
+                    <span>New drawing</span>
+                </div>
             </div>
         </div>
     );

@@ -1,8 +1,8 @@
 .left-menu {
     padding-top: 5px;
-    background-color: rgb(244 244 244);
+    background-color: #F8FAFD;
     height: 100%;
-    box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.10);
+    box-shadow: 2px 6px 9px 0px rgba(0, 0, 0, 0.10);
     border-bottom-left-radius: 10px;
 ;
 }
@@ -33,10 +33,41 @@
     border-radius: 10px;
 }
 
-.calendar {
+.left-menu .calendar {
     display: flex;
     justify-content: center;
     width: 20%;
     position: absolute;
-    bottom: 20px;
+    bottom: 100px;
+}
+.add-element {
+    width:20%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+}
+.add-button {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #eee;
+}
+
+.add-button:hover {
+    cursor: pointer;
+    background-color: rgb(216, 216, 216);
+}
+.add-chore {  
+    bottom: 40px;
+}
+.add-drawing {
+    bottom: 10px;
+}
+
+.add-button span {
+    padding-left: 10px;
 }

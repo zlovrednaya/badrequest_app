@@ -11,6 +11,8 @@ import { MdDelete } from "react-icons/md";
 import { FaListCheck } from "react-icons/fa6";
 import { FaPaperPlane } from "react-icons/fa6";
 import { MdOutlineSave } from "react-icons/md";
+import { MdApps } from "react-icons/md";
+import { FaPenFancy } from "react-icons/fa6";
 
 
 import { MdShare } from "react-icons/md";
@@ -21,6 +23,7 @@ import { RiRectangleFill } from "react-icons/ri";
 
 import { useNavigate } from "react-router-dom";
 
+import QuickAddMenu from "./QuickAddMenu.jsx";
 import ChoresItem from "../item/ChoresItem.jsx";
 import DrawItem from "../item/DrawItem.jsx";
 import ToDoItem from "../item/ToDoItem.jsx";
@@ -31,21 +34,9 @@ import { useWarning } from "../../../../components/elements/Warning.jsx";
 import '../choresApp.css';
 import axios from "axios";
 
-export default function AddEditMenu({chores, selectedChores, calendarMode, actions}) {
-    const [disabledForm, setDisabledForm] = useState('');
-    const [activeForm, setActiveForm] = useState(null);
+export default function AddEditMenu({chores, selectedChores, calendarMode, actions, appSettings}) {
     const [noteId, setNoteId] = useState();
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
-
-    const openForm = (formName) => {
-        setActiveForm(formName);
-        setDisabledForm(true);
-    };
-
-    const closeForm = () => {
-        setDisabledForm(false);
-        setActiveForm(null);
-    };
 
     const saveChore = async (formData) => {
         await axios( window.location.origin+'/chores/add', {
@@ -57,8 +48,8 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
             }),
         })
         .then(res => {
-            closeForm();
-            actions.chore.onChoreSaved(calendarMode);
+            actions.form.closeForm();
+            actions.chore.onChoreSaved(appSettings.calendarMode);
         })
         .catch(err => {
             console.log(err);
@@ -128,27 +119,23 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
             shareChores,
             shareTelegramChores,
         },
-        form: {
-            closeForm,
-        },
     };
 
     const isActionRequired = Object.values(selectedChores).filter(Boolean).length;
 
     return (
-        <div>
-            <div className={`menu-bar ${disabledForm && ('disabled')}`}>
+        <div className={`add-edit-menu-window ${appSettings.calendarMode}`}>
+            <div className={`menu-bar ${appSettings.formState.disabledForm && ('disabled')}`}>
                 <div className="add-edit-menu">
-                    {calendarMode !== 'todolist' && (
+                    {appSettings.calendarMode !== 'todolist' && (
                         <div className="add-edit-menu">
-                            <div className="add-edit-menu-icon" title="Add chore" onClick={() => openForm("ChoresItem")}><MdStickyNote2 /></div>
-                            <div className="add-edit-menu-icon" title="Add drawing" onClick={() => openForm("DrawItem")}><MdDraw /></div>
+                            <QuickAddMenu />
                         </div>
                     )}
-                    {calendarMode === 'todolist' && (
+                    {appSettings.calendarMode === 'todolist' && (
                         <div className="add-edit-menu">
                             <div className="add-edit-menu-icon" title="Share ToDo list" onClick={() => shareTelegramChores('todolist')}><MdShare /></div>
-                            <div className="add-edit-menu-icon" title="Save ToDo batch" onClick={() => openForm("ToDoItem")}><MdOutlineSave /></div>
+                            <div className="add-edit-menu-icon" title="Save ToDo batch" onClick={() => listActions.form.openForm("ToDoItem")}><MdOutlineSave /></div>
                         </div>
                     )}
                     
@@ -156,7 +143,7 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                         <div className="add-edit-menu edit-menu ">
                             {choreIds && choreIds.length == 1 && (
                                 <div className="edit-menu-one-selected">
-                                    <div className="add-edit-menu-icon" title="Show chore" onClick={openForm}><IoEyeSharp /></div>
+                                    <div className="add-edit-menu-icon" title="Show chore" onClick={listActions.form.openForm}><IoEyeSharp /></div>
                                     <div className="add-edit-menu-icon" title="Share chores" onClick={() => listActions.chore.shareChores()}><MdShare /></div>
                                     <div className="add-edit-menu-icon" title="Share to telegram" onClick={() => listActions.chore.shareTelegramChores()}><FaPaperPlane /></div>
                                 </div>
@@ -168,24 +155,24 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                 </div>
                 <div className="menu-shape-settings">
                     <div className="menu-shape-settings-mode">
-                        <div className={`add-edit-menu-icon menu-shape-mode ${calendarMode == 'simple' && ('selected')}`} title="Switch to simple mode" onClick={()=>{switchMode('simple')}}><RiRectangleFill/></div>
-                        <div className={`add-edit-menu-icon menu-shape-mode ${calendarMode == 'calendar' && ('selected')}`} title="Switch to calendar" onClick={()=>{switchMode('calendar')}}><CiCalendarDate/></div>
-                        <div className={`add-edit-menu-icon menu-shape-mode ${calendarMode == 'todolist' && ('selected')}`} title="Switch to ToDo list" onClick={()=>{switchMode('todolist')}}><CiBoxList/></div>
+                        <div className={`add-edit-menu-icon menu-shape-mode ${appSettings.calendarMode == 'simple' && ('selected')}`} title="Switch to simple mode" onClick={()=>{switchMode('simple')}}><MdApps/></div>
+                        <div className={`add-edit-menu-icon menu-shape-mode ${appSettings.calendarMode == 'calendar' && ('selected')}`} title="Switch to calendar" onClick={()=>{switchMode('calendar')}}><CiCalendarDate/></div>
+                        <div className={`add-edit-menu-icon menu-shape-mode ${appSettings.calendarMode == 'todolist' && ('selected')}`} title="Switch to ToDo list" onClick={()=>{switchMode('todolist')}}><CiBoxList/></div>
                     </div>
-                    <div className="add-edit-menu-icon" title="Settings" onClick={() => openForm("ChoresSettingsForm")}><IoIosSettings /></div>
+                    <div className="add-edit-menu-icon" title="Settings" onClick={() => listActions.form.openForm("ChoresSettingsForm")}><IoIosSettings /></div>
                 </div>
             </div>
-            {activeForm === "ChoresItem" && (<ChoresItem 
+            {appSettings.formState.activeForm === "ChoresItem" && (<ChoresItem 
                 noteId={noteId} 
                 actions={listActions} 
             />)}
-            {activeForm === "DrawItem" && (<DrawItem 
+            {appSettings.formState.activeForm === "DrawItem" && (<DrawItem 
                 actions={listActions} 
             />)}
-            {activeForm === "ChoresSettingsForm" && (<ChoresSettingsForm 
+            {appSettings.formState.activeForm === "ChoresSettingsForm" && (<ChoresSettingsForm 
                 actions={listActions} 
                 />)}
-            {calendarMode == "todolist" && (<ToDoItem 
+            {appSettings.calendarMode == "todolist" && (<ToDoItem 
                 actions={listActions} 
             />)}
         </div>

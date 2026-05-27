@@ -22,7 +22,7 @@ export default function ChoresList({chores, selectedChores, calendarMode, action
         console.log('edit');
     }
 
-    const formatDate = (dateString) => {
+    const formatDate = (dateString, mode) => {
         const date = new Date(dateString);
 
         const hh = String(date.getHours()).padStart(2, '0');
@@ -31,7 +31,16 @@ export default function ChoresList({chores, selectedChores, calendarMode, action
         const MM = String(date.getMonth() + 1).padStart(2, '0');
         const yyyy = date.getFullYear();
 
-        return `${dd}.${MM}.${yyyy} ${hh}:${mm}`;
+        let newdate = '';
+        switch(mode) {
+            default:
+                newdate = `${dd}.${MM}.${yyyy} ${hh}:${mm}`;
+                break;
+            case 'shortmonth':
+                newdate = date.toLocaleString('default', { month: 'short' }) + ` ${dd}`;
+                break   
+        }
+        return newdate;
     };
 
     const listActions = {

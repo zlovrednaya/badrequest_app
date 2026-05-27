@@ -25,9 +25,23 @@ export default function ChoresTrackerAccount() {
     const [selectedChores, setSelectedChores] = useState({});
     const [calendarMode, setCalendarMode] = useState('simple');
 
+    const [disabledForm, setDisabledForm] = useState('');
+    const [activeForm, setActiveForm] = useState(null);
+        
+
     const changeCalendarMode = (mode) => {
         setCalendarMode(mode);
         loadChores(mode);
+    };
+
+    const openForm = (formName) => {
+        setActiveForm(formName);
+        setDisabledForm(true);
+    };
+
+    const closeForm = () => {
+        setDisabledForm(false);
+        setActiveForm(null);
     };
 
     async function loadChores(mode) {
@@ -119,11 +133,15 @@ export default function ChoresTrackerAccount() {
         calendarMode,
         selectedFilter,
         currentAmount,
+        formState: {
+            disabledForm,
+            activeForm,
+        }
     };
 
     const actions = {
         mode: {
-            changeCalendarMode: changeCalendarMode
+            changeCalendarMode,
         },
         chore: {
             loadChores,
@@ -133,6 +151,10 @@ export default function ChoresTrackerAccount() {
         },
         amount: {
             updateAmount,
+        },
+        form: {
+            openForm,
+            closeForm,
         }
     };
 
@@ -155,7 +177,11 @@ export default function ChoresTrackerAccount() {
                 </div>
                 <div className="chores-tracker-window">
                     <div className="chores-tracker-left-window">
-                        <LeftMenu onSelectFilter={setSelectedFilter}/>
+                        <LeftMenu 
+                            onSelectFilter={setSelectedFilter}
+                            actions={actions}
+                            appSettings={appSettings}
+                        />
                     </div>
                     <div className="chores-tracker-main-window">
                         <AddEditMenu 
@@ -163,8 +189,8 @@ export default function ChoresTrackerAccount() {
                             selectedChores={selectedChores}
                             calendarMode={calendarMode} 
                             actions={actions}
+                            appSettings={appSettings}
                         />
-                        {calendarMode == 'simple' && (<QuickAddMenu />)}
                         <ChoresList
                             appSettings={appSettings} 
                             filter={selectedFilter} 

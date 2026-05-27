@@ -7,15 +7,15 @@ export default function Planner(items) {
     const now = new Date();
     const [currentDate, setCurrentDate] = useState(now);
     const [selectedDate, setSelectedDay] = useState(now);
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
     
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'October', 'November', 'December'];
-    const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     
     const days = [];
 
-    function setMonth(step) {
-        
-    }
+
     function renderDays(currentDate) {
         const cells = [];
         const year = currentDate.getFullYear();
@@ -29,9 +29,9 @@ export default function Planner(items) {
         const startWeekDay = firstDayOfMonth.getDay();
 
         // render previous month days
-        for (let i = startWeekDay; i > 0; i--) {
+        for (let i = startWeekDay - 1; i > 0; i--) {
             cells.push(
-                <div className="planner-day-cell no-current previous" key={i}>
+                <div className="planner-day-cell no-current previous" key={`empty-before-${i}`}>
                     <div className="day-cell-date">{lastDayOfPreviousMonth - i + 1}</div>
                 </div>
             );
@@ -39,16 +39,16 @@ export default function Planner(items) {
         // render current days
         for (let i = 0; i < daysInMonth; i++) {
             cells.push(
-                <div className={`planner-day-cell` + (now.getDate()-1 == i ? " today":"")} key={i}>
+                <div className={`planner-day-cell` + (now.getDate()-1 == i ? " today":"")} key={`day-${i}`}>
                     <div className="day-cell-date">{i+1}</div>
                 </div>
             );
         }
 
         // render next month days
-        for (let i = 0; i < 6 - lastDayOfMonth.getDay();i++) {
+        for (let i = 0; i < 7 - lastDayOfMonth.getDay(); i++) {
             cells.push(
-                <div className="planner-day-cell no-current next" key={i}>
+                <div className="planner-day-cell no-current next" key={`empty-after-${i}`}>
                     <div className="day-cell-date">{i+1}</div>
                 </div>
             );
@@ -59,16 +59,28 @@ export default function Planner(items) {
     }
 
     function renderDayItems(items) {
+        
+    }
 
+    function selectToday() {
+        setCurrentDate(new Date());
+    }
+    function setMonth(step) {
+        const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + step, 1);
+        setCurrentDate(firstDayOfMonth);
     }
     
     return (
         <div className="planner">
             <div className="planner-header">
-                <div className="month"></div>
+                <div className="current-date">
+                    <div className="month">{months[currentMonth]}</div>
+                    <div className="year">{currentYear}</div>
+                </div>
+                
                 <div className="navigation-bar">
                     <div className="month-left" onClick={()=>setMonth(-1)}><CiCircleChevLeft /></div>
-                    <div className="day-today">{selectedDate.toDateString()}</div>
+                    <div className="day-today" onClick={()=>selectToday()}>{selectedDate.toDateString()}</div>
                     <div className="month-right" onClick={()=>setMonth(+1)}><CiCircleChevRight /></div>
                 </div>
             </div>
