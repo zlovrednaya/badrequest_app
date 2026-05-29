@@ -128,8 +128,10 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
             <div className={`menu-bar ${appSettings.formState.disabledForm && ('disabled')}`}>
                 <div className="add-edit-menu">
                     {appSettings.calendarMode !== 'todolist' && (
-                        <div className="add-edit-menu">
-                            <QuickAddMenu />
+                        <div className="">
+                            <QuickAddMenu 
+                                actions={listActions} 
+                             />
                         </div>
                     )}
                     {appSettings.calendarMode === 'todolist' && (

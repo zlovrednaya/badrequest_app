@@ -22,7 +22,7 @@ class ChoreService
     private const COLOR_MAP = [
         'White' => '#ffffff',
         'Rose' => '#ff99c8',
-        'Yellow' => '#fcf6bd',
+        'Yellow' => '#fff6df',
         'Pastel green' => '#d0f4de',
         'Blue' => '#a9def9',
         'Violet' => '#e4c1f9',

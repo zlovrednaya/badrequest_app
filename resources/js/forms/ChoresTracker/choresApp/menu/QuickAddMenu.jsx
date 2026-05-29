@@ -2,10 +2,12 @@ import React, { useState } from "react";
 
 import { SlStar } from "react-icons/sl";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { AiOutlineEnter } from "react-icons/ai";
+
 
 import './QuickAddMenu.css';
 
-export default function QuickAddMenu() {
+export default function QuickAddMenu({actions}) {
     const [showList, setShowList] = useState(false);
     const defaultChoreList = [
         {  
@@ -18,15 +20,41 @@ export default function QuickAddMenu() {
         }
     ];
 
+    const baseFormState = {
+            text: "",
+    };
+
+    const [formData, setFormData] = useState(baseFormState);
+
+    function handleChange(e) {
+        const {name, value} = e.target
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+    function handleSave(e) {
+        actions.chore.saveChore(formData);
+        setFormData(baseFormState);
+    };
+
+    function onKeyUp(e) {
+        if(e.which != 13) return;
+        handleSave();
+    }
+
     return (
-        <div className="quick-add-menu">
+        <div className="quick-add-menu" onKeyUp={onKeyUp}>
             <IoIosAddCircleOutline />
             <input
                 type="text"
                 name="text"
                 className="quick-item-form-text"
                 placeholder="Add a chore ..."
+                onChange={handleChange}
+                value={formData.text}
             />
+            <AiOutlineEnter />
             {showList && (
                 defaultChoreList.map((chore, i) => (
                     <div className="quick-add-item" key={i}>

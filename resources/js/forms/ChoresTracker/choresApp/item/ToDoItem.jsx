@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import { SlStar } from "react-icons/sl";
 import "./ToDoItem.css";
 
-export default function ToDoItem ( {actions}) {
+export default function ToDoItem ({actions}) {
 
     const baseFormState = {
             cost: "",
             text: "",
             istodo: true,
-        };
+    };
 
     const [formData, setFormData] = useState(baseFormState);
 

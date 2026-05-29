@@ -77,52 +77,54 @@ export default function DrawItem({actions}) {
     },[]);
 
     return (
-        <div className="chores-form draw-item chores-item-add-edit">
-            <div className="chores-form-header chores-item-header">
-                <span className=" chores-form-header-title chores-item-header-title">Draw</span>
-                <div className="close-form" onClick={()=>actions.form.closeForm()}>
-                    <IoIosCloseCircle />
-                </div>
-            </div>
-            <hr />
-            <div className="draw-item-menu">
-                <div className="draw-item-menu-item" onClick={()=>{setIsVisiblePenSize(!isVisiblePenSize)}}>
-                    <PiPencilCircleLight />
-                </div>
-                <div className="draw-item-menu-item" onClick={()=>{setIsVisibleColorPalette(!isVisibleColorPalette)}}>
-                    <PiPalette />
-                </div>
-                <div className="draw-item-menu-item-clear" onClick={clearCanvas}>
-                    <GrClearOption />
-                    <span>Clear</span>
-                </div>
-            </div>
-            { isVisiblePenSize && (
-                <div className="draw-item-setting-size">
-                    <div className="size-value-left">1</div>
-                    <input type="range" min="1" max="20" onChange={changeSize}></input>
-                    <div className="size-value-right">20</div>
-                    <div className="size-value-image">
-                        <svg xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="50%" cy="50%" r={circleSize} fill="black" />
-                        </svg>
+        <div className="overlay-form">
+            <div className="chores-form draw-item chores-item-add-edit">
+                <div className="chores-form-header chores-item-header">
+                    <span className=" chores-form-header-title chores-item-header-title">Draw</span>
+                    <div className="close-form" onClick={()=>actions.form.closeForm()}>
+                        <IoIosCloseCircle />
                     </div>
                 </div>
-                )
-            }
-            { isVisibleColorPalette && (
-                <div className="draw-item-setting-color">
-                    <input type="color" id="favcolor" name="favcolor" value="#000000" onChange={changeColor}></input>
-                </div> )
-            }
-            <canvas id="canvas"
-                ref={canvasReference}
-                onMouseDown={beginDraw}
-                onMouseMove={updateDraw}
-                onMouseUp={endDraw}
-            />
-            <div className="chores-form-footer chores-item-footer" onClick={handleSave}>
-                <button>Save</button>
+                <hr />
+                <div className="draw-item-menu">
+                    <div className="draw-item-menu-item" onClick={()=>{setIsVisiblePenSize(!isVisiblePenSize)}}>
+                        <PiPencilCircleLight />
+                    </div>
+                    <div className="draw-item-menu-item" onClick={()=>{setIsVisibleColorPalette(!isVisibleColorPalette)}}>
+                        <PiPalette />
+                    </div>
+                    <div className="draw-item-menu-item-clear" onClick={clearCanvas}>
+                        <GrClearOption />
+                        <span>Clear</span>
+                    </div>
+                </div>
+                { isVisiblePenSize && (
+                    <div className="draw-item-setting-size">
+                        <div className="size-value-left">1</div>
+                        <input type="range" min="1" max="20" onChange={changeSize}></input>
+                        <div className="size-value-right">20</div>
+                        <div className="size-value-image">
+                            <svg xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50%" cy="50%" r={circleSize} fill="black" />
+                            </svg>
+                        </div>
+                    </div>
+                    )
+                }
+                { isVisibleColorPalette && (
+                    <div className="draw-item-setting-color">
+                        <input type="color" id="favcolor" name="favcolor" value="#000000" onChange={changeColor}></input>
+                    </div> )
+                }
+                <canvas id="canvas"
+                    ref={canvasReference}
+                    onMouseDown={beginDraw}
+                    onMouseMove={updateDraw}
+                    onMouseUp={endDraw}
+                />
+                <div className="chores-form-footer chores-item-footer" onClick={handleSave}>
+                    <button>Save</button>
+                </div>
             </div>
         </div>
     );

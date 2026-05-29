@@ -27,46 +27,48 @@ export default function ChoresSettingsForm({actions}){
     };
 
     return (
-        <div className="chores-form chores-settings-form">
-            <div className="chores-form-header chores-item-header">
-                <span className="chores-form-header-title chores-item-header-title">
-                    <IoIosSettings />
-                    Settings 
-                </span>
-                <div className="close-form" onClick={closeForm}>
-                    <IoIosCloseCircle />
+        <div className="overlay-form">
+            <div className="chores-form chores-settings-form">
+                <div className="chores-form-header chores-item-header">
+                    <span className="chores-form-header-title chores-item-header-title">
+                        <IoIosSettings />
+                        Settings 
+                    </span>
+                    <div className="close-form" onClick={closeForm}>
+                        <IoIosCloseCircle />
+                    </div>
                 </div>
-            </div>
-            <hr />
-            <div className="chores-form-main-window chores-settings-main-window">
-                <div className="chores-item-mode">
-                    <label htmlFor="mode">Default mode: </label>
-                    <select 
-                        id="mode"
-                        placeholder="Default mode" 
-                        list="mode"
-                        name="mode"
-                        onChange={handleChange}
-                    >
-                        {modeList.map((mode, i) => (
-                            <option key={i} value={mode.name}>{mode.displayName}</option>
-                        ))}
-                    </select>
+                <hr />
+                <div className="chores-form-main-window chores-settings-main-window">
+                    <div className="chores-item-mode">
+                        <label htmlFor="mode">Default mode: </label>
+                        <select 
+                            id="mode"
+                            placeholder="Default mode" 
+                            list="mode"
+                            name="mode"
+                            onChange={handleChange}
+                        >
+                            {modeList.map((mode, i) => (
+                                <option key={i} value={mode.name}>{mode.displayName}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="chores-item-changetodo">
+                        <input
+                            type="checkbox"
+                            id="changetodo"
+                            name="changetodo"
+                            className="chores-item-form-changetodo"
+                            placeholder="changetodo.."
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="changetodo">All Chores elements ARE ToDo elements </label>
+                    </div>
                 </div>
-                <div className="chores-item-changetodo">
-                    <input
-                        type="checkbox"
-                        id="changetodo"
-                        name="changetodo"
-                        className="chores-item-form-changetodo"
-                        placeholder="changetodo.."
-                        onChange={handleChange}
-                    />
-                    <label htmlFor="changetodo">All Chores elements ARE ToDo elements </label>
+                <div className="chores-form-footer chores-item-footer" onClick={handleSave}>
+                    <button>Save</button>
                 </div>
-            </div>
-            <div className="chores-form-footer chores-item-footer" onClick={handleSave}>
-                <button>Save</button>
             </div>
         </div>
     );

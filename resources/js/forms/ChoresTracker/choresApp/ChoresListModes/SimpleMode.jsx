@@ -4,7 +4,7 @@ import { SlStar } from "react-icons/sl";
 import "../ChoresList.css";
 
 export default function SimpleMode({chores, selectedChores, actions}) {
-// <div className="chore-item-color" style={{backgroundColor:choreItem.color}}></div>
+// 
     return (
         <div className="chores-list-simple">
             {
@@ -12,7 +12,7 @@ export default function SimpleMode({chores, selectedChores, actions}) {
                     <div className="chore-item-main" key={choreItem.id} onClick={()=>actions.selection.selectItem(choreItem.id)} onDoubleClick={() => editChore()}>
                         
                         <div className={`chore-item ${selectedChores[choreItem.id] === true && "selected"}`} style={{backgroundColor:choreItem.done?'#e4fde8':''}}>
-                            
+                            <div className="chore-item-color" style={{backgroundColor:choreItem.color}}></div>
                             <div className="chore-item-body">
                                 <div className="chore-item-title">{choreItem.title}</div>
                                 <div className="chore-item-text">

@@ -27,7 +27,12 @@
     justify-content: space-between;
     align-items: center;
 }
-
+.left-menu-item-color-circle {
+    flex: 1;
+}
+.left-menu-item-color-name {
+    flex: 4;
+}
 .left-menu-item-color-circle svg {
     border: 0.5px solid #b3b3b3;
     border-radius: 10px;
@@ -49,12 +54,14 @@
 }
 .add-button {
     width: 80%;
+    height: 30px;
     display: flex;
     align-items: center;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     background-color: #eee;
+    padding-left: 10px;
 }
 
 .add-button:hover {
@@ -62,7 +69,7 @@
     background-color: rgb(216, 216, 216);
 }
 .add-chore {  
-    bottom: 40px;
+    bottom: 50px;
 }
 .add-drawing {
     bottom: 10px;

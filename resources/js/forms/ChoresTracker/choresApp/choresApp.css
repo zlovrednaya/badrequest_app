@@ -12,7 +12,7 @@
 }
 .add-edit-menu {
     display: flex;
-    padding-left: 5px;
+    padding-left: 10px;
 }
 
 .add-edit-menu-icon {
@@ -68,10 +68,21 @@
     z-index: 100;
     position: absolute;
     background: #eaf2fa;
-    width: 70%;
+    width: 30%;
     height: 60%;
     border-radius: 10px;
     color: #59586f;
+}
+
+.overlay-form {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 999;
 }
 
 .chores-form-header {

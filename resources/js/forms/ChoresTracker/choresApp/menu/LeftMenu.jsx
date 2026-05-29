@@ -59,7 +59,7 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
                                         <FaCircle />
                                     </div>
                                 )}
-                                <div>
+                                <div className="left-menu-item-color-name">
                                     {treeItemChild.name}
                                 </div>
                                 {treeItemChild.amount && (
