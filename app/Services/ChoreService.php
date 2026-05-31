@@ -28,6 +28,32 @@ class ChoreService
         'Violet' => '#e4c1f9',
     ];
 
+    private const CHORE_STRUCTURE = [
+        [
+            'type' => 'allchores',
+            'name' => 'All chores',
+            'filterName' => 'all',
+        ],
+        [
+            'type' => 'category',
+            'name' => 'Category',
+            'filterName' => 'category',
+            'fillItems' => true,
+        ], 
+        [
+            'type' => 'color',
+            'name' => 'Color',
+            'filterName' => 'color',
+            'fillItems' => true,
+            'parseVar' => self::COLOR_MAP,
+        ], 
+        [
+            'type' => 'drawing',
+            'name' => 'Drawings',
+        ],
+        
+    ];
+
     private $user;
 
     public function __construct() {}
@@ -87,7 +113,8 @@ class ChoreService
             ->orderBy('created_at', 'desc')
             ->get();
     }
-    public function getAll($filterData = [])
+
+    public function getAll($filterData = []): array
     {
        $query = Chore::where('user_id', (int)$this->user()->id)
             ->orderBy('created_at', 'desc');
@@ -114,7 +141,47 @@ class ChoreService
         }
        
          
-        return $query->get();    
+        return $query->get()->toArray();    
+    }
+
+    public function fillChores(array &$resultArray, array &$tmpItems,  array $chore, array $structure)
+    {
+        if ($structure['type'] !== 'allchores' && empty($chore[$structure['type']])) return;
+        if (empty($resultArray[$structure['type']])) {
+            $resultArray[$structure['type']] = [];
+            $resultArray[$structure['type']]['name'] = $structure['name'];
+            if (!empty($structure['filterName'])) $resultArray[$structure['type']]['filterName'] = $structure['filterName'];
+            $resultArray[$structure['type']]['amount'] = 1;
+            if (!empty($structure['fillItems'])) $resultArray[$structure['type']]['items'] = [];
+        } else {
+            $resultArray[$structure['type']]['amount']++;
+        }
+
+        if (!empty($structure['fillItems'])) {
+            if(empty($tmpItems[$structure['type']])) $tmpItems[$structure['type']] = [];
+            if (!in_array($chore[$structure['type']], $tmpItems[$structure['type']])) {
+                $resultArray[$structure['type']]['items'][$chore[$structure['type']]] = [
+                    'name' => $chore[$structure['type']],
+                    'filterName' => $chore[$structure['type']],
+                    'amount' => 1,
+                ];
+
+                if (!empty($structure['parseVar'])) {
+                    $resultArray[$structure['type']]['items'][$chore[$structure['type']]]['name'] = array_search($chore[$structure['type']], $structure['parseVar'], true);
+                    $resultArray[$structure['type']]['items'][$chore[$structure['type']]]['filterName'] = $chore[$structure['type']];
+                    $resultArray[$structure['type']]['items'][$chore[$structure['type']]][$structure['type']] = $chore[$structure['type']];
+                } else {
+                    $resultArray[$structure['type']]['items'][$chore[$structure['type']]]['name'] = $chore[$structure['type']];
+                }
+
+                $tmpItems[$structure['type']][] = $chore[$structure['type']];
+            } else {
+                
+                $resultArray[$structure['type']]['items'][$chore[$structure['type']]]['amount']++;
+            }
+        }
+
+
     }
 
     // need to refactor
@@ -128,81 +195,12 @@ class ChoreService
             return [];
         } 
 
+        $tmpItems = [];
         $tmpCategories = [];
         $tmpColors = [];
-
         foreach($chores as $chore) {
-            if (empty($resultArray['allchores'])) {
-                $resultArray['allchores'] = [
-                    'name' => 'All chores',
-                    'filterName' => 'all',
-                    'amount' => 0,
-                ];
-            } else {
-                $resultArray['allchores']['amount']++;
-            }
-            
-            
-            if (!empty($chore['category'])) {
-                if (!in_array($chore['category'], $tmpCategories)) {
-                    if (empty($resultArray['category']['amount'])) {
-                    $resultArray['category']['amount'] = 0;
-                    $resultArray['category']['name'] = 'Category';
-                    $resultArray['category']['filterName'] = 'category';
-                    $resultArray['category']['items'] = [];
-                    }
-
-                    $resultArray['category']['items'][$chore['category']] = [
-                        'name' => $chore['category'],
-                        'filterName' => $chore['category'],
-                        'amount' => 0,
-                    ];
-
-                    $resultArray['category']['amount']++;
-                    $resultArray['category']['items'][$chore['category']]['amount']++;
-            
-                    $tmpCategories[] = $chore['category'];
-                } else {
-                    $resultArray['category']['amount']++;
-                    $resultArray['category']['items'][$chore['category']]['amount']++;
-                }
-                
-            }
-                
-            if (!empty($chore['color'])) {
-                if (!in_array($chore['color'], $tmpColors)) {
-                    if (empty($resultArray['color']['amount'])) {
-                    $resultArray['color']['amount'] = 0;
-                    $resultArray['color']['items'] = [];
-                    $resultArray['color']['name'] = 'Color';
-                    $resultArray['color']['filterName'] = 'color';
-                    }
-                    if (empty( $resultArray['color']['items'][$chore['color']])) {
-                        $resultArray['color']['items'][$chore['color']] = [
-                            'amount' => 0,
-                        ];
-                    }
-                    $resultArray['color']['items'][$chore['color']]['name'] = array_search($chore['color'], self::COLOR_MAP, true);
-                    $resultArray['color']['items'][$chore['color']]['filterName'] = $chore['color'];
-                    $resultArray['color']['items'][$chore['color']]['color'] = $chore['color'];
-
-                    $resultArray['color']['amount']++;
-                    $resultArray['color']['items'][$chore['color']]['amount']++;
-
-                    $tmpColors[] = $chore['color'];
-                } else {
-                    $resultArray['color']['amount']++;
-                    $resultArray['color']['items'][$chore['color']]['amount']++;
-                }
-                
-            }
-
-            if (!empty($chore['drawing'])) {
-                if (empty($resultArray['drawings']['amount'])) {
-                    $resultArray['drawings']['amount'] = 0;
-                }
-                $resultArray['drawings']['name'] = 'Drawings';
-                $resultArray['drawings']['amount']++;
+            foreach(self::CHORE_STRUCTURE as $structure) {
+                $this->fillChores($resultArray, $tmpItems, $chore, $structure);
             }
         }
 
