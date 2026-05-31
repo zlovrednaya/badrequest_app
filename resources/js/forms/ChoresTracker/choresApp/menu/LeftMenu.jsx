@@ -11,21 +11,8 @@ import Calendar from "../../../../components/elements/Calendar";
 import './LeftMenu.css';
 
 export default function LeftMenu({onSelectFilter, actions, appSettings}) {
-    const [leftMenuTree, setLeftMenuTree] = useState([]);
+    
     const [selected, setSelected] = useState();
-    const getMenuStructure = async () => {
-        axios( window.location.origin + '/chores/getChoresStructure', {
-            method: 'POST', 
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
-        })
-        .then(res => {
-            setLeftMenuTree(res.data);
-        });
-    };
 
     const filterChores = (column, filterWord) => {
         const filterData = {
@@ -36,13 +23,13 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
     };
 
     useEffect(() => {
-        getMenuStructure();
+        actions.menu.setLeftMenu();
     }, []);
 
     return (
         <div className="left-menu">
             <div className="left-menu-content">
-                {leftMenuTree?.map((treeItem, i) => (
+                {appSettings?.menu?.leftMenuTree?.map((treeItem, i) => (
                     <div className="left-menu-content-item" key={i}>
                         <div className="left-menu-content-item-parent" onClick={()=>{filterChores(treeItem.name,'all')}}>
                             {treeItem.name}

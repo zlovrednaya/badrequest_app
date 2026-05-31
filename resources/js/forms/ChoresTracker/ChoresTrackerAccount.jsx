@@ -27,6 +27,8 @@ export default function ChoresTrackerAccount() {
 
     const [disabledForm, setDisabledForm] = useState('');
     const [activeForm, setActiveForm] = useState(null);
+
+    const [leftMenuTree, setLeftMenuTree] = useState([]);
         
 
     const changeCalendarMode = (mode) => {
@@ -74,6 +76,7 @@ export default function ChoresTrackerAccount() {
 
     async function onChoreSaved(mode) {
         await loadChores(mode);
+        await setLeftMenu();
     };
 
     function updateAmount() {
@@ -128,6 +131,20 @@ export default function ChoresTrackerAccount() {
         });
     };
 
+    const setLeftMenu = async () => {
+        axios( window.location.origin + '/chores/getChoresStructure', {
+            method: 'POST', 
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+        })
+        .then(res => {
+            setLeftMenuTree(res.data);
+        });
+    };
+
     const appSettings = {
         chores,
         calendarMode,
@@ -136,6 +153,9 @@ export default function ChoresTrackerAccount() {
         formState: {
             disabledForm,
             activeForm,
+        },
+        menu: {
+            leftMenuTree,
         }
     };
 
@@ -147,7 +167,7 @@ export default function ChoresTrackerAccount() {
             loadChores,
             onChoreSaved,
             deleteChores,
-            setSelectedChores
+            setSelectedChores,
         },
         amount: {
             updateAmount,
@@ -155,7 +175,10 @@ export default function ChoresTrackerAccount() {
         form: {
             openForm,
             closeForm,
-        }
+        },
+        menu: {
+            setLeftMenu,
+        },
     };
 
     useEffect(() => {
