@@ -3,9 +3,9 @@ import { CiCircleChevLeft } from "react-icons/ci";
 import { CiCircleChevRight } from "react-icons/ci";
 
 import "./Planner.css";
-export default function Planner(items) {
+export default function Planner({items, currentDate, setCurrentDate}) {
     const now = new Date();
-    const [currentDate, setCurrentDate] = useState(now);
+    
     const [selectedDate, setSelectedDay] = useState(now);
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
@@ -28,6 +28,15 @@ export default function Planner(items) {
         const daysInMonth = lastDayOfMonth.getDate();
         const startWeekDay = firstDayOfMonth.getDay();
 
+        const formatDate = (dateString, mode) => {
+            const date = new Date(dateString);
+            const dd = String(date.getDate()).padStart(2, '0');
+            const MM = String(date.getMonth() + 1).padStart(2, '0');
+            const yyyy = date.getFullYear();
+
+            return `${yyyy}-${MM}-${dd}`;
+        };
+
         // render previous month days
         for (let i = startWeekDay - 1; i > 0; i--) {
             cells.push(
@@ -36,11 +45,29 @@ export default function Planner(items) {
                 </div>
             );
         }
-        // render current days
+        // render chores
+
         for (let i = 0; i < daysInMonth; i++) {
+            let dayElements = [];
+            let day = formatDate(new Date(year, month, i+1));
+            
+            if (items[day]) {
+                items[day].forEach(chore => {
+                    let str =  (chore.title || chore.text || '');
+
+                    dayElements.push(
+                    <div className="calendar-chore-element" key={i+1} style={{backgroundColor:chore.color}}>
+                        {str.slice(0, 20)}{(str.length>20)?`...`:``}
+                    </div>
+                );
+                });
+                
+            }
             cells.push(
                 <div className={`planner-day-cell` + (now.getDate()-1 == i ? " today":"")} key={`day-${i}`}>
                     <div className="day-cell-date">{i+1}</div>
+                    <div className="calendar-chores-box">{dayElements}
+                    </div>
                 </div>
             );
         }
@@ -69,6 +96,10 @@ export default function Planner(items) {
         const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + step, 1);
         setCurrentDate(firstDayOfMonth);
     }
+
+    useState(() => {
+        renderDays(currentDate);
+    }, [items]);
     
     return (
         <div className="planner">

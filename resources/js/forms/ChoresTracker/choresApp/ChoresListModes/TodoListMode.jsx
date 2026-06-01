@@ -157,7 +157,7 @@ export default function TodoListMode({chores, selectedChores, actions, appSettin
                     
                     {
                         doneChores && doneChores.map((choreItem, i)=>(
-                            <div className="todo-item" key={`done-${choreItem.id}`} style={{backgroundColor:choreItem.color}}>
+                            <div className={`todo-item ${choreItem.done?"todo-item-done":""}`} key={`done-${choreItem.id}`} style={{backgroundColor:choreItem.color}}>
                                 <div className="todo-item-title-select-element" onClick={() => actions.selection.selectItem(choreItem.id)}>
                                     {selectedChores && (selectedChores[choreItem.id] === true || choreItem.done === true) && (
                                         <div className="selected" onClick={() => selectTodoElement(choreItem, false)}>

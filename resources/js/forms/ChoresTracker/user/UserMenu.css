@@ -6,7 +6,7 @@
     user-select: none;
     border-radius: 20px;
     margin-right: 10px;
-    border: 0.5px solid #eeeeee;
+    border: 1px solid #eeeeee;
     box-shadow: 0px 0px 4px #eeeeee;
 }
 .user-menu .user-profile-child {
@@ -28,6 +28,7 @@
     margin: 10px 0 0 0;
     border-radius: 2px;
     box-shadow: 4px 4px 6px 0px #d6d5d5;
+    border: 0.5px solid #eee;
 }
 .dropdown-menu .dropdown-menu-item {
     display: flex;

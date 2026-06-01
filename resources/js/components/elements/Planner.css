@@ -100,3 +100,10 @@
 .day-cell-date {
 
 }
+
+.calendar-chore-element {
+    height: 10%;
+    width:auto;
+    font-size: 8px;
+    border: 0.3px solid #eee;
+}

@@ -9,6 +9,10 @@
 
 }
 
+.todo-item-done {
+    background-color: #e4fde8;
+}
+
 .chores-list-todo {
     width:100%;
 }

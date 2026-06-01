@@ -31,7 +31,7 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
             <div className="left-menu-content">
                 {appSettings?.menu?.leftMenuTree?.map((treeItem, i) => (
                     <div className="left-menu-content-item" key={i}>
-                        <div className="left-menu-content-item-parent" onClick={()=>{filterChores(treeItem.name,'all')}}>
+                        <div className="left-menu-content-item-parent" onClick={()=>{filterChores(treeItem.filterName, treeItem.filterType === 'bool' ? 1 : 'all')}}>
                             {treeItem.name}
                             {treeItem.amount && (
                                 <div className="left-menu-content-item-parent-amount">
@@ -40,7 +40,7 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
                             )}
                         </div>
                         {treeItem.items?.map((treeItemChild, k) => (
-                            <div className="left-menu-content-item-child" key={k} onClick={()=>{filterChores(treeItem.name, treeItemChild.filterName)}}>
+                            <div className="left-menu-content-item-child" key={k} onClick={()=>{filterChores(treeItem.filterName, treeItemChild.filterName)}}>
                                 {treeItemChild.color && (
                                     <div className="left-menu-item-color-circle" style={{color:treeItemChild.color}}>
                                         <FaCircle />

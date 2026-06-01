@@ -159,4 +159,10 @@ class ChoresController extends Controller
             $this->choreService->getAmount()
         );
     }
+
+    public function getAllForCalendar(Request $request){
+        return response()->json(
+            $this->choreService->getAllForCalendar()
+        );
+    }
 }

@@ -35,6 +35,12 @@ class ChoreService
             'filterName' => 'all',
         ],
         [
+            'type' => 'done',
+            'name' => 'Done',
+            'filterName' => 'done',
+            'filterType' => 'bool'
+        ],
+        [
             'type' => 'category',
             'name' => 'Category',
             'filterName' => 'category',
@@ -50,6 +56,7 @@ class ChoreService
         [
             'type' => 'drawing',
             'name' => 'Drawings',
+            'filterName' => 'drawing',
         ],
         
     ];
@@ -61,6 +68,10 @@ class ChoreService
     protected function user(): User
     {
         $this->user = auth()->user();
+
+        if (!$this->user) {
+            throw new \RuntimeException('User is not authenticated.');
+        }
         return $this->user;
     }
 
@@ -114,13 +125,26 @@ class ChoreService
             ->get();
     }
 
+    public function getAllForCalendar($filterData = []):array
+    {
+        $query = Chore::where('user_id', (int)$this->user()->id)
+            ->whereNotNull('due_datetime')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->groupBy(function ($note) {
+                return date('Y-m-d', strtotime($note->due_datetime));
+            });
+
+        return $query->toArray();           
+    }
+
     public function getAll($filterData = []): array
     {
        $query = Chore::where('user_id', (int)$this->user()->id)
             ->orderBy('created_at', 'desc');
 
         if(!empty($filterData['column'])) {
-            $column = array_search($filterData['column'], self::CATEGORY_MAP, true);
+            $column = $filterData['column'];
             if ($column != 'all') {
                 if ($filterData['filterWord'] === 'all') {
                     $query->whereNotNull($column);
@@ -150,6 +174,7 @@ class ChoreService
         if (empty($resultArray[$structure['type']])) {
             $resultArray[$structure['type']] = [];
             $resultArray[$structure['type']]['name'] = $structure['name'];
+            if (!empty($structure['filterType'])) $resultArray[$structure['type']]['filterType'] = $structure['filterType'];
             if (!empty($structure['filterName'])) $resultArray[$structure['type']]['filterName'] = $structure['filterName'];
             $resultArray[$structure['type']]['amount'] = 1;
             if (!empty($structure['fillItems'])) $resultArray[$structure['type']]['items'] = [];
