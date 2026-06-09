@@ -285,5 +285,9 @@ class ChoreService
             ]
         );
     }
-
+    public function getUserSettings() {
+        return ChoreUserSetting::where(['user_id' => $this->user()->id])
+            ->first()
+            ->toArray();
+    }
 }

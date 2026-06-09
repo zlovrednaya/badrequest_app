@@ -6,10 +6,10 @@ import { IoIosSettings } from "react-icons/io";
 import './choresApp.css';
 import './ChoresSettingsForm.css';
 
-export default function ChoresSettingsForm({actions}){
+export default function ChoresSettingsForm({actions, settings}){
     const [formData, setFormData] = useState({
-        mode: 'simple',
-        changetodo: false,
+        mode: settings.userSettings.mode,
+        changetodo: settings.userSettings.changetodo,
     });
     const modeList = [
         {'displayName': 'Simple mode', 'name': 'simple'},

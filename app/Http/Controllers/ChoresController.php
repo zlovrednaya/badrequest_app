@@ -183,4 +183,10 @@ class ChoresController extends Controller
             ], 200);
         }
     }
+
+    public function getUserSettings() {
+        return response()->json(
+            $this->choreService->getUserSettings()
+        );
+    }
 }

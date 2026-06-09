@@ -172,7 +172,8 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                 actions={listActions} 
             />)}
             {appSettings.formState.activeForm === "ChoresSettingsForm" && (<ChoresSettingsForm 
-                actions={listActions} 
+                actions={listActions}
+                settings={appSettings}
                 />)}
             {appSettings.calendarMode == "todolist" && (<ToDoItem 
                 actions={listActions} 

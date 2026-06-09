@@ -29,6 +29,7 @@ Route::post('/chores/shareChores', [ChoresController::class, 'shareChores']);
 Route::post('/chores/shareTelegramChores', [ChoresController::class, 'shareTelegramChores']);
 Route::get('/chores/getAmount', [ChoresController::class, 'getAmount']);
 Route::post('/chores/saveUserSettings', [ChoresController::class, 'saveUserSettings']);
+Route::get('/chores/getUserSettings', [ChoresController::class, 'getUserSettings']);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

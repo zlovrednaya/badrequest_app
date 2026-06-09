@@ -30,11 +30,8 @@ export default function ChoresTrackerAccount() {
     const [activeForm, setActiveForm] = useState(null);
 
     const [leftMenuTree, setLeftMenuTree] = useState([]);
-    const [popUp, setPopUp] = useState({
-        isOpen: false,
-        message: "",
-        status: "",
-    });
+    const [popUp, setPopUp] = useState(null);
+    const [userSettings, setUserSettings] = useState({});
 
     const changeCalendarMode = (mode) => {
         setCalendarMode(mode);
@@ -50,6 +47,22 @@ export default function ChoresTrackerAccount() {
         setDisabledForm(false);
         setActiveForm(null);
     };
+    async function loadSettings() {
+        await axios('/chores/getUserSettings', {
+                method: 'GET', 
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }),
+            }
+        )
+        .then((res) => {
+            const settings = JSON.parse(res.data.settings);
+            setUserSettings(settings);
+            setCalendarMode(settings.mode);
+        });
+    }
 
     async function loadChores(mode) {
         let url = window.location.origin + '/chores/getList';
@@ -151,6 +164,7 @@ export default function ChoresTrackerAccount() {
     };
 
     const appSettings = {
+        userSettings,
         chores,
         calendarMode,
         selectedFilter,
@@ -192,6 +206,8 @@ export default function ChoresTrackerAccount() {
     useEffect(() => {
         if (!user) return;
     
+        loadSettings();
+
         loadChores(calendarMode);
 
         updateAmount();
