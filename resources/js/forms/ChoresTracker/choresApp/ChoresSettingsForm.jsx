@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { IoIosCloseCircle } from "react-icons/io";
 import { IoIosSettings } from "react-icons/io";
@@ -7,23 +7,56 @@ import './choresApp.css';
 import './ChoresSettingsForm.css';
 
 export default function ChoresSettingsForm({actions}){
-
+    const [formData, setFormData] = useState({
+        mode: 'simple',
+        changetodo: false,
+    });
     const modeList = [
         {'displayName': 'Simple mode', 'name': 'simple'},
         {'displayName': 'ToDo list', 'name': 'todolist'},
         {'displayName': 'Calendar', 'name': 'calendar'},
     ];
 
+
     const closeForm = () => {
         actions.form.closeForm();
     };
 
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+        const {name, value, type, checked} = e.target
+        setFormData((prev) => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
     };
 
-    const handleSave = () => {
-
+    const handleSave = async () => {
+        await axios('/chores/saveUserSettings' , {
+            method: 'POST', 
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+            data: JSON.stringify({settings: formData}),
+        })
+        .then((res) => {
+            actions.popup.setPopUp({
+                isOpen: true,
+                success: res.data.success, 
+                message: res.data.message
+            });
+            closeForm();
+        })
+        .catch((err) => {
+            console.log(err);
+            
+            actions.popup.setPopUp({
+                isOpen: true,
+                success: false, 
+                message: 'Something went wrong'
+            });
+        });
     };
 
     return (
@@ -48,6 +81,7 @@ export default function ChoresSettingsForm({actions}){
                             list="mode"
                             name="mode"
                             onChange={handleChange}
+                            value={formData.mode}
                         >
                             {modeList.map((mode, i) => (
                                 <option key={i} value={mode.name}>{mode.displayName}</option>
@@ -62,8 +96,9 @@ export default function ChoresSettingsForm({actions}){
                             className="chores-item-form-changetodo"
                             placeholder="changetodo.."
                             onChange={handleChange}
+                            checked={formData.changetodo}
                         />
-                        <label htmlFor="changetodo">All Chores elements ARE ToDo elements </label>
+                        <label htmlFor="changetodo">All chore elements ARE ToDo elements </label>
                     </div>
                 </div>
                 <div className="chores-form-footer chores-item-footer" onClick={handleSave}>

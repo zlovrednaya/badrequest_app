@@ -3,10 +3,12 @@ import { CiCircleChevLeft } from "react-icons/ci";
 import { CiCircleChevRight } from "react-icons/ci";
 
 import "./Planner.css";
+import { PiXFill } from "react-icons/pi";
 export default function Planner({items, currentDate, setCurrentDate}) {
     const now = new Date();
     
     const [selectedDate, setSelectedDay] = useState(now);
+    const [selectedItem, setSelectedItem] = useState();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
     
@@ -27,6 +29,14 @@ export default function Planner({items, currentDate, setCurrentDate}) {
 
         const daysInMonth = lastDayOfMonth.getDate();
         const startWeekDay = firstDayOfMonth.getDay();
+
+        const showAllChores = (day) => {
+            console.log('showAllChores' + day);
+        };
+
+        const selectChore = (id) => {
+
+        };
 
         const formatDate = (dateString, mode) => {
             const date = new Date(dateString);
@@ -52,14 +62,28 @@ export default function Planner({items, currentDate, setCurrentDate}) {
             let day = formatDate(new Date(year, month, i+1));
             
             if (items[day]) {
+                let k = 0;
                 items[day].forEach(chore => {
-                    let str =  (chore.title || chore.text || '');
+                    k++;
+                    if (k > 4) {
+                        return;
+                    } 
+                    if (k == 4) {
+                        dayElements.push(
+                            <div className="calendar-chore-element show-all" key={i+1} onSelect={()=>showAllChores(day)}>
+                                show more ..
+                            </div>
+                        );
+                        return;
+                    } 
 
+                    let str =  (chore.title || chore.text || '');
                     dayElements.push(
-                    <div className="calendar-chore-element" key={i+1} style={{backgroundColor:chore.color}}>
-                        {str.slice(0, 20)}{(str.length>20)?`...`:``}
-                    </div>
-                );
+                        <div className="calendar-chore-element" key={i+1} style={{backgroundColor:chore.color}} onSelect={()=>selectChore(chore.id)}>
+                            {str.slice(0, 20)}{(str.length>20)?`...`:``}
+                        </div>
+                    );
+                    
                 });
                 
             }

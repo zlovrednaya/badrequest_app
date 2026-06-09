@@ -39,7 +39,7 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
 
     const saveChore = async (formData) => {
-        await axios( window.location.origin+'/chores/add', {
+        await axios('/chores/add', {
             method: 'POST', 
             data: JSON.stringify(formData),
             headers: new Headers({

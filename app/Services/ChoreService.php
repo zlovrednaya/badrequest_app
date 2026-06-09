@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Chore;
 use App\Models\User;
 
+use App\Models\ChoreUserSetting;
+
 use Illuminate\Support\Facades\Log;
 
 class ChoreService 
@@ -272,4 +274,16 @@ class ChoreService
     public function updateChore(int $messageId) {
         Log::info('update message' . $messageId);
     }
+
+    public function saveUserSettings(array $data) {
+        return ChoreUserSetting::updateOrCreate(
+            [
+            'user_id' => $this->user()->id
+            ], 
+            [
+            'settings' => json_encode($data['settings'])
+            ]
+        );
+    }
+
 }

@@ -111,6 +111,10 @@
 .list-header:hover {
     cursor: pointer;
 }
+.list-header svg {
+    margin-left: 5px;
+}
+
 .amount-component {
     display: flex;
     align-items: center;

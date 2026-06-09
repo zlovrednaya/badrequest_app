@@ -165,4 +165,22 @@ class ChoresController extends Controller
             $this->choreService->getAllForCalendar()
         );
     }
+
+    public function saveUserSettings(Request $request){
+        try {
+            $this->choreService->saveUserSettings(
+                $request->all()
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Settings saved',
+            ], 200);
+        } catch(\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to save settings',
+            ], 200);
+        }
+    }
 }

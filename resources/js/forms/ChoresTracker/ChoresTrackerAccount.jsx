@@ -14,6 +14,7 @@ import { SlStar } from "react-icons/sl";
 
 import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
+import PopUp from "../../components/elements/PopUp";
 
 export default function ChoresTrackerAccount() {
     const {user} = useAuth();
@@ -29,7 +30,11 @@ export default function ChoresTrackerAccount() {
     const [activeForm, setActiveForm] = useState(null);
 
     const [leftMenuTree, setLeftMenuTree] = useState([]);
-        
+    const [popUp, setPopUp] = useState({
+        isOpen: false,
+        message: "",
+        status: "",
+    });
 
     const changeCalendarMode = (mode) => {
         setCalendarMode(mode);
@@ -179,6 +184,9 @@ export default function ChoresTrackerAccount() {
         menu: {
             setLeftMenu,
         },
+        popup: {
+            setPopUp,
+        }
     };
 
     useEffect(() => {
@@ -235,6 +243,14 @@ export default function ChoresTrackerAccount() {
                     </div>
                 </div>
             </div>
+            
+            <PopUp
+                isOpen={popUp}
+                success={popUp?.success}
+                message={popUp?.message}
+                closeForm={() => setPopUp(null)}
+            />
+                
         </div>
     );
 };
