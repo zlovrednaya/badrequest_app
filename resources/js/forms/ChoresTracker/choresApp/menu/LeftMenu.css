@@ -62,11 +62,16 @@
     font-weight: 500;
     background-color: #eee;
     padding-left: 10px;
+    
 }
 
 .add-button:hover {
     cursor: pointer;
     background-color: rgb(216, 216, 216);
+}
+
+.add-button svg {
+    font-size: 15px;
 }
 .add-chore {  
     bottom: 50px;

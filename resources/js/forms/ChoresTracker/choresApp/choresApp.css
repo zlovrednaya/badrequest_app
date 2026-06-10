@@ -2,17 +2,22 @@
     height: 5%;
 }
 .add-edit-menu-window.todolist {
-    height: 15%;
+    
 }
 
+.add-edit-menu-window {
+    padding: 0 20px 0 20px;
+}
 .menu-bar {
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #59586f;
 }
 .add-edit-menu {
     display: flex;
-    padding-left: 5px;
+    height: 100%;
 }
 
 .add-edit-menu-icon {
@@ -25,6 +30,8 @@
 
 .quick-add-menu {
     color: #878788;
+    height: 90%;
+    padding-left: 10px;
 }
 
 .edit-menu {
@@ -37,9 +44,7 @@
     display: flex;
 }
 
-.menu-bar {
-    color: #59586f;
-}
+
 .menu-bar.disabled {
     color: rgb(163, 163, 163);
 }

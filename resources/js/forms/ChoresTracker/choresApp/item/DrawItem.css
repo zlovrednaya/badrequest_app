@@ -1,6 +1,7 @@
 .draw-item canvas {
     background-color: #fff;
     margin: 10px auto 0 auto;
+    border: 0.5px solid;
 }  
 
 .draw-item-menu {
@@ -41,10 +42,9 @@
     align-items: center;
     height: 25px;
     max-width: 40%;
-    margin: 5px;
+    margin: 0 5px 0 0;
+    padding: 0 5px 0 5px;
     border-radius: 5px;
-    background-color: aliceblue;
-    box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
 }
 
 .draw-item-setting-size svg {
@@ -83,4 +83,22 @@
   background: #120d80;
   border: 1px solid #120d80;
   cursor: pointer;
+}
+
+.canvas-properties {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px 0px 10px;
+}
+
+.draw-item-setting-color {
+    display: flex;
+}
+
+.draw-item-setting-color:hover {
+    
+}
+
+.draw-item-setting-color input:hover {
+    cursor: pointer;
 }

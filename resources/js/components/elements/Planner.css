@@ -101,24 +101,24 @@
 
 }
 
-.calendar-chore-element {
+.calendar-item-element {
     border-radius: 2px;
     height: 10%;
     width:auto;
     font-size: 8px;
     border: 0.3px solid #eee;
 }
-.calendar-chore-element:hover {
+.calendar-item-element:hover {
     cursor: pointer;
 }
 
-.calendar-chore-element.show-all {
+.calendar-item-element.show-all {
     display: flex;
     justify-content: center;
     border-radius: 2px;
 }
 
-.calendar-chore-element.show-all:hover {
+.calendar-item-element.show-all:hover {
     background-color: #dedede;
     cursor: pointer;
     transform: scale(1.1);

@@ -35,6 +35,7 @@ export const WarningProvider = ({children}) => {
         <WarningContext.Provider value={{askWarning}}>
             {children}
             {state && (
+                <div className="overlay-form">
                 <div className="warning">
                     <div className="warning-menu">
                         <div className="warning-menu-title">
@@ -57,6 +58,7 @@ export const WarningProvider = ({children}) => {
                             <div className="warning-button warning-button-cancel" onClick={() => {closeWarning(false)}}>{state.cancelText || 'Cancel'}</div>
                         </div>
                     </div>
+                </div>
                 </div>
             )}
         </WarningContext.Provider>

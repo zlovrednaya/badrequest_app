@@ -3,12 +3,14 @@ import { CiCircleChevLeft } from "react-icons/ci";
 import { CiCircleChevRight } from "react-icons/ci";
 
 import "./Planner.css";
+import HourlyPlanner from "./HourlyPlanner";
 import { PiXFill } from "react-icons/pi";
 export default function Planner({items, currentDate, setCurrentDate}) {
     const now = new Date();
     
     const [selectedDate, setSelectedDay] = useState(now);
     const [selectedItem, setSelectedItem] = useState();
+    const [showHourlyPlanner, setShowHourlyPlanner] = useState(false);
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
     
@@ -30,11 +32,14 @@ export default function Planner({items, currentDate, setCurrentDate}) {
         const daysInMonth = lastDayOfMonth.getDate();
         const startWeekDay = firstDayOfMonth.getDay();
 
-        const showAllChores = (day) => {
-            console.log('showAllChores' + day);
+        const showAllItems = (day) => {
+            console.log('showAllItems' + day);
+
+            setShowHourlyPlanner(true);
+
         };
 
-        const selectChore = (id) => {
+        const selectItem = (id) => {
 
         };
 
@@ -55,7 +60,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
                 </div>
             );
         }
-        // render chores
+        // render items
 
         for (let i = 0; i < daysInMonth; i++) {
             let dayElements = [];
@@ -63,23 +68,23 @@ export default function Planner({items, currentDate, setCurrentDate}) {
             
             if (items[day]) {
                 let k = 0;
-                items[day].forEach(chore => {
+                items[day].forEach(item => {
                     k++;
                     if (k > 4) {
                         return;
                     } 
                     if (k == 4) {
                         dayElements.push(
-                            <div className="calendar-chore-element show-all" key={i+1} onSelect={()=>showAllChores(day)}>
+                            <div className="calendar-item-element show-all" key={i+1} onClick={()=>showAllItems(day)}>
                                 show more ..
                             </div>
                         );
                         return;
                     } 
 
-                    let str =  (chore.title || chore.text || '');
+                    let str =  (item.title || item.text || '');
                     dayElements.push(
-                        <div className="calendar-chore-element" key={i+1} style={{backgroundColor:chore.color}} onSelect={()=>selectChore(chore.id)}>
+                        <div className="calendar-item-element" key={i+1} style={{backgroundColor:item.color}} onSelect={()=>selectItem(item.id)}>
                             {str.slice(0, 20)}{(str.length>20)?`...`:``}
                         </div>
                     );
@@ -90,7 +95,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
             cells.push(
                 <div className={`planner-day-cell` + (now.getDate()-1 == i ? " today":"")} key={`day-${i}`}>
                     <div className="day-cell-date">{i+1}</div>
-                    <div className="calendar-chores-box">{dayElements}
+                    <div className="calendar-items-box">{dayElements}
                     </div>
                 </div>
             );
@@ -151,6 +156,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
                     {renderDays(currentDate)}
                 </div>
             </div>
+            {showHourlyPlanner && (<HourlyPlanner />)}
         </div>
     );
 }

@@ -1,0 +1,37 @@
+.hourly-planner {
+    position: absolute;
+    top: 0px;
+    width: 50%;
+    height: auto;
+    background-color: white;
+    font-size: 10px;
+    overflow-y: auto;
+    border: 0.5 px solid;
+    
+}
+
+.hourly-planner-row {
+    
+    display: flex;
+}
+
+.hourly-planner-hour {
+    width: 10%;
+}
+
+.hourly-planner-body {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.hourly-planner-half-hour-1 {
+    border-bottom: 0.2px solid;
+}
+.hourly-planner-half-hour {
+    height: 50%;
+    width: 100%;
+}
+.hourly-planner-half-hour:hover {
+    cursor: pointer;
+}

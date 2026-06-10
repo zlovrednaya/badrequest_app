@@ -18,6 +18,7 @@ export default function DrawItem({actions}) {
     const [isVisiblePenSize, setIsVisiblePenSize] = useState(false);
     const [isVisibleColorPalette, setIsVisibleColorPalette] = useState(false);
     const [circleSize, setCircleSize] = useState(10);
+    const [penColor, setPenColor] = useState('#000000');
 
     const beginDraw = (e) => {
         contextReference.current.beginPath();
@@ -47,6 +48,7 @@ export default function DrawItem({actions}) {
     const changeColor = (e) => {
         const canvas = canvasReference.current;
         const context = canvas.getContext("2d");
+        setPenColor(e.currentTarget.value);
         context.strokeStyle = e.currentTarget.value;
     };
     const clearCanvas = () => {
@@ -71,7 +73,7 @@ export default function DrawItem({actions}) {
         const context = canvas.getContext("2d");
         context.lineCap = "round";
         context.lineWidth = 5;
-        context.strokeStyle = "black";
+        context.strokeStyle = penColor;
 
         contextReference.current = context;
     },[]);
@@ -98,24 +100,27 @@ export default function DrawItem({actions}) {
                         <span>Clear</span>
                     </div>
                 </div>
+                <div className="canvas-properties">
                 { isVisiblePenSize && (
                     <div className="draw-item-setting-size">
+                        <div className="size-value-image">
+                            <svg xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50%" cy="50%" r={circleSize} fill={penColor} />
+                            </svg>
+                        </div>
                         <div className="size-value-left">1</div>
                         <input type="range" min="1" max="20" onChange={changeSize}></input>
                         <div className="size-value-right">20</div>
-                        <div className="size-value-image">
-                            <svg xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="50%" cy="50%" r={circleSize} fill="black" />
-                            </svg>
-                        </div>
+                        
                     </div>
                     )
                 }
                 { isVisibleColorPalette && (
                     <div className="draw-item-setting-color">
-                        <input type="color" id="favcolor" name="favcolor" value="#000000" onChange={changeColor}></input>
+                        <input type="color" id="favcolor" name="favcolor" onChange={changeColor}></input>
                     </div> )
                 }
+                </div>
                 <canvas id="canvas"
                     ref={canvasReference}
                     onMouseDown={beginDraw}
