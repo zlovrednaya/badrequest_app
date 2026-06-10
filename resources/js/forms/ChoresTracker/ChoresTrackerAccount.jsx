@@ -38,7 +38,7 @@ export default function ChoresTrackerAccount() {
         loadChores(mode);
     };
 
-    const openForm = (formName) => {
+    const openForm = (formName, id) => {
         setActiveForm(formName);
         setDisabledForm(true);
     };
@@ -56,7 +56,7 @@ export default function ChoresTrackerAccount() {
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 }),
-            }
+            },
         )
         .then((res) => {
             console.log('user settings loaded');

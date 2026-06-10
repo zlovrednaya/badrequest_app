@@ -35,7 +35,7 @@ import '../choresApp.css';
 import axios from "axios";
 
 export default function AddEditMenu({chores, selectedChores, calendarMode, actions, appSettings}) {
-    const [noteId, setNoteId] = useState();
+    const [choreId, setChoreId] = useState(null);
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
 
     const saveChore = async (formData) => {
@@ -56,6 +56,12 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
             let errors = err.response.data.errors;
             let errorText = err.response.data.message;
         })
+    };
+
+    const editChore = async (id) => {
+        console.log(id);
+        setChoreId(id);
+        listActions.form.openForm("ChoresItem");
     };
 
     const shareChores = async (mode) => {
@@ -118,6 +124,7 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
             saveChore,
             shareChores,
             shareTelegramChores,
+            setChoreId,
         },
     };
 
@@ -127,8 +134,7 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
         <div className={`add-edit-menu-window ${appSettings.calendarMode}`}>
             <div className={`menu-bar ${appSettings.formState.disabledForm && ('disabled')}`}>
                 <div className="add-edit-menu">
-                    {appSettings.calendarMode !== 'todolist' && (
-                        
+                    {appSettings.calendarMode === 'simple' && (
                             <QuickAddMenu 
                                 actions={listActions} 
                              />
@@ -145,12 +151,12 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                         <div className="add-edit-menu edit-menu ">
                             {choreIds && choreIds.length == 1 && (
                                 <div className="edit-menu-one-selected">
-                                    <div className="add-edit-menu-icon" title="Show chore" onClick={listActions.form.openForm}><IoEyeSharp /></div>
+                                    <div className="add-edit-menu-icon" title="Show chore" onClick={() => editChore(choreIds[0])}><IoEyeSharp /></div>
                                     <div className="add-edit-menu-icon" title="Share chores" onClick={() => listActions.chore.shareChores()}><MdShare /></div>
                                     <div className="add-edit-menu-icon" title="Share to telegram" onClick={() => listActions.chore.shareTelegramChores()}><FaPaperPlane /></div>
                                 </div>
                             )}
-                            <div className="add-edit-menu-icon" title="Unselect chores" onClick={() => actions.chore.setSelectedChores([])}> <FaRegSquareMinus /></div>
+                            <div className="add-edit-menu-icon" title="Unselect chores" onClick={() => listActions.chore.setSelectedChores([])}> <FaRegSquareMinus /></div>
                             <div className="add-edit-menu-icon" title="Delete chores" onClick={()=>listActions.chore.deleteChores()}> <MdDelete /></div>
                         </div>
                     )}
@@ -165,7 +171,7 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                 </div>
             </div>
             {appSettings.formState.activeForm === "ChoresItem" && (<ChoresItem 
-                noteId={noteId} 
+                choreId={choreId} 
                 actions={listActions} 
             />)}
             {appSettings.formState.activeForm === "DrawItem" && (<DrawItem 

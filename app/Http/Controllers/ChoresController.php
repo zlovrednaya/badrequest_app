@@ -189,4 +189,10 @@ class ChoresController extends Controller
             $this->choreService->getUserSettings()
         );
     }
+
+    public function getById(int $id) {
+        return response()->json(
+            $this->choreService->getById($id)
+        );
+    }
 }

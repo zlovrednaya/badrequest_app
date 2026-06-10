@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 import { SlStar } from "react-icons/sl";
 
 
 import '../choresApp.css';
 import './ChoresItem.css';
+import axios from "axios";
 
-export default function ChoresItem( {noteId, actions}) {
+export default function ChoresItem( {choreId, actions}) {
     const [formData, setFormData] = useState({
         title: "",
         text: "",
@@ -36,6 +37,7 @@ export default function ChoresItem( {noteId, actions}) {
         // control changes - if yes - than - modal window
         /* modal window "are you sure" */
         actions.form.closeForm();
+        actions.chore.setChoreId(null);
     };
 
     function handleChange(e) {
@@ -51,11 +53,45 @@ export default function ChoresItem( {noteId, actions}) {
         actions.chore.saveChore(formData);
     };
 
+    async function loadChoreData(choreId) {
+        await axios(`/chores/${choreId}`, {
+            method: 'GET', 
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+        })
+        .then((res) => {
+            console.log("chore is loaded");
+            const chore = res.data;
+            setFormData({
+                title: chore.title ?? "",
+                text: chore.text ?? "",
+                due_datetime: chore.due_datetime ?? "",
+                category: chore.category ?? "",
+                color: chore.color ?? "",
+                cost: chore.cost ?? "",
+                istodo: Boolean(chore.istodo),
+            });
+        })
+        .catch((err) => {
+
+        })
+    }
+    useEffect(() => {
+        if (!choreId) return;
+        console.log('load chore data');
+
+        loadChoreData(choreId);
+
+    }, [choreId]);
+
     return (
         <div className="overlay-form">
             <div className="chores-form chores-item-add-edit">
                 <div className="chores-form-header chores-item-header">
-                    <span className="chores-form-header-title chores-item-header-title">Add chore </span>
+                    <span className="chores-form-header-title chores-item-header-title">{`${choreId?"Edit":"Add"}`} chore </span>
                     <div className="close-form" onClick={closeForm}>
                         <IoIosCloseCircle />
                     </div>
@@ -69,6 +105,7 @@ export default function ChoresItem( {noteId, actions}) {
                         className="chores-item-form-header"
                         placeholder="Type header..."
                         onChange={handleChange}
+                        value={formData.title}
                     />
                     <textarea
                         id="text"
@@ -76,6 +113,7 @@ export default function ChoresItem( {noteId, actions}) {
                         className="chores-item-form-body"
                         placeholder="Insert text..."
                         onChange={handleChange}
+                        value={formData.text}
                     />
                     <div className="chores-item-form-datetime-block">
                         <input
@@ -94,6 +132,7 @@ export default function ChoresItem( {noteId, actions}) {
                             name="category"
                             list="category"
                             onChange={handleChange}
+                            value={formData.category}
                         >
                             {categoryList.map((category, i) => (
                                 <option key={i}>{category.name}</option>
@@ -108,6 +147,7 @@ export default function ChoresItem( {noteId, actions}) {
                             list="color"
                             name="color"
                             onChange={handleChange}
+                            value={formData.color}
                         >
                             {colorList.map((color, i) => (
                                 <option key={i} className={color.className} value={color.color}>{color.name}</option>
@@ -122,6 +162,7 @@ export default function ChoresItem( {noteId, actions}) {
                             className="chores-item-form-cost"
                             placeholder="cost.."
                             onChange={handleChange}
+                            value={formData.cost}
                         />
                         <label htmlFor="cost"><SlStar /> </label>
                     </div>
@@ -133,6 +174,7 @@ export default function ChoresItem( {noteId, actions}) {
                             className="chores-item-form-istodo"
                             placeholder="istodo.."
                             onChange={handleChange}
+                            value={formData.istodo}
                         />
                         <label htmlFor="istodo">Make ToDo list element </label>
                     </div>

@@ -119,6 +119,14 @@ class ChoreService
         }
     }
 
+    public function getById(int $id)
+    {
+        return Chore::where('user_id', (int)$this->user()->id)
+            ->where('id', $id)
+            ->orderBy('created_at', 'desc')
+            ->first()
+            ->toArray();
+    }
     public function getByIds($ids)
     {
         return Chore::where('user_id', (int)$this->user()->id)
