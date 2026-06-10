@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { IoIosCloseCircle } from "react-icons/io";
 import { IoIosSettings } from "react-icons/io";
+import { RiCheckboxBlankCircleLine } from "react-icons/ri";
+import { RiCheckboxCircleLine } from "react-icons/ri";
 
 import './choresApp.css';
 import './ChoresSettingsForm.css';
@@ -46,6 +48,7 @@ export default function ChoresSettingsForm({actions, settings}){
                 success: res.data.success, 
                 message: res.data.message
             });
+            actions.settings.loadSettings();
             closeForm();
         })
         .catch((err) => {
@@ -88,17 +91,12 @@ export default function ChoresSettingsForm({actions, settings}){
                             ))}
                         </select>
                     </div>
-                    <div className="chores-item-changetodo">
-                        <input
-                            type="checkbox"
-                            id="changetodo"
-                            name="changetodo"
-                            className="chores-item-form-changetodo"
-                            placeholder="changetodo.."
-                            onChange={handleChange}
-                            checked={formData.changetodo}
-                        />
-                        <label htmlFor="changetodo">Show all chore elements in ToDo list tab </label>
+                    <div className="chores-item-changetodo" onClick={() => setFormData(prev => ({
+                        ...prev,
+                        changetodo: !prev.changetodo,
+                        }))}>
+                        {formData.changetodo ? (<RiCheckboxCircleLine />) : (<RiCheckboxBlankCircleLine />)}
+                        <span>Show all chore elements in ToDo list tab</span>
                     </div>
                 </div>
                 <div className="chores-form-footer chores-item-footer" onClick={handleSave}>

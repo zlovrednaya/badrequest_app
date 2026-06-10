@@ -207,6 +207,9 @@ export default function ChoresTrackerAccount() {
         },
         popup: {
             setPopUp,
+        },
+        settings: {
+            loadSettings,
         }
     };
 

@@ -70,3 +70,16 @@
 .chores-item-form-cost {
     width: 50px;
 }
+
+.chores-item-istodo {
+    display: flex;
+    align-items: center;
+}
+
+.chores-item-istodo:hover {
+    cursor: pointer;
+}
+
+.chores-item-istodo span {
+    padding-left: 5px;
+}

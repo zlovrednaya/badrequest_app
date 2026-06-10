@@ -7,6 +7,9 @@ import '../choresApp.css';
 import './ChoresItem.css';
 import axios from "axios";
 
+import { RiCheckboxBlankCircleLine } from "react-icons/ri";
+import { RiCheckboxCircleLine } from "react-icons/ri";
+
 export default function ChoresItem( {choreId, actions}) {
     const [formData, setFormData] = useState({
         title: "",
@@ -19,6 +22,7 @@ export default function ChoresItem( {choreId, actions}) {
     });
 
     const categoryList = [
+        {'name': 'Not selected'},
         {'name': 'Home'},
         {'name': 'Schedule'},
         {'name': 'Notes'},
@@ -166,17 +170,13 @@ export default function ChoresItem( {choreId, actions}) {
                         />
                         <label htmlFor="cost"><SlStar /> </label>
                     </div>
-                    <div className="chores-item-istodo">
-                        <input
-                            type="checkbox"
-                            id="istodo"
-                            name="istodo"
-                            className="chores-item-form-istodo"
-                            placeholder="istodo.."
-                            onChange={handleChange}
-                            value={formData.istodo}
-                        />
-                        <label htmlFor="istodo">Make ToDo list element </label>
+                    <div className="chores-item-istodo" onClick={() => setFormData(prev => ({
+                        ...prev,
+                        istodo: !prev.istodo,
+                        }))}
+                    >
+                        {formData.istodo ? (<RiCheckboxCircleLine />) : (<RiCheckboxBlankCircleLine />)}
+                        <span>Make ToDo list element</span>
                     </div>
                 </div>
                 <div className="chores-form-footer chores-item-footer" onClick={handleSave}>
