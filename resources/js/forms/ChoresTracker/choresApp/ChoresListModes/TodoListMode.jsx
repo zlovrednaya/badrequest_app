@@ -48,6 +48,7 @@ export default function TodoListMode({chores, selectedChores, actions, appSettin
     };
 
     const getDoneItems = async () => {
+        console.log("load done todo items");
         let url = window.location.origin + '/chores/getList';
 
         const params = new URLSearchParams();
@@ -56,7 +57,7 @@ export default function TodoListMode({chores, selectedChores, actions, appSettin
         
 
         url += `?${params.toString()}`;
-        console.log("load done todo items");
+        
         await axios(url , {
             method: 'GET', 
             headers: new Headers({

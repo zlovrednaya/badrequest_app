@@ -23,8 +23,15 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
     };
 
     useEffect(() => {
-        actions.menu.setLeftMenu();
-    }, []);
+        console.log('selectedFilter changed', appSettings.selectedFilter);
+
+        if (!appSettings.selectedFilter) {
+            actions.menu.setLeftMenu();
+
+            return;
+        }
+        
+    }, [appSettings.selectedFilter]);
 
     return (
         <div className="left-menu">

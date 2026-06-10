@@ -24,7 +24,7 @@ export default function ChoresTrackerAccount() {
     const [chores, setChores] = useState([]);
     const [currentAmount, setCurrentAmount] = useState(0);
     const [selectedChores, setSelectedChores] = useState({});
-    const [calendarMode, setCalendarMode] = useState('simple');
+    const [calendarMode, setCalendarMode] = useState(null);
 
     const [disabledForm, setDisabledForm] = useState('');
     const [activeForm, setActiveForm] = useState(null);
@@ -47,6 +47,7 @@ export default function ChoresTrackerAccount() {
         setDisabledForm(false);
         setActiveForm(null);
     };
+
     async function loadSettings() {
         await axios('/chores/getUserSettings', {
                 method: 'GET', 
@@ -58,6 +59,7 @@ export default function ChoresTrackerAccount() {
             }
         )
         .then((res) => {
+            console.log('user settings loaded');
             const settings = JSON.parse(res.data.settings);
             setUserSettings(settings);
             setCalendarMode(settings.mode);
@@ -65,6 +67,7 @@ export default function ChoresTrackerAccount() {
     }
 
     async function loadChores(mode) {
+        console.log('loadChores mode is ' + mode);
         let url = window.location.origin + '/chores/getList';
 
         const params = new URLSearchParams();
@@ -78,7 +81,6 @@ export default function ChoresTrackerAccount() {
         }
 
         url += `?${params.toString()}`;
-        console.log("load chores");
         axios(url , {
             method: 'GET', 
             headers: new Headers({
@@ -91,6 +93,11 @@ export default function ChoresTrackerAccount() {
             setChores(res.data);
         });
     };
+
+    async function onSelectFilter(filterData) {
+        setSelectedFilter(filterData);
+        loadChores(appSettings.calendarMode);
+    }
 
     async function onChoreSaved(mode) {
         await loadChores(mode);
@@ -208,10 +215,7 @@ export default function ChoresTrackerAccount() {
     
         loadSettings();
 
-        loadChores(calendarMode);
-
-        updateAmount();
-    }, [user, selectedFilter]);
+    }, [user]);
 
     return (
         <div className="chores-tracker-account">
@@ -225,7 +229,7 @@ export default function ChoresTrackerAccount() {
                 <div className="chores-tracker-window">
                     <div className="chores-tracker-left-window">
                         <LeftMenu 
-                            onSelectFilter={setSelectedFilter}
+                            onSelectFilter={onSelectFilter}
                             actions={actions}
                             appSettings={appSettings}
                         />

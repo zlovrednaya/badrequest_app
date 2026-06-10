@@ -98,7 +98,7 @@ export default function ChoresSettingsForm({actions, settings}){
                             onChange={handleChange}
                             checked={formData.changetodo}
                         />
-                        <label htmlFor="changetodo">All chore elements ARE ToDo elements </label>
+                        <label htmlFor="changetodo">Show all chore elements in ToDo list tab </label>
                     </div>
                 </div>
                 <div className="chores-form-footer chores-item-footer" onClick={handleSave}>

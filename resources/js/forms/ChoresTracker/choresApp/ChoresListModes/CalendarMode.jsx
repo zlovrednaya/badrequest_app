@@ -30,7 +30,7 @@ export default function CalendarMode() {
 
     useEffect(()=>{
         getChores();
-    },[currentDate]);
+    }, [currentDate]);
     return (
         <div className="chores-list-calendar">
             {

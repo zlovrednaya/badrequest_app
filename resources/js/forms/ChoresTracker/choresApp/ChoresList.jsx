@@ -57,6 +57,24 @@ export default function ChoresList({chores, selectedChores, actions, appSettings
         }
     }
 
+    useEffect(() => {
+        console.log('load chores list. calendarmode is ' + appSettings.calendarMode);
+        
+        if(!appSettings.calendarMode) return;
+
+        switch(appSettings.calendarMode) {
+            case 'simple':
+            case 'todolist':
+                actions.chore.loadChores(appSettings.calendarMode);
+                break;
+            case 'calendar':
+                break;    
+        }
+
+        actions.amount.updateAmount();
+        
+    }, [appSettings.selectedFilter, appSettings.calendarMode]);
+
     return (
         <div className="chores-list">
             {appSettings.calendarMode === 'simple' &&

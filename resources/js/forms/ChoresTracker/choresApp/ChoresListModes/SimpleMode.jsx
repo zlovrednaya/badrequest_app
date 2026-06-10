@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
 import "../ChoresList.css";
 
-export default function SimpleMode({chores, selectedChores, actions}) {
-// 
+export default function SimpleMode({chores, selectedChores, actions, appSettings}) {
+
     return (
         <div className="chores-list-simple">
             {
