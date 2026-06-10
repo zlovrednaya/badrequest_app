@@ -28,7 +28,7 @@ export default function UserProfile() {
             telegram_name: user?.telegram_name,
     });
 
-    const infoMessage = "<p>For correct usage you need to find <b>@WidgetFactoryBot</b> in telegram and send to bot message: <br> \"<i>/start your_e-mail</i>\"</p>";
+    const infoMessage = "<p>For correct usage you need to find <b>@WidgetFactoryBot</b> in telegram and send the message: <br> \"<i>/start your_e-mail</i>\"</p>";
     
 
     function handleLogout() {

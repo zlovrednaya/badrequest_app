@@ -126,6 +126,7 @@ export default function ChoresItem( {choreId, actions}) {
                             className="chores-item-form-date"
                             placeholder="DD.MM.YY"
                             onChange={handleChange}
+                            value={formData.due_datetime}
                         />
                     </div>
                     <div className="chores-item-categories">

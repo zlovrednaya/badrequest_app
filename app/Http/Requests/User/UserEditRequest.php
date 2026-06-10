@@ -11,7 +11,7 @@ class UserEditRequest extends FormRequest
         return [
             'user_id' => 'integer|exists:notes,id',
             'email' => 'required|string',
-            'phone' => 'string',
+            'phone' => 'nullable|string',
             'telegram_name' => 'string',
         ];
     }
