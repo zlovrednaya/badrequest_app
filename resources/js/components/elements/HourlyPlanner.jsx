@@ -11,7 +11,6 @@ export default function HourlyPlanner({items, day, onClose}) {
     const hh = Number(currentTime.getHours());
     const mm = Number(currentTime.getMinutes());
     const currentTimeTop = (topStep * hh) + mm; 
-    
 
     const createItem = (hour) => {
         console.log('createItem: ' + hour);

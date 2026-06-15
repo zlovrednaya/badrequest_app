@@ -18,19 +18,22 @@ Route::post('/register', [ RegisterController::class, 'postRegister' ]);
 Route::post('/login', [ LoginController::class, 'authenticate' ]);
 Route::post('/logout', [ LoginController::class, 'logout' ]);
 
-Route::post('/chores/add', [ ChoresController::class, 'add']);
+
 Route::patch('/chores/update/{chore}', [ ChoresController::class, 'update']);
 Route::get('/chores/getList', [ ChoresController::class, 'getList']);
 Route::get('/chores/getAllForCalendar', [ ChoresController::class, 'getAllForCalendar']);
+Route::get('/chores/getAmount', [ChoresController::class, 'getAmount']);
+Route::get('/chores/getUserSettings', [ChoresController::class, 'getUserSettings']);
+Route::get('/chores/{id}', [ChoresController::class, 'getById']);
+Route::post('/chores/add', [ ChoresController::class, 'add']);
 Route::post('/chores/getChoresStructure', [ ChoresController::class, 'getChoresStructure']);
 Route::post('/chores/filterChores', [ ChoresController::class, 'filterChores']);
 Route::post('/chores/deleteChores', [ChoresController::class, 'deleteChores']);
 Route::post('/chores/shareChores', [ChoresController::class, 'shareChores']);
 Route::post('/chores/shareTelegramChores', [ChoresController::class, 'shareTelegramChores']);
-Route::get('/chores/getAmount', [ChoresController::class, 'getAmount']);
+Route::post('/chores/saveBatch', [ChoresController::class, 'saveBatch']);
 Route::post('/chores/saveUserSettings', [ChoresController::class, 'saveUserSettings']);
-Route::get('/chores/getUserSettings', [ChoresController::class, 'getUserSettings']);
-Route::get('/chores/{id}', [ChoresController::class, 'getById']);
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

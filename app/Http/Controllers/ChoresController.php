@@ -195,4 +195,10 @@ class ChoresController extends Controller
             $this->choreService->getById($id)
         );
     }
+
+    public function saveBatch() {
+        return response()->json(
+            $this->choreService->saveBatch()
+        );
+    }
 }

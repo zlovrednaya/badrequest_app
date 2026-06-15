@@ -38,6 +38,19 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
     const [choreId, setChoreId] = useState(null);
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
 
+    const saveBatch = async (formData) => {
+        await axios('/chores/saveBatch', {
+            method: 'POST', 
+            data: JSON.stringify(formData),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }),
+        })
+        .then(res => {
+
+        });
+    };
     const saveChore = async (formData) => {
         await axios('/chores/add', {
             method: 'POST', 
@@ -143,7 +156,9 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                     {appSettings.calendarMode === 'todolist' && (
                         <div className="add-edit-menu">
                             <div className="add-edit-menu-icon" title="Share ToDo list" onClick={() => shareTelegramChores('todolist')}><MdShare /></div>
-                            <div className="add-edit-menu-icon" title="Save ToDo batch" onClick={() => listActions.form.openForm("ToDoItem")}><MdOutlineSave /></div>
+                            <div className="add-edit-menu-icon" title="Save ToDo batch" onClick={() => saveBatch()}>
+                                <MdOutlineSave />
+                            </div>
                         </div>
                     )}
                     

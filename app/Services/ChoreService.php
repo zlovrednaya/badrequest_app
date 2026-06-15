@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Chore;
 use App\Models\User;
-
+use App\Models\ChoreBatch;
 use App\Models\ChoreUserSetting;
 
 use Illuminate\Support\Facades\Log;
@@ -175,7 +175,7 @@ class ChoreService
             //$query->where('done', false);
         }
 
-        if(!empty($filterData['done'])) {
+        if(isset($filterData['done'])) {
             $query->where('done', $filterData['done']);
         }
        
@@ -302,5 +302,33 @@ class ChoreService
         return ChoreUserSetting::where(['user_id' => $this->user()->id])
             ->first()
             ->toArray();
+    }
+
+    public function saveBatch(array $ids = []) {
+        if (empty($ids)) {
+            $items = $this->getAll([
+                'istodo' => true, 
+                'done' => false
+            ]);
+
+            if(empty($items)) return [
+                'success' => false,
+                'error' => 'There are no items to save',
+            ];
+
+            $ids = array_column($items, 'id');
+
+            $batch = ChoreBatch::create(
+                [
+                    'note_ids' => json_encode($ids),
+                    'user_id' => $this->user()->id
+                ],
+                
+            );
+
+        }
+
+
+        
     }
 }

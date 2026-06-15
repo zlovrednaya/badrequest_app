@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(Schema::hasTable('notes_batches')); return;
+        
         Schema::table('notes', function (Blueprint $table) {
             $table->text('telegram_message_id')->nullable();
         });
