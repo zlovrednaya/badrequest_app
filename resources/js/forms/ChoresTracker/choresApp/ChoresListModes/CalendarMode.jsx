@@ -20,7 +20,7 @@ export default function CalendarMode() {
             }),
         })
         .then(res => {
-            debugger;
+            
             setChores(res.data);
         })
         .catch(() => {

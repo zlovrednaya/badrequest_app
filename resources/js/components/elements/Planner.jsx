@@ -11,6 +11,8 @@ export default function Planner({items, currentDate, setCurrentDate}) {
     const [selectedDate, setSelectedDay] = useState(now);
     const [selectedItem, setSelectedItem] = useState();
     const [showHourlyPlanner, setShowHourlyPlanner] = useState(false);
+    const [itemsDay, setItemsDay] = useState(null);
+    const [dayForHourlyPlanner, setDayForHourlyPlanner] = useState(null);
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
     
@@ -36,7 +38,8 @@ export default function Planner({items, currentDate, setCurrentDate}) {
             console.log('showAllItems' + day);
 
             setShowHourlyPlanner(true);
-
+            setItemsDay(items[day]);
+            setDayForHourlyPlanner(day);
         };
 
         const selectItem = (id) => {
@@ -68,29 +71,30 @@ export default function Planner({items, currentDate, setCurrentDate}) {
             
             if (items[day]) {
                 let k = 0;
-                items[day].forEach(item => {
-                    k++;
-                    if (k > 4) {
-                        return;
-                    } 
-                    if (k == 4) {
+                for(let itemHours in items[day]) {
+                    for(let itemIndex in items[day][itemHours]) {
+                        let item = items[day][itemHours][itemIndex];
+                        k++;
+                        if (k > 4) {
+                            continue;
+                        } 
+                        if (k == 4) {
+                            dayElements.push(
+                                <div className="calendar-item-element show-all" key={i+1} onClick={()=>showAllItems(day)}>
+                                    show more ..
+                                </div>
+                            );
+                            continue;
+                        } 
+
+                        let str =  (item.title || item.text || '');
                         dayElements.push(
-                            <div className="calendar-item-element show-all" key={i+1} onClick={()=>showAllItems(day)}>
-                                show more ..
+                            <div className="calendar-item-element" key={i+1} style={{backgroundColor:item.color}} onSelect={()=>selectItem(item.id)}>
+                                {str.slice(0, 20)}{(str.length>20)?`...`:``}
                             </div>
                         );
-                        return;
-                    } 
-
-                    let str =  (item.title || item.text || '');
-                    dayElements.push(
-                        <div className="calendar-item-element" key={i+1} style={{backgroundColor:item.color}} onSelect={()=>selectItem(item.id)}>
-                            {str.slice(0, 20)}{(str.length>20)?`...`:``}
-                        </div>
-                    );
-                    
-                });
-                
+                    }
+                }
             }
             cells.push(
                 <div className={`planner-day-cell` + (now.getDate()-1 == i ? " today":"")} key={`day-${i}`}>
@@ -127,7 +131,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
     }
 
     useState(() => {
-        renderDays(currentDate);
+        //renderDays(currentDate);
     }, [items]);
     
     return (
@@ -156,7 +160,12 @@ export default function Planner({items, currentDate, setCurrentDate}) {
                     {renderDays(currentDate)}
                 </div>
             </div>
-            {showHourlyPlanner && (<HourlyPlanner />)}
+            {itemsDay && (
+                <HourlyPlanner 
+                    items={itemsDay}
+                    day={dayForHourlyPlanner}
+                />
+            )}
         </div>
     );
 }

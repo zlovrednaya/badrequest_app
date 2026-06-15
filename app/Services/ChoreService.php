@@ -143,6 +143,11 @@ class ChoreService
             ->get()
             ->groupBy(function ($note) {
                 return date('Y-m-d', strtotime($note->due_datetime));
+            })
+            ->map(function ($dayNotes) {
+                return $dayNotes->groupBy(function ($note) {
+                    return date('H:i', strtotime($note->due_datetime));
+                });
             });
 
         return $query->toArray();           

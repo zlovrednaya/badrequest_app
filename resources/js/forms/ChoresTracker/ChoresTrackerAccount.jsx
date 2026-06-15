@@ -114,7 +114,6 @@ export default function ChoresTrackerAccount() {
             }),
         })
         .then(res => {
-            debugger;
             setCurrentAmount(res.data.amount);
         })
     }
