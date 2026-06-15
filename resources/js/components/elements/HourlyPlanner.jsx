@@ -4,9 +4,14 @@ import "./HourlyPlanner.css";
 import { IoIosCloseCircle } from "react-icons/io";
 
 
-export default function HourlyPlanner({items, day}) {
-    const currentTime = new Date();
+export default function HourlyPlanner({items, day, onClose}) {
     const cursorRef = useRef(null);
+    const topStep = 30;
+    const currentTime = new Date();
+    const hh = Number(currentTime.getHours());
+    const mm = Number(currentTime.getMinutes());
+    const currentTimeTop = (topStep * hh) + mm; 
+    
 
     const createItem = (hour) => {
         console.log('createItem: ' + hour);
@@ -15,14 +20,13 @@ export default function HourlyPlanner({items, day}) {
     function changeCursorPosition(e) {
         if (!cursorRef.current) return;
         const rect = e.currentTarget.getBoundingClientRect();
-
         const y = e.clientY - rect.top;
 
         cursorRef.current.style.top = `${y}px`;
     }
 
     function closeForm() {
-
+        onClose();
     }
 
     function selectItem(item) {
@@ -37,11 +41,11 @@ export default function HourlyPlanner({items, day}) {
             const [hour, minute] = itemsKey.split(":").map(Number);
             if(!hourPosition[hour])hourPosition[hour] = [];
 
-            let elementTop = (30 * (hour-1)) + 15 + minute;
+            let elementTop = (topStep * (hour-1)) + 15 + minute;
             let i = 1;
             for(let element of items[itemsKey]) {    
                 hourPosition[hour].push(element);
-                let elementHeight = 30 || element?.duration;
+                let elementHeight = topStep || element?.duration;
                 elements.push(
                     <div className="hourly-planner-element" 
                         key={itemsKey+"-"+i} 
@@ -96,6 +100,7 @@ export default function HourlyPlanner({items, day}) {
                 {renderRows()}
                 {renderItems(items)}
                 <div className="cursor-time-element" ref={cursorRef}></div>
+                <div className="cursor-current-time-element" style={{top:currentTimeTop+"px"}}></div>
             </div>
         </div>
     );

@@ -3,13 +3,13 @@
     top: 0px;
     width: 50%;
     height: 60%;
-    overflow-y: auto;
+    overflow: visible;
     background-color: white;
     font-size: 10px;
-    overflow-y: auto;
     border: 0.5px solid;   
     border-radius: 10px;
     padding: 10px;
+    box-shadow: 1px 1px 8px #939393;
 }
 
 .close-planner {
@@ -17,15 +17,23 @@
     right: -5px;
     top: -5px;
     font-size: 20px;
+    z-index: 10;
+}
+
+.close-planner:hover {
+    cursor: pointer;
 }
 
 .hourly-planner-title {
+    height: 5%;
     font-weight: 600;
     padding-right: 5px;
 }
 
 .hourly-planner-grid {
     position: relative;
+    overflow-y: auto;
+    height: 95%;
 }
 
 .hourly-planner-row {
@@ -55,10 +63,11 @@
 .hourly-planner-element {
     position: absolute;
     z-index: 100;
-    border: 0.5px solid #000000;
+    border: 0.2px solid #000000;
     border-radius: 5px;
     width: auto;
     background: #fff;
+    padding: 2px;
 }
 
 .hourly-planner-element:hover {
@@ -69,7 +78,18 @@
     position: absolute;
     z-index: 50;
     height: 0.8px;
-    left: 10%;
+    
     width: 100%;
     background-color: #fb4d4d;
+    padding-right: 5px;
+}
+
+.cursor-current-time-element {
+    position: absolute;
+    z-index: 50;
+    height: 0.8px;
+    
+    width: 100%;
+    background-color: #0b0eb1;
+   
 }

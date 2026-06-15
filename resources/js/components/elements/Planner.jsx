@@ -7,7 +7,6 @@ import HourlyPlanner from "./HourlyPlanner";
 import { PiXFill } from "react-icons/pi";
 export default function Planner({items, currentDate, setCurrentDate}) {
     const now = new Date();
-    
     const [selectedDate, setSelectedDay] = useState(now);
     const [selectedItem, setSelectedItem] = useState();
     const [showHourlyPlanner, setShowHourlyPlanner] = useState(false);
@@ -16,12 +15,14 @@ export default function Planner({items, currentDate, setCurrentDate}) {
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
     
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'October', 'November', 'December'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     
     const days = [];
 
-
+    function closeHourlyPlanner() {
+        setItemsDay(null);
+    }
     function renderDays(currentDate) {
         const cells = [];
         const year = currentDate.getFullYear();
@@ -32,7 +33,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
         const lastDayOfPreviousMonth = new Date(year, month, 0).getDate();
 
         const daysInMonth = lastDayOfMonth.getDate();
-        const startWeekDay = firstDayOfMonth.getDay();
+        const startWeekDay = (firstDayOfMonth.getDay() + 6) % 7; // normalize week - Monday is 0
 
         const showAllItems = (day) => {
             console.log('showAllItems' + day);
@@ -56,12 +57,14 @@ export default function Planner({items, currentDate, setCurrentDate}) {
         };
 
         // render previous month days
-        for (let i = startWeekDay - 1; i > 0; i--) {
-            cells.push(
-                <div className="planner-day-cell no-current previous" key={`empty-before-${i}`}>
-                    <div className="day-cell-date">{lastDayOfPreviousMonth - i + 1}</div>
-                </div>
-            );
+        if (startWeekDay != 0){
+            for (let i = startWeekDay; i > 0; i--) {
+                cells.push(
+                    <div className="planner-day-cell no-current previous" key={`empty-before-${i}`}>
+                        <div className="day-cell-date">{lastDayOfPreviousMonth - i + 1}</div>
+                    </div>
+                );
+            }
         }
         // render items
 
@@ -106,13 +109,17 @@ export default function Planner({items, currentDate, setCurrentDate}) {
         }
 
         // render next month days
-        for (let i = 0; i < 7 - lastDayOfMonth.getDay(); i++) {
+        const daysToAdd = 7-lastDayOfMonth.getDay()%7;
+        
+        for (let i = 1; i <= daysToAdd; i++) {
             cells.push(
                 <div className="planner-day-cell no-current next" key={`empty-after-${i}`}>
-                    <div className="day-cell-date">{i+1}</div>
+                    <div className="day-cell-date">{i}</div>
                 </div>
             );
+        
         }
+        
 
         return cells;
 
@@ -143,9 +150,9 @@ export default function Planner({items, currentDate, setCurrentDate}) {
                 </div>
                 
                 <div className="navigation-bar">
-                    <div className="month-left" onClick={()=>setMonth(-1)}><CiCircleChevLeft /></div>
-                    <div className="day-today" onClick={()=>selectToday()}>{selectedDate.toDateString()}</div>
-                    <div className="month-right" onClick={()=>setMonth(+1)}><CiCircleChevRight /></div>
+                    <div className="navigation-bar-button month-left" onClick={()=>setMonth(-1)}><CiCircleChevLeft /></div>
+                    <div className="navigation-bar-button-text day-today" onClick={()=>selectToday()}>Today - {selectedDate.toDateString()}</div>
+                    <div className="navigation-bar-button month-right" onClick={()=>setMonth(+1)}><CiCircleChevRight /></div>
                 </div>
             </div>
             <div className="planner-body">
@@ -164,6 +171,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
                 <HourlyPlanner 
                     items={itemsDay}
                     day={dayForHourlyPlanner}
+                    onClose={closeHourlyPlanner}
                 />
             )}
         </div>
