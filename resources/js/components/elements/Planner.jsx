@@ -83,7 +83,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
                         } 
                         if (k == 4) {
                             dayElements.push(
-                                <div className="calendar-item-element show-all" key={i+1} onClick={()=>showAllItems(day)}>
+                                <div className="calendar-item-element show-all" key={"show-more-" + (i+1)} onClick={()=>showAllItems(day)}>
                                     show more ..
                                 </div>
                             );
@@ -92,7 +92,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
 
                         let str =  (item.title || item.text || '');
                         dayElements.push(
-                            <div className="calendar-item-element" key={i+1} style={{backgroundColor:item.color}} onSelect={()=>selectItem(item.id)}>
+                            <div className="calendar-item-element" key={"item-element-" + item.id + (i+1)} style={{backgroundColor:item.color}} onSelect={()=>selectItem(item.id)}>
                                 {str.slice(0, 20)}{(str.length>20)?`...`:``}
                             </div>
                         );
@@ -158,7 +158,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
             <div className="planner-body">
                 <div className="planner-body-weekdays">
                     {weekdays.map((days, i) => (
-                        <div className={`weekday ` + (i>4 ? `weekend`:`day`)} key={i}>
+                        <div className={`weekday ` + (i>4 ? `weekend`:`day`)} key={"weekday-" + i}>
                             {days}
                         </div>
                     ))}

@@ -304,7 +304,7 @@ class ChoreService
             ->toArray();
     }
 
-    public function saveBatch(array $ids = []) {
+    public function saveBatch(array $formData = [], array $ids = []) {
         if (empty($ids)) {
             $items = $this->getAll([
                 'istodo' => true, 
@@ -321,14 +321,17 @@ class ChoreService
             $batch = ChoreBatch::create(
                 [
                     'note_ids' => json_encode($ids),
-                    'user_id' => $this->user()->id
+                    'user_id' => $this->user()->id,
+                    'batch_name' => $formData['batch_name'] ?? '',
                 ],
                 
             );
 
         }
+      
+    }
 
-
-        
+    public function getBatches() {
+        return ChoreBatch::all();
     }
 }

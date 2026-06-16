@@ -12,7 +12,7 @@ export function AuthProvider({children}) {
 
     const login = async (userData) => {
         try {
-            const res = await axios( window.location.href + 'login', {
+            const res = await axios('login', {
                 method: 'POST', 
                 data: JSON.stringify(userData),
                 headers: new Headers({
@@ -70,13 +70,24 @@ export function AuthProvider({children}) {
         })
     };
 
+
+
     useEffect(() => {
+        
         if(localStorage.getItem("token")) {
-            getUser();
             console.log('getuser');
+            getUser();
         }
+
+        console.log("AuthProvider MOUNT");
+
+        return () => {
+            console.log("AuthProvider UNMOUNT");
+        };
+
     }, []);
 
+    console.log("AuthProvider RENDER");
     return (
         <AuthContext.Provider value={{user, login, logout, updateUser}}>
             {children}

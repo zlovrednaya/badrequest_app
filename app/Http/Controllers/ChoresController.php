@@ -196,9 +196,16 @@ class ChoresController extends Controller
         );
     }
 
-    public function saveBatch() {
+    public function saveBatch(Request $request) {
+        $formData = $request->all();
         return response()->json(
-            $this->choreService->saveBatch()
+            $this->choreService->saveBatch($formData)
+        );
+    }
+
+    public function getBatches() {
+        return response()->json(
+            $this->choreService->getBatches()
         );
     }
 }

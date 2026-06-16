@@ -7,6 +7,8 @@ import { FaPenFancy } from "react-icons/fa6";
 import { MdStickyNote2 } from "react-icons/md";
 
 import Calendar from "../../../../components/elements/Calendar";
+import TodoMenu from "./leftMenu/TodoMenu";
+import FilterMenu from "./leftMenu/FilterMenu";
 
 import './LeftMenu.css';
 
@@ -26,46 +28,33 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
         console.log('selectedFilter changed', appSettings.selectedFilter);
 
         if (!appSettings.selectedFilter) {
-            actions.menu.setLeftMenu();
-
+            switch (appSettings.calendarMode){
+                case 'simple':
+                    actions.menu.setLeftMenu();
+                    break;
+                case 'todolist':
+                    if(!actions.menu.batchesMenu) {
+                        console.log('launch batchesmenu');
+                        actions.menu.setBatchesMenu();
+                    }
+                    
+                    break;
+            }
+           
             return;
         }
         
-    }, [appSettings.selectedFilter]);
+    }, [appSettings.selectedFilter, appSettings.calendarMode]);
 
     return (
         <div className="left-menu">
             <div className="left-menu-content">
-                {appSettings?.menu?.leftMenuTree?.map((treeItem, i) => (
-                    <div className="left-menu-content-item" key={i}>
-                        <div className="left-menu-content-item-parent" onClick={()=>{filterChores(treeItem.filterName, treeItem.filterType === 'bool' ? 1 : 'all')}}>
-                            {treeItem.name}
-                            {treeItem.amount && (
-                                <div className="left-menu-content-item-parent-amount">
-                                    {treeItem.amount}
-                                </div>
-                            )}
-                        </div>
-                        {treeItem.items?.map((treeItemChild, k) => (
-                            <div className="left-menu-content-item-child" key={k} onClick={()=>{filterChores(treeItem.filterName, treeItemChild.filterName)}}>
-                                {treeItemChild.color && (
-                                    <div className="left-menu-item-color-circle" style={{color:treeItemChild.color}}>
-                                        <FaCircle />
-                                    </div>
-                                )}
-                                <div className="left-menu-item-color-name">
-                                    {treeItemChild.name}
-                                </div>
-                                {treeItemChild.amount && (
-                                    <div className="left-menu-content-item-child-amount">
-                                        {treeItemChild.amount}
-                                    </div>
-                                )}
-                                
-                            </div>
-                        ))}    
-                    </div>
-                ))}
+                {appSettings?.calendarMode === 'simple' && 
+                    <FilterMenu items={appSettings?.menu?.leftMenuTree} />
+                }
+                {appSettings?.calendarMode === 'todolist' && 
+                    <TodoMenu items={appSettings?.menu?.batchesMenu} />
+                }
                 
             </div>
             <div className="calendar">

@@ -83,3 +83,29 @@
 .add-button span {
     padding-left: 10px;
 }
+
+.menu-title {
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 10px;
+}
+
+.left-todo-menu-content-item {
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.left-todo-menu-content-item svg {
+    font-size: 25px;
+    padding-right: 5px;
+}
+
+.left-todo-menu-content-item:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+

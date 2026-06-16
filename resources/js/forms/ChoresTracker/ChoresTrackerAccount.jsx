@@ -30,12 +30,14 @@ export default function ChoresTrackerAccount() {
     const [activeForm, setActiveForm] = useState(null);
 
     const [leftMenuTree, setLeftMenuTree] = useState([]);
+    const [batchesMenu, setBatchesMenuTree] = useState(null);
     const [popUp, setPopUp] = useState(null);
     const [userSettings, setUserSettings] = useState({});
 
     const changeCalendarMode = (mode) => {
+        console.log('on changeCalendarMode');
+
         setCalendarMode(mode);
-        loadChores(mode);
     };
 
     const openForm = (formName, id) => {
@@ -49,6 +51,7 @@ export default function ChoresTrackerAccount() {
     };
 
     async function loadSettings() {
+        console.log('load settings');
         await axios('/chores/getUserSettings', {
                 method: 'GET', 
                 headers: new Headers({
@@ -81,7 +84,7 @@ export default function ChoresTrackerAccount() {
         }
 
         url += `?${params.toString()}`;
-        axios(url , {
+        await axios(url , {
             method: 'GET', 
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -95,6 +98,7 @@ export default function ChoresTrackerAccount() {
     };
 
     async function onSelectFilter(filterData) {
+        console.log('onSelectFilter');
         setSelectedFilter(filterData);
         loadChores(appSettings.calendarMode);
     }
@@ -156,7 +160,7 @@ export default function ChoresTrackerAccount() {
     };
 
     const setLeftMenu = async () => {
-        axios( window.location.origin + '/chores/getChoresStructure', {
+        await axios('/chores/getChoresStructure', {
             method: 'POST', 
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -168,6 +172,20 @@ export default function ChoresTrackerAccount() {
             setLeftMenuTree(res.data);
         });
     };
+
+    const setBatchesMenu = async () => {
+        await axios('/chores/getBatches', {
+            method: 'GET', 
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+        })
+        .then(res => {
+            setBatchesMenuTree(res.data);
+        });
+    }
 
     const appSettings = {
         userSettings,
@@ -181,6 +199,7 @@ export default function ChoresTrackerAccount() {
         },
         menu: {
             leftMenuTree,
+            batchesMenu,
         }
     };
 
@@ -203,6 +222,7 @@ export default function ChoresTrackerAccount() {
         },
         menu: {
             setLeftMenu,
+            setBatchesMenu,
         },
         popup: {
             setPopUp,
@@ -217,7 +237,7 @@ export default function ChoresTrackerAccount() {
     
         loadSettings();
 
-    }, [user]);
+    }, [user?.id]);
 
     return (
         <div className="chores-tracker-account">

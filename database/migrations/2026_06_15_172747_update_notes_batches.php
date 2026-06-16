@@ -23,12 +23,14 @@ return new class extends Migration
         }
         if (Schema::hasColumn('notes_batches', 'batch_id')) {
             Schema::table('notes_batches', function (Blueprint $table) {
-                    $table->dropColumn('batch_id');
+                $table->dropColumn('batch_id');
             });
         }
 
+        
         Schema::table('notes_batches', function (Blueprint $table) {
-                $table->json('batch_name')->nullable();
+            $table->dropColumn('batch_name');
+            $table->string('batch_name')->nullable();
         });
     }
 
