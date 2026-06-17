@@ -22,7 +22,7 @@ export default function UserMenu({ appSettings }) {
     }
 
     useEffect(() => {
-        return;
+        if (!user) add-edit-batchreturn;
     }, [user]);
 
     return (

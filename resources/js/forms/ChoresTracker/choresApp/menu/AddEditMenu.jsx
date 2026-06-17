@@ -10,7 +10,6 @@ import { IoEyeSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { FaListCheck } from "react-icons/fa6";
 import { FaPaperPlane } from "react-icons/fa6";
-import { MdOutlineSave } from "react-icons/md";
 import { MdApps } from "react-icons/md";
 import { FaPenFancy } from "react-icons/fa6";
 
@@ -28,6 +27,7 @@ import ChoresItem from "../item/ChoresItem.jsx";
 import DrawItem from "../item/DrawItem.jsx";
 import ToDoItem from "../item/ToDoItem.jsx";
 import ChoresSettingsForm from "../ChoresSettingsForm";
+import SaveBatch from "../../SaveBatch.jsx";
 
 
 import { useWarning } from "../../../../components/elements/Warning.jsx";
@@ -36,22 +36,10 @@ import axios from "axios";
 
 export default function AddEditMenu({chores, selectedChores, calendarMode, actions, appSettings}) {
     const [choreId, setChoreId] = useState(null);
-    const [batchName, setBatchName] = useState('');
+    
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
 
-    const saveBatch = async () => {
-        await axios('/chores/saveBatch', {
-            method: 'POST', 
-            data: JSON.stringify({batch_name: batchName || 'List from '}),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }),
-        })
-        .then(res => {
-            actions.menu.setBatchesMenu();
-        });
-    };
+    
     const saveChore = async (formData) => {
         await axios('/chores/add', {
             method: 'POST', 
@@ -156,19 +144,11 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                     )}
                     {appSettings.calendarMode === 'todolist' && (
                         <div className="add-edit-menu">
-                            <div className="add-edit-menu-icon" title="Share ToDo list" onClick={() => shareTelegramChores('todolist')}><MdShare /></div>
-                            <div className="add-edit-batch" title="Save ToDo batch">
-                                
-                                <input 
-                                    type="text"
-                                    placeholder="Enter batch name ..."
-                                    onChange={(e)=>setBatchName(e.target.value)}
-                                />
-                                <div className="save-batch-button" onClick={() => saveBatch()}>
-                                    Save
-                                    <MdOutlineSave />
-                                </div>
+                            <div className="add-edit-menu-icon button-left-icon" title="Share ToDo list" onClick={() => shareTelegramChores('todolist')}>
+                                <MdShare />
+                                <span>Share list</span>
                             </div>
+                            <SaveBatch />
                         </div>
                     )}
                     

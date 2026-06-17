@@ -1,0 +1,8 @@
+.save-batch-form {
+    display: flex;
+    align-items: center;
+}
+
+.save-batch-button span:hover {
+    font-weight: 600;
+}

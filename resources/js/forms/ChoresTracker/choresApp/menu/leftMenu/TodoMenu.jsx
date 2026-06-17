@@ -5,7 +5,9 @@ export default function TodoMenu({items}) {
     return (
         <div className="left-todo-menu">
             <div className="menu-title">
-                Saved ToDo lists:
+                {items ? "Saved ToDo lists:": (
+                    <div>There's no aved ToDo lists</div>
+                )}
             </div>
             {items && items.map((treeItem, i) => (
                 <div className="left-todo-menu-content-item" key={"batches-menu-" + i}>

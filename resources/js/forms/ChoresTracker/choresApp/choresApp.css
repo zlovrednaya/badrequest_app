@@ -32,8 +32,9 @@
     display: flex;
     align-items: center;
     border: 0.5px solid;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 0 10px 0 10px;
+    background-color: #fff;
 }
 
 .add-edit-batch input {
@@ -203,5 +204,15 @@
 
 .save-batch-button svg {
     font-size: 20px;
+    padding-left: 5px;
+}
+
+.button-left-icon {
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+}
+
+.button-left-icon span {
     padding-left: 5px;
 }
