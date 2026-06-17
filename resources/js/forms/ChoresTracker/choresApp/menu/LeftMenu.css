@@ -41,9 +41,17 @@
 .left-menu .calendar {
     display: flex;
     justify-content: center;
-    width: 20%;
-    position: absolute;
+    
+}
+
+.left-menu .calendar-simple, .left-menu .calendar-todolist {
     bottom: 100px;
+    position: absolute;
+    width: 20%;
+}
+
+.left-menu .calendar-calendar {
+    position: relative;
 }
 .add-element {
     width:20%;

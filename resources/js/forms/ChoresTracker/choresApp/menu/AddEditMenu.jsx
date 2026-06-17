@@ -148,7 +148,7 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                                 <MdShare />
                                 <span>Share list</span>
                             </div>
-                            <SaveBatch />
+                            <SaveBatch actions={listActions}  />
                         </div>
                     )}
                     

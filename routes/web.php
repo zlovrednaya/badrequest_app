@@ -26,6 +26,7 @@ Route::get('/chores/getAmount', [ChoresController::class, 'getAmount']);
 Route::get('/chores/getUserSettings', [ChoresController::class, 'getUserSettings']);
 Route::get('/chores/getBatches', [ChoresController::class, 'getBatches']);
 Route::get('/chores/{id}', [ChoresController::class, 'getById']);
+Route::get('/chores/openBatch/id/{id', [ChoresController::class, 'getBatch']);
 Route::post('/chores/add', [ ChoresController::class, 'add']);
 Route::post('/chores/getChoresStructure', [ ChoresController::class, 'getChoresStructure']);
 Route::post('/chores/filterChores', [ ChoresController::class, 'filterChores']);

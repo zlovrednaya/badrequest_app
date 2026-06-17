@@ -57,9 +57,13 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
                 }
                 
             </div>
-            <div className="calendar">
+            <div className={`calendar calendar-${appSettings.calendarMode}`}>
                 <Calendar />
             </div>
+
+            {appSettings?.calendarMode === 'calendar' &&  
+                (<div className="three-days-planner">there is a form with three days planner</div>)
+            }
             <div className="add-element add-chore" onClick={() => actions.form.openForm("ChoresItem")}>
                 <div className="add-button ">
                     <MdStickyNote2 />

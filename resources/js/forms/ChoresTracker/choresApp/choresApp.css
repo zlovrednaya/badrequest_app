@@ -17,6 +17,7 @@
 }
 .add-edit-menu {
     display: flex;
+    align-items: center;
     height: 100%;
 }
 
@@ -28,19 +29,7 @@
     transform: scale(1.2);
 }
 
-.add-edit-batch {
-    display: flex;
-    align-items: center;
-    border: 0.5px solid;
-    border-radius: 5px;
-    padding: 0 10px 0 10px;
-    background-color: #fff;
-}
 
-.add-edit-batch input {
-    padding-left: 5px;
-    font-size: 12px;
-}
 
 .quick-add-menu {
     color: #878788;
@@ -51,7 +40,7 @@
 .edit-menu {
     display: flex;
     border-left: 0.5px solid;
-    margin-left: 5px;
+    margin-left: 10px;
     padding-left: 5px;
 }
 .edit-menu-one-selected {
@@ -192,25 +181,12 @@
     padding-right: 5px;
 }
 
-.save-batch-button {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-}
-
-.save-batch-button:hover {
-    cursor: pointer;
-}
-
-.save-batch-button svg {
-    font-size: 20px;
-    padding-left: 5px;
-}
 
 .button-left-icon {
     display: flex;
     font-size: 12px;
     align-items: center;
+    user-select: none;
 }
 
 .button-left-icon span {

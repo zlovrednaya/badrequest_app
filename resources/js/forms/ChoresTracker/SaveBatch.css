@@ -1,8 +1,57 @@
+.add-edit-batch {
+    display: flex;
+    align-items: center;
+    border: 0.5px solid;
+    border-radius: 5px;
+    padding: 0 10px 0 10px;
+    background-color: #fff;
+    height: 25px;
+    margin-left: 5px;
+}
+
+.add-edit-batch input {
+    font-size: 12px;
+}
+
 .save-batch-form {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.save-batch-button {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.save-batch-button:hover {
+    cursor: pointer;
+}
+
+.save-batch-button svg {
+    font-size: 20px;
+}
+
+.save-batch-button span:hover {
+    cursor: pointer;
+}
+
+.add-batch-form {
     display: flex;
     align-items: center;
 }
 
-.save-batch-button span:hover {
+.show-batch {
     font-weight: 600;
+    user-select: none;
+}
+
+.show-batch svg {
+    font-size: 20px;
+}
+
+.show-batch:hover {
+    cursor: pointer;
 }
