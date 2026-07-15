@@ -28,6 +28,7 @@
 
 .save-batch-button:hover {
     cursor: pointer;
+    transform: scale(1.1);
 }
 
 .save-batch-button svg {

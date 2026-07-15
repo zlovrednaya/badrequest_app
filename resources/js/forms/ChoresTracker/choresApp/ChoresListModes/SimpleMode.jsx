@@ -3,7 +3,7 @@ import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 
-
+import { formatDateTime } from "../../../../utils/date";
 import "../ChoresList.css";
 
 export default function SimpleMode({chores, selectedChores, actions, appSettings}) {
@@ -27,7 +27,7 @@ export default function SimpleMode({chores, selectedChores, actions, appSettings
                         {choreItem.due_datetime && (
                             <div className="chore-item-date">
                                 <LuClock />
-                                <span>{actions.format.formatDate(choreItem.due_datetime,'shortmonth')}</span>
+                                <span>{formatDateTime(choreItem.due_datetime,'shortmonth')}</span>
                             </div>
                         )} 
                         {choreItem.cost && (

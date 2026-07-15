@@ -2,13 +2,14 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
+use DateTime;
 
 use App\Models\Chore;
 use App\Models\User;
 use App\Models\ChoreBatch;
 use App\Models\ChoreUserSetting;
-
-use Illuminate\Support\Facades\Log;
 
 class ChoreService 
 {
@@ -334,4 +335,19 @@ class ChoreService
     public function getBatches() {
         return ChoreBatch::all();
     }
+
+    public function getChoresByDays($days) {
+        return Chore::where([
+                'done' => false
+            ])
+            ->where('due_datetime', '>=', new DateTime())
+            ->where('due_datetime', '<', new DateTime()->modify("+{$days} days" ))
+            ->orderBy('due_datetime', 'asc')
+            ->get()
+            ->groupBy(function ($note) {
+                return date('Y-m-d', strtotime($note->due_datetime));
+            })
+            ->toArray();
+    }
+
 }

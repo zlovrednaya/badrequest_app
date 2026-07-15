@@ -8,7 +8,7 @@ import { MdDelete } from "react-icons/md";
 import { RiArrowDownWideFill } from "react-icons/ri";
 import { RiArrowRightWideFill } from "react-icons/ri";
 
-
+import { formatDateTime } from "../../../../utils/date";
 
 import ToDoItem from "../item/ToDoItem";
 
@@ -134,7 +134,7 @@ export default function TodoListMode({chores, selectedChores, actions, appSettin
                                 {choreItem.due_datetime && (
                                     <div className="todo-item-date">
                                         <LuClock />
-                                        <span>{actions.format.formatDate(choreItem.due_datetime)}</span>
+                                        <span>{formatDateTime(choreItem.due_datetime)}</span>
                                     </div>
                                 )} 
                             </div>
@@ -194,7 +194,7 @@ export default function TodoListMode({chores, selectedChores, actions, appSettin
                                     {choreItem.due_datetime && (
                                         <div className="todo-item-date">
                                             <LuClock />
-                                            <span>{actions.format.formatDate(choreItem.due_datetime)}</span>
+                                            <span>{formatDateTime(choreItem.due_datetime)}</span>
                                         </div>
                                     )} 
                                 </div>

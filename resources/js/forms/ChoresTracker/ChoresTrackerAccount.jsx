@@ -31,6 +31,7 @@ export default function ChoresTrackerAccount() {
 
     const [leftMenuTree, setLeftMenuTree] = useState([]);
     const [batchesMenu, setBatchesMenuTree] = useState(null);
+    const [threeDaysMenu, setThreeDaysMenuTree] = useState(null);
     const [popUp, setPopUp] = useState(null);
     const [userSettings, setUserSettings] = useState({});
 
@@ -187,6 +188,20 @@ export default function ChoresTrackerAccount() {
         });
     }
 
+    const setThreeDaysCalendar = async (dayQuantity) => {
+        await axios('/chores/getChoresByDays/days/' + dayQuantity, {
+            method: 'GET', 
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+        })
+        .then(res => {
+            setThreeDaysMenuTree(res.data);
+        });
+    };
+
     const appSettings = {
         userSettings,
         chores,
@@ -200,6 +215,7 @@ export default function ChoresTrackerAccount() {
         menu: {
             leftMenuTree,
             batchesMenu,
+            threeDaysMenu,
         }
     };
 
@@ -223,6 +239,7 @@ export default function ChoresTrackerAccount() {
         menu: {
             setLeftMenu,
             setBatchesMenu,
+            setThreeDaysCalendar,
         },
         popup: {
             setPopUp,
@@ -272,7 +289,6 @@ export default function ChoresTrackerAccount() {
                             chores={chores}
                             calendarMode={calendarMode}
                             actions={actions}
-                            appSettings={appSettings}
                         />
                         <div className="chores-tracker-footer">
                             {calendarMode == 'todolist' && (

@@ -9,6 +9,7 @@ import { MdStickyNote2 } from "react-icons/md";
 import Calendar from "../../../../components/elements/Calendar";
 import TodoMenu from "./leftMenu/TodoMenu";
 import FilterMenu from "./leftMenu/FilterMenu";
+import ThreeDaysPlanner from "../../../../components/elements/ThreeDaysPlanner";
 
 import './LeftMenu.css';
 
@@ -37,7 +38,8 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
                         console.log('launch batchesmenu');
                         actions.menu.setBatchesMenu();
                     }
-                    
+                case 'calendar':
+                    actions.menu.setThreeDaysCalendar(3);    
                     break;
             }
            
@@ -62,7 +64,7 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
             </div>
 
             {appSettings?.calendarMode === 'calendar' &&  
-                (<div className="three-days-planner">there is a form with three days planner</div>)
+                (<ThreeDaysPlanner days = {appSettings?.menu?.threeDaysMenu}/>)
             }
             <div className="add-element add-chore" onClick={() => actions.form.openForm("ChoresItem")}>
                 <div className="add-button ">

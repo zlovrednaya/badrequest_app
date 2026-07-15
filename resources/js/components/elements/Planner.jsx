@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CiCircleChevLeft } from "react-icons/ci";
 import { CiCircleChevRight } from "react-icons/ci";
+import { formatDateTime } from "../../utils/date";
 
 import "./Planner.css";
 import HourlyPlanner from "./HourlyPlanner";
@@ -47,14 +48,6 @@ export default function Planner({items, currentDate, setCurrentDate}) {
 
         };
 
-        const formatDate = (dateString, mode) => {
-            const date = new Date(dateString);
-            const dd = String(date.getDate()).padStart(2, '0');
-            const MM = String(date.getMonth() + 1).padStart(2, '0');
-            const yyyy = date.getFullYear();
-
-            return `${yyyy}-${MM}-${dd}`;
-        };
 
         // render previous month days
         if (startWeekDay != 0){
@@ -70,7 +63,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
 
         for (let i = 0; i < daysInMonth; i++) {
             let dayElements = [];
-            let day = formatDate(new Date(year, month, i+1));
+            let day = formatDateTime(new Date(year, month, i+1), 'datewithdash');
             
             if (items[day]) {
                 let k = 0;

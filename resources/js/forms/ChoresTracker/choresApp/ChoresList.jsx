@@ -22,32 +22,8 @@ export default function ChoresList({chores, selectedChores, actions, appSettings
         console.log('edit');
     }
 
-    const formatDate = (dateString, mode) => {
-        const date = new Date(dateString);
-
-        const hh = String(date.getHours()).padStart(2, '0');
-        const mm = String(date.getMinutes()).padStart(2, '0');
-        const dd = String(date.getDate()).padStart(2, '0');
-        const MM = String(date.getMonth() + 1).padStart(2, '0');
-        const yyyy = date.getFullYear();
-
-        let newdate = '';
-        switch(mode) {
-            default:
-                newdate = `${dd}.${MM}.${yyyy} ${hh}:${mm}`;
-                break;
-            case 'shortmonth':
-                newdate = date.toLocaleString('default', { month: 'short' }) + ` ${dd}`;
-                break   
-        }
-        return newdate;
-    };
-
     const listActions = {
         ...actions,
-        format: {
-            formatDate,
-        },
         selection: {
             selectItem,
         },

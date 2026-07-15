@@ -3,6 +3,8 @@ import React, { useEffect, useState, useRef } from "react";
 import "./HourlyPlanner.css";
 import { IoIosCloseCircle } from "react-icons/io";
 
+import { formatDateTime } from "../../utils/date";
+
 
 export default function HourlyPlanner({items, day, onClose}) {
     const cursorRef = useRef(null);
@@ -94,7 +96,7 @@ export default function HourlyPlanner({items, day, onClose}) {
             <div className="close-planner" onClick={()=>closeForm()}>
                 <IoIosCloseCircle />
             </div>
-            <div className="hourly-planner-title">{day}</div>
+            <div className="hourly-planner-title">{formatDateTime(day)}</div>
             <div className="hourly-planner-grid" onMouseMove={changeCursorPosition}>
                 {renderRows()}
                 {renderItems(items)}

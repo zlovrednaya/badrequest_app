@@ -1,0 +1,44 @@
+.three-days-planner {
+    position: relative;
+    width: 90%;
+    margin: 10px auto;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+.three-days-day-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #595870;
+    font-weight: 600;
+}
+
+.three-days-day-title::before,
+.three-days-day-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #595870;
+}
+
+.three-days-item { 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 3px;
+    line-height: 13px;
+}
+
+.three-days-item-title {
+    font-weight: 500;
+}
+
+.three-days-item-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom:  2px;
+}

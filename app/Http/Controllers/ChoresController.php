@@ -208,4 +208,11 @@ class ChoresController extends Controller
             $this->choreService->getBatches()
         );
     }
+
+    public function getChoresByDays(Request $request) {
+        
+        return response()->json(
+            $this->choreService->getChoresByDays($request->days)
+        );
+    }
 }

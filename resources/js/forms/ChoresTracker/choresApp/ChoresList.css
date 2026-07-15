@@ -112,9 +112,12 @@
     position: absolute;
     display: flex;
     align-items: center;
-    top: 2px;
+    top: 5px;
     right: 5px;
-    color: #545454;
+    color: #858383;
+    background-color: #fff7c5;
+    border-radius: 15PX;
+    padding: 0 5px;
 }
 
 .chore-item-cost svg {
