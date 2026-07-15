@@ -96,7 +96,7 @@ export default function HourlyPlanner({items, day, onClose}) {
             <div className="close-planner" onClick={()=>closeForm()}>
                 <IoIosCloseCircle />
             </div>
-            <div className="hourly-planner-title">{formatDateTime(day)}</div>
+            <div className="hourly-planner-title">{formatDateTime(day, 'date')}</div>
             <div className="hourly-planner-grid" onMouseMove={changeCursorPosition}>
                 {renderRows()}
                 {renderItems(items)}

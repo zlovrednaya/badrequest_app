@@ -1,11 +1,15 @@
 .three-days-planner {
     position: relative;
-    width: 90%;
+    width: 100%;
     margin: 10px auto;
     padding: 5px;
     font-size: 12px;
     border-radius: 5px;
     overflow-y: auto;
+}
+
+.three-days-day {
+    padding-bottom: 5px;
 }
 
 .three-days-day-title {
@@ -28,9 +32,12 @@
 .three-days-item { 
     display: flex;
     flex-direction: row;
-    align-items: center;
     border-radius: 3px;
     line-height: 13px;
+}
+
+.three-days-item-date {
+    padding: 0 3px;
 }
 
 .three-days-item-title {

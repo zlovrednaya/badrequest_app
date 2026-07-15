@@ -10,9 +10,9 @@ export default function ThreeDaysPlanner({days})
     return (
         <div className="three-days-planner">
             {days && Object.entries(days).map(([day, items]) => (
-                <div className="three-days-day"> 
+                <div className="three-days-day" key={`new-day-${day}`}> 
                     <div className="three-days-day-title">
-                        <span>{formatDateTime(day)}</span>
+                        <span>{formatDateTime(day, 'date')}</span>
                     </div>
                     {
                         items.map((item) => (
