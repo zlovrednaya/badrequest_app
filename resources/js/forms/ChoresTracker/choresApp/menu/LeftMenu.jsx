@@ -52,7 +52,11 @@ export default function LeftMenu({onSelectFilter, actions, appSettings}) {
         <div className="left-menu">
             <div className="left-menu-content">
                 {appSettings?.calendarMode === 'simple' && 
-                    <FilterMenu items={appSettings?.menu?.leftMenuTree} />
+                    <FilterMenu 
+                        items={appSettings?.menu?.leftMenuTree}
+                        selectedFilter = {appSettings?.selectedFilter}
+                        filterChores = {filterChores}
+                    />
                 }
                 {appSettings?.calendarMode === 'todolist' && 
                     <TodoMenu items={appSettings?.menu?.batchesMenu} />

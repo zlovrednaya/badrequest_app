@@ -1,12 +1,14 @@
 import React from "react";
 import { FaCircle } from "react-icons/fa";
 
-export default function FilterMenu({items}){
+export default function FilterMenu({items, selectedFilter, filterChores}){
     return (
         <div className="left-filter-menu">
             { items.map((treeItem, i) => (
                 <div className="left-menu-content-item" key={i}>
-                    <div className="left-menu-content-item-parent" onClick={()=>{filterChores(treeItem.filterName, treeItem.filterType === 'bool' ? 1 : 'all')}}>
+                    <div 
+                        className={`left-menu-content-item-parent ${(selectedFilter?.column === treeItem.filterName && [1,'all'].indexOf(selectedFilter.filterWord) !== -1 )?'selected':''}`} 
+                        onClick={()=>{filterChores(treeItem.filterName, treeItem.filterType === 'bool' ? 1 : 'all')}}>
                         {treeItem.name}
                         {treeItem.amount && (
                             <div className="left-menu-content-item-parent-amount">
@@ -15,7 +17,11 @@ export default function FilterMenu({items}){
                         )}
                     </div>
                     {treeItem.items?.map((treeItemChild, k) => (
-                        <div className="left-menu-content-item-child" key={k} onClick={()=>{filterChores(treeItem.filterName, treeItemChild.filterName)}}>
+                        <div 
+                            className={`left-menu-content-item-child ${(selectedFilter?.column === treeItem.filterName && selectedFilter.filterWord === treeItemChild.filterName) ? 'selected':''}`} 
+                            key={k} 
+                            onClick={()=>{filterChores(treeItem.filterName, treeItemChild.filterName)}}
+                        >
                             {treeItemChild.color && (
                                 <div className="left-menu-item-color-circle" style={{color:treeItemChild.color}}>
                                     <FaCircle />

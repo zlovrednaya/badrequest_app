@@ -22,7 +22,7 @@ export default function TodoMenu({items}) {
         <div className="left-todo-menu">
             <div className="menu-title">
                 {items ? "Saved ToDo lists:": (
-                    <div>There's no aved ToDo lists</div>
+                    <div>There's no available ToDo lists</div>
                 )}
             </div>
             {items && items.map((treeItem, i) => (
