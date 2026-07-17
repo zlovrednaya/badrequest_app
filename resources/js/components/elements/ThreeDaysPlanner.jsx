@@ -16,7 +16,10 @@ export default function ThreeDaysPlanner({days})
                     </div>
                     {
                         items.map((item) => (
-                            <div className="three-days-item">
+                            <div className="three-days-item" key={`new-day-item-${item.id}`}>
+                                <div className="three-days-item-color" style={{backgroundColor:item.color}}>
+
+                                </div>
                                 <div className="three-days-item-date">
                                     {formatDateTime(item.due_datetime, 'time')}
                                 </div>

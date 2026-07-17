@@ -1,6 +1,7 @@
 import React from 'react';
 
 export function formatDateTime(dateValue, format = "datetime") {
+    if(!dateValue) return;
     const date = new Date(dateValue);
 
     const yyyy = date.getFullYear();
@@ -19,7 +20,9 @@ export function formatDateTime(dateValue, format = "datetime") {
         case 'time':
             return `${HH}:${mm}`;
         case 'shortmonth':
-            return date.toLocaleString('default', { month: 'short' }) + ` ${dd}`;    
+            return date.toLocaleString('default', { month: 'short' }) + ` ${dd}`; 
+        case 'shortmonthwithyear':
+            return date.toLocaleString('default', { month: 'short' }) + ` ${dd}, ${yyyy}`;    
         default:
             return `${dd}.${MM}.${yyyy} ${HH}:${mm}`;
             break;

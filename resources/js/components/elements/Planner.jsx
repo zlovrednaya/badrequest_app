@@ -6,7 +6,7 @@ import { formatDateTime } from "../../utils/date";
 import "./Planner.css";
 import HourlyPlanner from "./HourlyPlanner";
 import { PiXFill } from "react-icons/pi";
-export default function Planner({items, currentDate, setCurrentDate}) {
+export default function Planner({items, currentDate, setCurrentDate, onSave}) {
     const now = new Date();
     const [selectedDate, setSelectedDay] = useState(now);
     const [selectedItem, setSelectedItem] = useState();
@@ -165,6 +165,7 @@ export default function Planner({items, currentDate, setCurrentDate}) {
                     items={itemsDay}
                     day={dayForHourlyPlanner}
                     onClose={closeHourlyPlanner}
+                    onSave={onSave}
                 />
             )}
         </div>

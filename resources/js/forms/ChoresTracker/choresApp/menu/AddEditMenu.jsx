@@ -39,27 +39,6 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
     
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
 
-    
-    const saveChore = async (formData) => {
-        await axios('/chores/add', {
-            method: 'POST', 
-            data: JSON.stringify(formData),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }),
-        })
-        .then(res => {
-            actions.form.closeForm();
-            actions.chore.onChoreSaved(appSettings.calendarMode);
-        })
-        .catch(err => {
-            console.log(err);
-            let errors = err.response.data.errors;
-            let errorText = err.response.data.message;
-        })
-    };
-
     const editChore = async (id) => {
         console.log(id);
         setChoreId(id);
@@ -123,7 +102,6 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
         ...actions,
         chore: {
             ...actions.chore,
-            saveChore,
             shareChores,
             shareTelegramChores,
             setChoreId,
@@ -135,10 +113,10 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
     return (
         <div className={`add-edit-menu-window ${appSettings.calendarMode}`}>
             <div className={`menu-bar ${appSettings.formState.disabledForm && ('disabled')}`}>
-                <div className="add-edit-menu">
+                <div className={`add-edit-menu ${appSettings.calendarMode}`}>
                     {appSettings.calendarMode === 'simple' && (
                             <QuickAddMenu 
-                                actions={listActions} 
+                                onSave={listActions.chore.saveChore} 
                              />
                         
                     )}

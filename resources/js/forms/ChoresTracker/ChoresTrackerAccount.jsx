@@ -109,6 +109,26 @@ export default function ChoresTrackerAccount() {
         await setLeftMenu();
     };
 
+    const saveChore = async (formData) => {
+        await axios('/chores/add', {
+            method: 'POST', 
+            data: JSON.stringify(formData),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }),
+        })
+        .then(res => {
+            actions.form.closeForm();
+            actions.chore.onChoreSaved(appSettings.calendarMode);
+        })
+        .catch(err => {
+            console.log(err);
+            let errors = err.response.data.errors;
+            let errorText = err.response.data.message;
+        })
+    };
+
     function updateAmount() {
         axios('/chores/getAmount' , {
             method: 'GET', 
@@ -228,6 +248,7 @@ export default function ChoresTrackerAccount() {
             onChoreSaved,
             deleteChores,
             setSelectedChores,
+            saveChore,
         },
         amount: {
             updateAmount,

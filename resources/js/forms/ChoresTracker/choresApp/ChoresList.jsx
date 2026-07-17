@@ -74,6 +74,7 @@ export default function ChoresList({chores, selectedChores, actions, appSettings
                     chores={chores}
                     actions={listActions}
                     appSettings={appSettings} 
+                    onSave={listActions.chore.saveChore}
              />
             }
         </div>

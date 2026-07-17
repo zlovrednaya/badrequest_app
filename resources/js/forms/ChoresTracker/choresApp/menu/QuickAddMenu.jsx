@@ -7,7 +7,7 @@ import { AiOutlineEnter } from "react-icons/ai";
 
 import './QuickAddMenu.css';
 
-export default function QuickAddMenu({actions}) {
+export default function QuickAddMenu({onSave}) {
     const [showList, setShowList] = useState(false);
     const defaultChoreList = [
         {  
@@ -27,14 +27,14 @@ export default function QuickAddMenu({actions}) {
     const [formData, setFormData] = useState(baseFormState);
 
     function handleChange(e) {
-        const {name, value} = e.target
+        const {name, value} = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
     }
     function handleSave(e) {
-        actions.chore.saveChore(formData);
+        onSave(formData);
         setFormData(baseFormState);
     };
 

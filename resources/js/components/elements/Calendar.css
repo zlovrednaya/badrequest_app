@@ -23,3 +23,9 @@
 .rdp-selected {
     font-size: 12px;
 }
+
+@media (max-width: 900px) {
+  .picker-input__text {
+    width: 250px;
+  }
+}

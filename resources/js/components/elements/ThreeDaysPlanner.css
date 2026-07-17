@@ -34,6 +34,9 @@
     flex-direction: row;
     border-radius: 3px;
     line-height: 13px;
+    box-shadow: 1px 1px 3px #eee;
+    background-color: #fcfcfc;
+    margin-bottom: 3px;
 }
 
 .three-days-item-date {
@@ -48,4 +51,11 @@
     display: flex;
     flex-direction: column;
     margin-bottom:  2px;
+}
+
+.three-days-item-color{
+    width: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-right: 2px;
 }

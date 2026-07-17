@@ -62,6 +62,7 @@
 }
 .add-element {
     width:20%;
+    max-width: 280px;
     position: absolute;
     display: flex;
     justify-content: center;

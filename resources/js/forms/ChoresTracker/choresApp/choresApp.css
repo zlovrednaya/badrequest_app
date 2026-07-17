@@ -21,20 +21,16 @@
     height: 100%;
 }
 
+.add-edit-menu.simple {
+    height: 60%;
+}
+
 .add-edit-menu-icon {
     padding: 5px;
 }
 .add-edit-menu-icon:hover {
     cursor: pointer;
     transform: scale(1.2);
-}
-
-
-
-.quick-add-menu {
-    color: #878788;
-    height: 90%;
-    padding-left: 10px;
 }
 
 .edit-menu {
@@ -58,6 +54,9 @@
 
 .menu-shape-settings {
     display: flex;
+    height: 60%;
+    align-content: center;
+    align-items: center;
 }
 
 .menu-shape-settings-mode {
