@@ -139,8 +139,14 @@ class ChoreService
     public function getAllForCalendar($filterData = []):array
     {
         $query = Chore::where('user_id', (int)$this->user()->id)
-            ->whereNotNull('due_datetime')
-            ->orderBy('created_at', 'desc')
+            ->whereNotNull('due_datetime');
+
+        if(!empty($filterData['date'])) {
+            $query->where('due_datetime', '<', new Datetime($filterData['date'])->modify('+1 month'));
+            $query->where('due_datetime', '>=', new Datetime($filterData['date']));
+        }
+        
+        $result = $query->orderBy('created_at', 'desc')
             ->get()
             ->groupBy(function ($note) {
                 return date('Y-m-d', strtotime($note->due_datetime));
@@ -151,7 +157,7 @@ class ChoreService
                 });
             });
 
-        return $query->toArray();           
+        return $result->toArray();           
     }
 
     public function getAll($filterData = []): array

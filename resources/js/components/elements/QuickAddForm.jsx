@@ -7,6 +7,7 @@ export default function QuickAddForm({ params, onSave }) {
 
     const baseFormState = {
             title: "",
+            due_datetime: params ? new Date(params.day + " " + params.hour + ":" + params.minutes) : "",
     };
     const [formData, setFormData] = useState(baseFormState);
 
@@ -17,6 +18,13 @@ export default function QuickAddForm({ params, onSave }) {
             [name]: value,
         }));
     }
+
+    async function handleSave(e) {
+        // save
+        onSave(formData);
+        // set to base
+        setFormData(baseFormState);
+    };
 
     useEffect(() => {
         if(!params) return;
@@ -31,7 +39,11 @@ export default function QuickAddForm({ params, onSave }) {
             </div>
             <div className="quick-add-form-body">
                 
-                <QuickAddMenu onSave={onSave} />
+                <QuickAddMenu 
+                    formData={formData}
+                    onChange={setFormData}
+                    onSave={handleSave} 
+                />
             </div>
         </div>
     );

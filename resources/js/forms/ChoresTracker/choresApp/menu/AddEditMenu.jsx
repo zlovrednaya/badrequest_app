@@ -34,11 +34,19 @@ import { useWarning } from "../../../../components/elements/Warning.jsx";
 import '../choresApp.css';
 import axios from "axios";
 
+const BASE_FORM_DATA = {
+    text: "",
+    due_datetime: "",
+};
 export default function AddEditMenu({chores, selectedChores, calendarMode, actions, appSettings}) {
     const [choreId, setChoreId] = useState(null);
-    
+    const [quickAddFormData, setFormData] = useState(BASE_FORM_DATA);
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
 
+    const saveQuickAddChore = async () => {
+        listActions.chore.saveChore(quickAddFormData);
+        setFormData(BASE_FORM_DATA);
+    };
     const editChore = async (id) => {
         console.log(id);
         setChoreId(id);
@@ -116,7 +124,9 @@ export default function AddEditMenu({chores, selectedChores, calendarMode, actio
                 <div className={`add-edit-menu ${appSettings.calendarMode}`}>
                     {appSettings.calendarMode === 'simple' && (
                             <QuickAddMenu 
-                                onSave={listActions.chore.saveChore} 
+                                formData={quickAddFormData}
+                                onChange={setFormData}
+                                onSave={saveQuickAddChore} 
                              />
                         
                     )}

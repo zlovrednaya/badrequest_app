@@ -161,8 +161,9 @@ class ChoresController extends Controller
     }
 
     public function getAllForCalendar(Request $request){
+        $params = $request->all();
         return response()->json(
-            $this->choreService->getAllForCalendar()
+            $this->choreService->getAllForCalendar($params)
         );
     }
 

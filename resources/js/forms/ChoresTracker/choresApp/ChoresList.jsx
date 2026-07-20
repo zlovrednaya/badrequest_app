@@ -8,8 +8,35 @@ import TodoListMode from "./ChoresListModes/TodoListMode";
 import CalendarMode from "./ChoresListModes/CalendarMode";
 
 import './ChoresList.css';
+import { formatDateTime } from "../../../utils/date";
 
 export default function ChoresList({chores, selectedChores, actions, appSettings}) {
+
+    const [calendarItems, setCalendarItems] = useState([]);
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const [currentDate, setCurrentDate] = useState(firstDay);
+
+     // chores for calendar
+    const getCalendarChores = async (currentDate) => {
+        axios('/chores/getAllForCalendar' , {
+            method: 'GET', 
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+            params: {
+                date: formatDateTime(currentDate, 'datewithdash'),
+            },
+        })
+        .then(res => {
+            setCalendarItems(res.data);
+        })
+        .catch(() => {
+            debugger;
+        })
+    };
 
     function selectItem(itemKey) {
         actions.chore.setSelectedChores((prev) => ({
@@ -38,16 +65,31 @@ export default function ChoresList({chores, selectedChores, actions, appSettings
         
         if(!appSettings.calendarMode) return;
 
-        switch(appSettings.calendarMode) {
+        // assign refresh functions
+       switch(appSettings.calendarMode) {
             case 'simple':
             case 'todolist':
-                actions.chore.loadChores(appSettings.calendarMode);
+                const refresh = async () => {
+                    await actions.chore.loadChores(appSettings.calendarMode);
+                };
+
+                actions.view.setRefreshView(() => refresh);
+                refresh(); // Load immediately
+            
                 break;
             case 'calendar':
-                break;    
+                const refreshCalendar = async () => {
+                    await getCalendarChores(currentDate);
+                };
+
+                actions.view.setRefreshView(() => refreshCalendar);
+                refreshCalendar(); // Load immediately
+            break;  
         }
 
-        actions.amount.updateAmount();
+        actions.view.refreshView();
+
+        /// actions.amount.updateAmount(); - moved into refreshview
         
     }, [appSettings.selectedFilter, appSettings.calendarMode]);
 
@@ -71,7 +113,11 @@ export default function ChoresList({chores, selectedChores, actions, appSettings
             }
             {appSettings.calendarMode === 'calendar' &&
                 <CalendarMode 
-                    chores={chores}
+                    chores={calendarItems}
+                    currentDate={currentDate}
+                    getCalendarChores={getCalendarChores}
+                    refreshCalendar={actions.view.refreshView}
+                    setCurrentDate={setCurrentDate}
                     actions={listActions}
                     appSettings={appSettings} 
                     onSave={listActions.chore.saveChore}

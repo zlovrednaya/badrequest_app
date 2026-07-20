@@ -25,6 +25,7 @@ export default function ChoresTrackerAccount() {
     const [currentAmount, setCurrentAmount] = useState(0);
     const [selectedChores, setSelectedChores] = useState({});
     const [calendarMode, setCalendarMode] = useState(null);
+    const [refreshView, setRefreshView] = useState(() => async () =>{});
 
     const [disabledForm, setDisabledForm] = useState('');
     const [activeForm, setActiveForm] = useState(null);
@@ -98,6 +99,11 @@ export default function ChoresTrackerAccount() {
         });
     };
 
+    const refreshGlobalData = async () => {
+        await setLeftMenu();
+        await updateAmount();
+    };
+
     async function onSelectFilter(filterData) {
         console.log('onSelectFilter');
         setSelectedFilter(filterData);
@@ -105,8 +111,9 @@ export default function ChoresTrackerAccount() {
     }
 
     async function onChoreSaved(mode) {
-        await loadChores(mode);
+        await refreshView(mode);
         await setLeftMenu();
+        await updateAmount();
     };
 
     const saveChore = async (formData) => {
@@ -236,12 +243,16 @@ export default function ChoresTrackerAccount() {
             leftMenuTree,
             batchesMenu,
             threeDaysMenu,
-        }
+        },
     };
 
     const actions = {
         mode: {
             changeCalendarMode,
+        },
+        view: {
+            refreshView,
+            setRefreshView,
         },
         chore: {
             loadChores,

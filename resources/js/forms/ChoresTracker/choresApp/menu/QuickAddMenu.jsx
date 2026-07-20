@@ -7,7 +7,12 @@ import { AiOutlineEnter } from "react-icons/ai";
 
 import './QuickAddMenu.css';
 
-export default function QuickAddMenu({onSave}) {
+const BASE_FORM_STATE = {
+    text: "",
+    due_datetime: "",
+};
+
+export default function QuickAddMenu({formData, onChange, onSave}) {
     const [showList, setShowList] = useState(false);
     const defaultChoreList = [
         {  
@@ -19,39 +24,28 @@ export default function QuickAddMenu({onSave}) {
             'cost': null,
         }
     ];
-
-    const baseFormState = {
-            text: "",
-    };
-
-    const [formData, setFormData] = useState(baseFormState);
-
-    function handleChange(e) {
-        const {name, value} = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    }
     function handleSave(e) {
         onSave(formData);
-        setFormData(baseFormState);
     };
 
-    function onKeyUp(e) {
-        if(e.which != 13) return;
-        handleSave();
-    }
-
     return (
-        <div className="quick-add-menu" onKeyUp={onKeyUp}>
+        <form className="quick-add-menu" 
+            onSubmit={(e) => {
+            e.preventDefault();
+            handleSave();
+        }}>
             <IoIosAddCircleOutline />
             <input
                 type="text"
                 name="text"
                 className="quick-item-form-text"
                 placeholder="Add a chore ..."
-                onChange={handleChange}
+                onChange={(e) =>
+                    onChange(prev => ({
+                        ...prev,
+                        text: e.target.value,
+                    }))
+                }
                 value={formData.text}
             />
             <AiOutlineEnter />
@@ -68,6 +62,6 @@ export default function QuickAddMenu({onSave}) {
                     </div>
                 ))
             )}
-        </div>
+        </form>
     );
 }

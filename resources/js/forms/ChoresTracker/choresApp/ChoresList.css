@@ -122,6 +122,10 @@
 
 .chore-item-cost svg {
     font-size: 10px;
+    
+}
+.chore-item-cost div {
+    padding-left: 2px;
 }
 
 .chore-item-drawing img {

@@ -13,7 +13,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
         top: 0,
         left: 0,
     });
-    const [isOpened, setIsOpened] = useState(null);
+    const [isQuickAddFormOpened, setIsQuickAddFormOpened] = useState(null);
     const [addFormParams, setAddFormParams] = useState(null);
 
     const topStep = 50;
@@ -28,7 +28,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
         // 25px - element of datum
         const pixels = (e.clientY - e.currentTarget.getBoundingClientRect().top + e.currentTarget.scrollTop - 25) ;
         
-        const hour = Math.floor(pixels / topStep);
+        const hour = Math.abs(Math.floor(pixels / topStep));
         const minutes = ((pixels / topStep) - hour) < 0.5 ? "00" : "30";
 
         const currentPositionY = e.clientY - e.currentTarget.getBoundingClientRect().top;
@@ -38,7 +38,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
             top: `${currentPositionY}px`,
             left: `${currentPositionX}px`,
         })
-        setIsOpened(true);
+        setIsQuickAddFormOpened(true);
         setAddFormParams({
             day: day,
             hour: hour,
@@ -121,6 +121,12 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
         return rows;   
     }
 
+    const saveChore = async (formData) => {
+        await onSave(formData);
+        // close quick add form
+        setIsQuickAddFormOpened(false);
+    }
+
     useEffect(() => {
         if(!items) return;
 
@@ -145,7 +151,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
                 <div className="cursor-time-element" ref={cursorRef}></div>
                 <div className="cursor-current-time-element" style={{top:currentTimeTop+"px"}}></div>
             </div>
-            {isOpened && (
+            {isQuickAddFormOpened && (
                 <div className="quick-add-ref" 
                     style={{
                         left: quickAddPosition.left,
@@ -153,7 +159,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
                     }}>
                     <QuickAddForm 
                         params={addFormParams}
-                        onSave={onSave}
+                        onSave={saveChore}
                     />
                 </div>
             )}
