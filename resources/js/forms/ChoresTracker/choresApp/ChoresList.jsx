@@ -80,14 +80,13 @@ export default function ChoresList({chores, selectedChores, actions, appSettings
             case 'calendar':
                 const refreshCalendar = async () => {
                     await getCalendarChores(currentDate);
+                    await actions.menu.setThreeDaysCalendar();
                 };
 
                 actions.view.setRefreshView(() => refreshCalendar);
                 refreshCalendar(); // Load immediately
             break;  
         }
-
-        actions.view.refreshView();
 
         /// actions.amount.updateAmount(); - moved into refreshview
         

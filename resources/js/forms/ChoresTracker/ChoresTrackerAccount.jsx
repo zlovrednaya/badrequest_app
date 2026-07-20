@@ -215,7 +215,7 @@ export default function ChoresTrackerAccount() {
         });
     }
 
-    const setThreeDaysCalendar = async (dayQuantity) => {
+    const setThreeDaysCalendar = async (dayQuantity = 3) => {
         await axios('/chores/getChoresByDays/days/' + dayQuantity, {
             method: 'GET', 
             headers: new Headers({
@@ -278,7 +278,7 @@ export default function ChoresTrackerAccount() {
         },
         settings: {
             loadSettings,
-        }
+        },
     };
 
     useEffect(() => {

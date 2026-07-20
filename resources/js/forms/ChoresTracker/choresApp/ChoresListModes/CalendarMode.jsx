@@ -11,6 +11,7 @@ export default function CalendarMode({chores, getCalendarChores, currentDate, se
         await getChores(currentDate);
     }
    useEffect(()=>{
+    if (!currentDate) return;
        getCalendarChores(currentDate);
     }, [currentDate]);
     return (
