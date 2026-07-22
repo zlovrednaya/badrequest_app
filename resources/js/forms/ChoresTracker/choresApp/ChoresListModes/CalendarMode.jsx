@@ -3,12 +3,13 @@ import React, {useState, useEffect} from "react";
 import Planner from "../../../../components/elements/Planner";
 import "../ChoresList.css";
 
-export default function CalendarMode({chores, getCalendarChores, currentDate, setCurrentDate, onSave, appSettings, refreshCalendar}) {
+export default function CalendarMode({items, getCalendarChores, currentDate, setCurrentDate, onSave, appSettings, refreshCalendar}) {
     
     // add into onsave update of calendarmode
     async function saveChore(formData) {
+        console.log('save chore calendar mode');
         await onSave(formData);
-        await getChores(currentDate);
+
     }
    useEffect(()=>{
     if (!currentDate) return;
@@ -18,7 +19,7 @@ export default function CalendarMode({chores, getCalendarChores, currentDate, se
         <div className="chores-list-calendar">
             {
                 <Planner 
-                    items={chores}
+                    items={items}
                     currentDate = {currentDate}
                     setCurrentDate = {setCurrentDate}    
                     onSave = {saveChore}

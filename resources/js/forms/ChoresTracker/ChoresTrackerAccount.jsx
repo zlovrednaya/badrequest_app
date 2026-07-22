@@ -15,6 +15,7 @@ import { SlStar } from "react-icons/sl";
 import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
 import PopUp from "../../components/elements/PopUp";
+import { formatDateTime } from "../../utils/date";
 
 export default function ChoresTrackerAccount() {
     const {user} = useAuth();
@@ -76,7 +77,7 @@ export default function ChoresTrackerAccount() {
         let url = window.location.origin + '/chores/getList';
 
         const params = new URLSearchParams();
-        if(selectedFilter) {
+        if(selectedFilter && mode === 'simple') {
             params.append("column", selectedFilter.column);
             params.append("filterWord", selectedFilter.filterWord);
         }
@@ -117,6 +118,9 @@ export default function ChoresTrackerAccount() {
     };
 
     const saveChore = async (formData) => {
+        if(formData.due_datetime) {
+            formData.due_datetime = formatDateTime(formData.due_datetime, 'dbstorage');
+        }
         await axios('/chores/add', {
             method: 'POST', 
             data: JSON.stringify(formData),
@@ -125,9 +129,9 @@ export default function ChoresTrackerAccount() {
                 'Accept': 'application/json',
             }),
         })
-        .then(res => {
+        .then(async (res) => {
             actions.form.closeForm();
-            actions.chore.onChoreSaved(appSettings.calendarMode);
+            await actions.chore.onChoreSaved(appSettings.calendarMode);
         })
         .catch(err => {
             console.log(err);
@@ -285,6 +289,7 @@ export default function ChoresTrackerAccount() {
         if (!user) return;
     
         loadSettings();
+        updateAmount();
 
     }, [user?.id]);
 
@@ -292,7 +297,9 @@ export default function ChoresTrackerAccount() {
         <div className="chores-tracker-account">
             <div className="app-form">
                 <div className="header-menu">
-                    <h1 className="app-name" onClick={()=>navigate('/')}>Chores</h1>
+                    <div className="app-name">
+                        <h1 className="app-name-logo" onClick={()=>navigate('/')}>Chores</h1>
+                    </div>
                     <UserMenu 
                         appSettings={appSettings}
                     />

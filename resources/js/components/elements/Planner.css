@@ -48,7 +48,8 @@
 }
 
 .weekend {
-    color: rgb(209, 121, 121);
+    color: rgb(34, 48, 78);
+    font-weight: 600;
 }
 /* day styles */
 .planner-day-cell {
@@ -100,7 +101,8 @@
 }
 
 .day-cell-date {
-
+    cursor: pointer;
+    padding-left: 3px;
 }
 
 .calendar-item-element {

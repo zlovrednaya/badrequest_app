@@ -21,6 +21,8 @@ export function formatDateTime(dateValue, format = "datetime") {
             return `${HH}:${mm}`;
         case 'shortmonth':
             return date.toLocaleString('default', { month: 'short' }) + ` ${dd}`; 
+        case 'dbstorage':
+            return `${yyyy}-${MM}-${dd} ${HH}:${mm}:${ss}`;   
         case 'shortmonthwithyear':
             return date.toLocaleString('default', { month: 'short' }) + ` ${dd}, ${yyyy}`;    
         default:

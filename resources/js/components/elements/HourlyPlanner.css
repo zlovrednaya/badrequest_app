@@ -27,6 +27,7 @@
 
 .hourly-planner-title {
     height: 5%;
+    font-size: 12px;
     font-weight: 600;
     padding-right: 5px;
 }
@@ -98,6 +99,7 @@
 
 .hourly-planner-element-title {
     font-weight: 500;
+    word-break: break-word;
 }
 
 .quick-add-ref {

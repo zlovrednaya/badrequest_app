@@ -31,16 +31,21 @@
 
 .three-days-item { 
     display: flex;
+    align-items: center;
     flex-direction: row;
     border-radius: 3px;
     line-height: 13px;
-    box-shadow: 1px 1px 3px #eee;
+    border: 0.2px solid #eee;
+    box-shadow: 1px 1px 0px #eee;
     background-color: #fcfcfc;
     margin-bottom: 3px;
 }
 
 .three-days-item-date {
+    position: absolute;
+    right: 5px;
     padding: 0 3px 0 0;
+    font-size: 8px;
 }
 
 .three-days-item-title {
@@ -50,11 +55,12 @@
 .three-days-item-info {
     display: flex;
     flex-direction: column;
-    margin-bottom:  2px;
 }
 
 .three-days-item-color{
-    width: 3px;
+    width: 4px;
+    align-self: stretch;   /* stretches to full height */
+    flex-shrink: 0;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
     margin-right: 2px;

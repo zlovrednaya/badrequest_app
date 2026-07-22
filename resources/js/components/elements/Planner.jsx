@@ -11,8 +11,8 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
     const [selectedDate, setSelectedDay] = useState(now);
     const [selectedItem, setSelectedItem] = useState();
     const [showHourlyPlanner, setShowHourlyPlanner] = useState(false);
-    const [itemsDay, setItemsDay] = useState(null);
     const [dayForHourlyPlanner, setDayForHourlyPlanner] = useState(null);
+    const itemsDay = items?.[dayForHourlyPlanner] ?? [];
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
     
@@ -21,8 +21,14 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
     
     const days = [];
 
+    function openHourlyPlanner(day, monthStep = 0) {
+        console.log(`openHourlyCalendar ${day} ${monthStep}`);
+        const showDate = formatDateTime(new Date(currentYear, currentMonth + Number(monthStep), day),'datewithdash');
+        setDayForHourlyPlanner(showDate);
+        setShowHourlyPlanner(true);
+    }
     function closeHourlyPlanner() {
-        setItemsDay(null);
+        setShowHourlyPlanner(false);
     }
     function renderDays(currentDate) {
         const cells = [];
@@ -40,7 +46,6 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
             console.log('showAllItems' + day);
 
             setShowHourlyPlanner(true);
-            setItemsDay(items[day]);
             setDayForHourlyPlanner(day);
         };
 
@@ -52,9 +57,10 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
         // render previous month days
         if (startWeekDay != 0){
             for (let i = startWeekDay; i > 0; i--) {
+                let showDay = lastDayOfPreviousMonth - i + 1;
                 cells.push(
                     <div className="planner-day-cell no-current previous" key={`empty-before-${i}`}>
-                        <div className="day-cell-date">{lastDayOfPreviousMonth - i + 1}</div>
+                        <div className="day-cell-date" onClick={() => {openHourlyPlanner(showDay,'-1')}}>{showDay}</div>
                     </div>
                 );
             }
@@ -94,7 +100,7 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
             }
             cells.push(
                 <div className={`planner-day-cell` + (now.getDate()-1 == i ? " today":"")} key={`day-${i}`}>
-                    <div className="day-cell-date">{i+1}</div>
+                    <div className="day-cell-date" onClick={() => {openHourlyPlanner(i+1,'0')}}>{i+1}</div>
                     <div className="calendar-items-box">{dayElements}
                     </div>
                 </div>
@@ -107,7 +113,7 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
         for (let i = 1; i <= daysToAdd; i++) {
             cells.push(
                 <div className="planner-day-cell no-current next" key={`empty-after-${i}`}>
-                    <div className="day-cell-date">{i}</div>
+                    <div className="day-cell-date" onClick = {() => {openHourlyPlanner(i,'+1')}}>{i}</div>
                 </div>
             );
         
@@ -118,8 +124,13 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
 
     }
 
-    function renderDayItems(items) {
-        
+
+    //// whether i need to refresh hourly planner 
+    async function onSaveItems (formData) {
+        await onSave(formData);
+
+        // update hourly planner
+        //setItemsDay(items[dayForHourlyPlanner]);
     }
 
     function selectToday() {
@@ -160,12 +171,12 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
                     {renderDays(currentDate)}
                 </div>
             </div>
-            {itemsDay && (
+            {showHourlyPlanner && (
                 <HourlyPlanner 
                     items={itemsDay}
                     day={dayForHourlyPlanner}
                     onClose={closeHourlyPlanner}
-                    onSave={onSave}
+                    onSave={onSaveItems}
                 />
             )}
         </div>

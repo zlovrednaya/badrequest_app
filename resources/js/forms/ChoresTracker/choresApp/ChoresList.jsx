@@ -112,7 +112,7 @@ export default function ChoresList({chores, selectedChores, actions, appSettings
             }
             {appSettings.calendarMode === 'calendar' &&
                 <CalendarMode 
-                    chores={calendarItems}
+                    items={calendarItems}
                     currentDate={currentDate}
                     getCalendarChores={getCalendarChores}
                     refreshCalendar={actions.view.refreshView}

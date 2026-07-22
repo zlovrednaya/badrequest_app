@@ -70,7 +70,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
             const [hour, minute] = itemsKey.split(":").map(Number);
             if(!hourPosition[hour])hourPosition[hour] = [];
 
-            let elementTop = (topStep * (hour-1)) + 15 + minute;
+            let elementTop = (topStep * (hour)) + (topStep/2) + (minute/60*topStep);
             let i = 1;
             for(let element of items[itemsKey]) {    
                 hourPosition[hour].push(element);
@@ -88,7 +88,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
                         onClick={()=>selectItem(element)}
                     >
                         <div>{itemsKey}</div> 
-                        <div className="hourly-planner-element-title">{element.title}</div> 
+                        <div className="hourly-planner-element-title">{element.title && element.title.slice(0,30)} {(element.title && element.title.length>30)?`...`:``}</div> 
                     </div>
                 );
                 
@@ -125,6 +125,10 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
         await onSave(formData);
         // close quick add form
         setIsQuickAddFormOpened(false);
+        // update planner
+        //---
+
+
     }
 
     useEffect(() => {
@@ -134,7 +138,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
             plannerRef.current.scrollTop = Math.max(0, currentTimeTop-topStep);
         }
 
-    },[items]);
+    }, [items]);
     return (
         <div className="hourly-planner">
             <div className="close-planner" onClick={()=>closeForm()}>

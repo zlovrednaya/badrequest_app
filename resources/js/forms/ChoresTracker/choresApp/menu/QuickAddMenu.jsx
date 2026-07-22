@@ -8,6 +8,7 @@ import { AiOutlineEnter } from "react-icons/ai";
 import './QuickAddMenu.css';
 
 const BASE_FORM_STATE = {
+    title: "",
     text: "",
     due_datetime: "",
 };
@@ -37,16 +38,16 @@ export default function QuickAddMenu({formData, onChange, onSave}) {
             <IoIosAddCircleOutline />
             <input
                 type="text"
-                name="text"
-                className="quick-item-form-text"
+                name="title"
+                className="quick-item-form-title"
                 placeholder="Add a chore ..."
                 onChange={(e) =>
                     onChange(prev => ({
                         ...prev,
-                        text: e.target.value,
+                        title: e.target.value,
                     }))
                 }
-                value={formData.text}
+                value={formData.title}
             />
             <AiOutlineEnter />
             {showList && (
