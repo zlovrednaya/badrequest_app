@@ -1,0 +1,85 @@
+.color-rose {
+    background-color: #ff99c8;
+}
+
+.chores-item-form-header {
+    color: #59586f;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.chores-item-form-body {
+    color: #59586f;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    max-height: 300px;
+}
+
+.chores-item-add-edit input:focus, .chores-item-add-edit textarea:focus {
+  outline: none;
+}
+
+.chores-item-footer {
+    position: absolute;
+    bottom: 0px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.chores-item-footer button {
+    background: #2b2c58;
+    width: 70px;
+    height: 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    line-height: 15px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.chores-item-footer button:hover {
+    cursor: pointer;
+}
+
+.chores-item-form-datetime-block {
+    margin-top: 10px;
+    display: inline;
+    font-size: 15px;
+    color: #59586f;
+}
+
+.chores-item-form-time {
+    margin-left: 30px;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1)
+            brightness(40%)
+            sepia(70%)
+            saturate(100%)
+            hue-rotate(180deg)
+}
+
+.chores-item-cost {
+    display: flex;
+    align-items: center;
+}
+
+.chores-item-form-cost {
+    width: 50px;
+}
+
+.chores-item-istodo {
+    display: flex;
+    align-items: center;
+}
+
+.chores-item-istodo:hover {
+    cursor: pointer;
+}
+
+.chores-item-istodo span {
+    padding-left: 5px;
+}

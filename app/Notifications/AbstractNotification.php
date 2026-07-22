@@ -17,7 +17,7 @@ abstract class AbstractNotification
     {
         
     }
-    public function sendMessage(array $sendData): void
+    public function sendMessage(array $sendData): array
     {
         
     }

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('subscribers', function (Blueprint $table) {
+       /* Schema::table('subscribers', function (Blueprint $table) {
             $table->dropUnique('subscribers_channel_unique');
             $table->dropUnique('subscribers_receiver_unique');
-        });
+        });*/
     }
 
     /**

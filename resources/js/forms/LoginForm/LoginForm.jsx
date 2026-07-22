@@ -1,26 +1,94 @@
-import React, { Component } from "react";
-import './LoginForm.css'
+import React, { Component, useState, useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import * as InputComponents from "../../components/elements/Inputs";
 
-export default function LoginForm () {
+import { useAuth } from "../../auth/useAuth";
+
+import { FaUser } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { RiCheckboxBlankCircleLine } from "react-icons/ri";
+import { RiCheckboxCircleLine } from "react-icons/ri";
+
+
+
+import './LoginForm.css';
+
+export default function LoginForm (widget) {
+    const appName = widget.appName;
+    const {user, login, logout} = useAuth();
+
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [serverMessage, setServerMessage] = useState(null);
+    const [rememberMe, setRememberMe] = useState(null);
+    
+    useEffect(() => {
+        if (user) {
+            console.log('navigate to account')
+            navigate('account');
+        }
+     }, [navigate]);
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const res = await login({email, password, appName});
+
+        if (res.success) {
+            navigate("account");
+        } else {
+            setServerMessage({ 
+                success: false, 
+                text: res.text,
+            });
+        }
+        
+    };
+
     return (
-        <div className="LoginForm">
-            <div className="bg-white p-6 rounded-xl w-96 shadow-lg">
-                <form>
-                    <h1>Login</h1>
-                    <div>
-                        <input type="text" placeholder="e-mail" required></input>
-                    </div>
-                    <div>
-                        <input type="password" placeholder="password" required></input>
-                    </div>
-                    <div className="remember-forgot">
-                        <label><input type="checkbox" placeholder="password" required />Remember me</label>
+        <div className="LoginRegisterForm LoginForm">
+            <div className="LoginRegisterFormBody">
+                <form onSubmit={onSubmit}>
+                    <h1 className="login-register-form-title">{widget.title} | Login</h1>
+                    <InputComponents.CustomTextInput 
+                        name="username"
+                        required={true}
+                        icon={FaUser}
+                        placeholder="Username / e-mail"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <InputComponents.CustomTextInput 
+                        name="password"
+                        required={true}
+                        icon={RiLockPasswordFill}
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <div className="remember-forgot" onClick={() => {setRememberMe(!rememberMe)}}>
+                        <div className="set-remember">
+                            {rememberMe ? (<RiCheckboxCircleLine />) : (<RiCheckboxBlankCircleLine />)}
+                            <span>Remember me</span>
+                        </div>
                         <a href="#">Forgot password?</a>
                     </div>
-                    <button type="submit">Login</button>
-                    <div className="register-link"></div>
+                    {serverMessage?.text && 
+                        <InputComponents.MessageInput 
+                            success={serverMessage.success}
+                            serverMessageText={serverMessage.text} />
+                    }
+                    <InputComponents.CustomButtonInput 
+                        placeholder="Login"
+                    />
+                    <div className="register-link">
+                        <p>Don't have an account? <Link to="/register">Register now</Link></p>
+                    </div>
                 </form>
             </div>
         </div>
     );
-};
+}
+
+/*LoginForm.propTypes = {
+  setToken: PropTypes.func.isRequired
+};*/

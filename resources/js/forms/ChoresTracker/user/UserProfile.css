@@ -1,0 +1,129 @@
+.user-profile-window {
+    width: 90%;
+    margin: 0 auto 0 auto;
+}
+
+.hello-user {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.user-profile-data {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.user-profile-data-item {
+    padding: 10px 0 0 0 ;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 50%;
+}
+
+.user-profile-data-item input {
+    width: 300px;
+    height: 30px;
+    border: 0.5px solid #eee;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 0 5px 0 10px;
+    outline-color: #2b2c58;
+    box-shadow: 1px 1px 3px #e0dddd;
+}
+
+.user-profile-data-label {
+    width: 150px;
+    line-height: 14px;
+}   
+
+.user-profile-button {
+    display: flex;
+    align-items: center;
+    border: 0.5px solid #2b2c58;
+    height: 30px;
+    border-radius: 20px;
+    color: #2b2c58;
+    padding: 0 10px 0 10px;
+    user-select: none;
+}
+
+.user-profile-button div {
+    padding-left: 5px;
+}
+
+.user-profile-button:hover {
+    cursor: pointer;
+}
+
+.user-profile-logout {
+    background-color: #ffa33a;
+}
+
+.user-profile-form-save {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+    padding: 10px 0 0 0;
+}
+
+.user-profile-button-save {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    background-color: #2b2c58;
+    color: #fff;
+}
+
+.user-profile-button-return {
+    border: none;
+    padding-right: 20px;
+}
+
+.user-profile-action-buttons {
+    display: flex;
+    height: 10%;
+    margin-top: 20px;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+
+}
+
+.user-profile-status {
+    width: 50%;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 3px;
+}
+
+.user-profile-status-message {
+    border-radius: 5px;
+    padding: 0 10px 0 10px;
+}
+
+.status-success {
+    border: 0.5px solid #2b2c58;
+}
+
+.status-error {
+    border: 0.5px solid #e0903a;
+}
+.window-footer {
+    position: absolute;
+    bottom: 0;
+    height: 10%;
+}
+
+.user-profile-data-sync {
+    width: 50px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+.user-profile-data-sync:hover {
+    cursor: pointer;
+}
+
+

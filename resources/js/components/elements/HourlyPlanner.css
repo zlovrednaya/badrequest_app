@@ -1,0 +1,108 @@
+.hourly-planner {
+    position: absolute;
+    top: 0px;
+    width: 60%;
+    max-width: 600px;
+    height: 60%;
+    overflow: visible;
+    background-color: white;
+    font-size: 10px;
+    border: 0.5px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 1px 1px 8px #939393;
+}
+
+.close-planner {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    font-size: 20px;
+    z-index: 10;
+}
+
+.close-planner:hover {
+    cursor: pointer;
+}
+
+.hourly-planner-title {
+    height: 5%;
+    font-size: 12px;
+    font-weight: 600;
+    padding-right: 5px;
+}
+
+.hourly-planner-grid {
+    position: relative;
+    overflow-y: auto;
+    height: 95%;
+}
+
+.hourly-planner-row {
+    display: flex;
+    align-items: center;
+}
+
+.hourly-planner-hour {
+    width: 10%;
+}
+
+.hourly-planner-body {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.hourly-planner-half-hour-1 {
+    border-bottom: 0.2px solid #c1c1c1;
+}
+.hourly-planner-half-hour {
+    height: 50%;
+    width: 100%;
+}
+
+.hourly-planner-element {
+    position: absolute;
+    z-index: 100;
+    border: 0.2px solid #cecece;
+    border-radius: 5px;
+    width: auto;
+    background: #fff;
+    padding: 2px;
+    line-height: 10px;
+    font-size: 10px;
+}
+
+.hourly-planner-element:hover {
+    cursor: pointer;
+}
+
+.cursor-time-element {
+    position: absolute;
+    z-index: 50;
+    height: 0.8px;
+    
+    width: 100%;
+    background-color: #fb4d4d;
+    padding-right: 5px;
+}
+
+.cursor-current-time-element {
+    position: absolute;
+    z-index: 50;
+    height: 0.8px;
+    
+    width: 100%;
+    background-color: #0b0eb1;
+   
+}
+
+.hourly-planner-element-title {
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.quick-add-ref {
+    position: absolute;
+    z-index: 250;
+}

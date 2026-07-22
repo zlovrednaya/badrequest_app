@@ -1,0 +1,194 @@
+.add-edit-menu-window.simple, .add-edit-menu-window.calendar {
+    height: 5%;
+}
+.add-edit-menu-window.todolist {
+    
+}
+
+.add-edit-menu-window {
+    padding: 0 20px 0 20px;
+}
+.menu-bar {
+    height: 100%;
+    max-height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #59586f;
+}
+.add-edit-menu {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.add-edit-menu.simple {
+    
+}
+
+.add-edit-menu-icon {
+    padding: 5px;
+}
+.add-edit-menu-icon:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.edit-menu {
+    display: flex;
+    border-left: 0.5px solid;
+    margin-left: 10px;
+    padding-left: 5px;
+}
+.edit-menu-one-selected {
+    display: flex;
+}
+
+
+.menu-bar.disabled {
+    color: rgb(163, 163, 163);
+}
+
+.menu-bar.disabled > .add-edit-menu-icon:hover {
+    cursor: default;
+}
+
+.menu-shape-settings {
+    display: flex;
+    height: 60%;
+    align-content: center;
+    align-items: center;
+}
+
+.menu-shape-settings-mode {
+    display: flex;
+    border-radius: 5px;
+    border: 0.5px solid;
+    box-shadow: 1px 2px 2px #eee;
+}
+.menu-shape-mode {
+    border-radius: 5px;
+
+}
+
+.menu-shape-mode.selected {
+    transform: scale(1.2);
+    background-color: rgb(214, 214, 214);
+}
+
+.chores-form {
+    z-index: 100;
+    position: absolute;
+    background: #F8FAFD;
+    width: 30%;
+    height: 60%;
+    border-radius: 10px;
+    color: #59586f;
+}
+
+.overlay-form {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 999;
+}
+
+.chores-form-header {
+    display: flex;
+    color: #59586f;
+}
+
+
+
+.chores-form hr {
+    color: #d4d4d4;
+}
+
+.chores-form .close-form {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.chores-form .close-form:hover {
+    cursor: pointer;
+}
+
+.chores-form .close-form svg {
+    color: #2b2c58;
+}
+
+.chores-form .chores-form-header-title {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.chores-form .chores-form-header-title svg {
+    width: 20px;
+    padding-right: 5px;
+}
+
+.chores-form-main-window {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chores-form-footer {
+    position: absolute;
+    bottom: 0px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.chores-form-footer button {
+    background: #2b2c58;
+    width: 70px;
+    height: 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    line-height: 15px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.chores-form-footer button:hover {
+    cursor: pointer;
+}
+
+.chores-tracker-footer {
+    display: flex;
+    height: 5%;
+    width: 80%;
+    position: absolute;
+    bottom: 0;
+    padding: 0 20px 0 20px;
+}
+
+.amount-component {
+    font-size: 14px;
+}
+.amount-component span {
+    padding-right: 5px;
+}
+
+
+.button-left-icon {
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    user-select: none;
+}
+
+.button-left-icon span {
+    padding-left: 5px;
+}

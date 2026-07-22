@@ -1,0 +1,59 @@
+.chores-tracker-account {
+    position: relative;
+    height: 90%;
+    width: 60%;
+    justify-content: center;
+    background: #fdfbf8;
+    border-radius: 10px; 
+    box-shadow: 4px 4px 9px 0px #888888;    
+    color: #59586f;
+}
+.chores-tracker-account:not(.user-profile-form) .app-name {
+    width: 20%;
+    max-width: 280px;
+    height: 100%;
+    background-color: #F8FAFD;
+    border-right: 1px solid #eee;
+    border-top-left-radius: 10px;
+}
+
+.user-profile-form .app-name {
+    width: 20%;
+}
+
+.app-name {
+    cursor: pointer;
+}
+
+.chores-tracker-account .app-form {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: auto;
+}
+.chores-tracker-account .header-menu {
+    width: 100%;
+    height: 8%;   
+    display: inline-flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chores-tracker-window {
+    display: flex;
+    height: 92%;
+}
+.chores-tracker-main-window {
+    height: 100%;
+    width: 80%;
+}
+
+.chores-tracker-main-window-component-list {
+    
+}
+
+.chores-tracker-left-window {
+    width: 20%;
+    max-width: 280px;
+}

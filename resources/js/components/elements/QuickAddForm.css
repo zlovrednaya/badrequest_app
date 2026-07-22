@@ -1,0 +1,24 @@
+.quick-add-form {
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #a5a5a5;
+    font-size: 12px;
+    box-shadow: 11px 5px 20px 3px #eee;
+}
+
+.quick-add-form-title {
+    font-weight: 500;
+}
+
+.quick-add-form-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.quick-add-form-time {
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0 4px;
+}

@@ -9,14 +9,14 @@ function Main() {
   const [selectedWidget, setSelectedWidget] = useState(null);
 
   const widgets = [
-    { id: "AviationStack", name: "AviationStack", description: "Flight subscription allows you to receive a message when the plane is near the airport" },
-    { id: "ChoresTracker", name: "ChoresTracker", description: "An app that helps us track our tasks, gain scores, and win prizes" },
+    { id: "AviationStack", name: "AviationStack", description: "Flight subscription allows you to receive a message when the plane is near the airport", logo:"aviation.jpg" },
+    { id: "ChoresTracker", name: "ChoresTracker", description: "An app that helps you organize your life, earn rewards, and track your daily tasks.", logo: "chores_logo.svg" },
     { id: "BaseWidget", name: "BaseWidget", description: "Default widget form" },
     { id: "AbstractAnimationWidget", name: "AbstractAnimationWidget", description: "animation patterns" },
   ];
 
   return (
-    <div className = "p-6">
+    <div>
       <Header/>
       <Introduction/>
       <WidgetList

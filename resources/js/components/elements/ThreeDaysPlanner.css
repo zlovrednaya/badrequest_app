@@ -1,0 +1,67 @@
+.three-days-planner {
+    position: relative;
+    width: 100%;
+    margin: 10px auto;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+.three-days-day {
+    padding-bottom: 5px;
+}
+
+.three-days-day-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #595870;
+    font-weight: 600;
+}
+
+.three-days-day-title::before,
+.three-days-day-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #595870;
+}
+
+.three-days-item { 
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 3px;
+    line-height: 13px;
+    border: 0.2px solid #eee;
+    box-shadow: 1px 1px 0px #eee;
+    background-color: #fcfcfc;
+    margin-bottom: 3px;
+}
+
+.three-days-item-date {
+    position: absolute;
+    right: 5px;
+    padding: 0 3px 0 0;
+    font-size: 8px;
+}
+
+.three-days-item-title {
+    font-weight: 500;
+}
+
+.three-days-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.three-days-item-color{
+    width: 4px;
+    align-self: stretch;   /* stretches to full height */
+    flex-shrink: 0;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-right: 2px;
+}

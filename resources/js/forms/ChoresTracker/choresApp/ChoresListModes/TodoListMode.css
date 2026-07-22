@@ -1,0 +1,130 @@
+.todo-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 0.2px solid #e2dfdf;
+    border-radius: 5px;
+    background: #fff;
+    margin-top: 3px;
+
+}
+
+.todo-item-done {
+    background-color: #e4fde8;
+}
+
+.chores-list-todo {
+    width:100%;
+}
+
+.chores-list-todo-list {
+    width:100%;
+}
+
+.todo-item-title-select-element {
+    width:5%;
+    padding: 5px;
+}
+
+.todo-item-title-select-element:hover {
+    cursor: pointer;
+}
+.todo-item-cost {
+    width: 5%;
+    padding: 3px;
+}
+
+.chores-list-todo-header .todo-item-info {
+    font-weight: 600;
+}
+
+.todo-item-info {
+    width: 85%;
+    padding: 5px;
+    font-size: 12px;
+}
+
+.todo-item-buttons {
+    width: 5%;
+    padding: 5px;
+}
+
+.todo-item-title {
+    font-weight: 600;
+}
+
+.todo-item-cost-value {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-item-cost-value div {
+    font-size: 12px;
+    padding-left: 3px;
+}
+
+.todo-item-cost-value svg {
+    font-size: 14px;
+}
+
+.todo-item-date {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.todo-item-date span {
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.todo-item-date svg {
+    font-size: 14px;
+}
+
+.chores-list-todo-header {
+    display: flex;
+}
+
+.chores-list-todo-list-done {
+    padding-top: 10px;
+}
+
+.list-header {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 10px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+}
+.list-header:hover {
+    cursor: pointer;
+}
+.list-header svg {
+    margin-left: 5px;
+}
+
+.amount-component {
+    display: flex;
+    align-items: center;
+}
+
+.amount-component div {
+    padding-left: 3px;
+}
+
+.chores-list hr {
+    margin: 20px 0 0 0;
+}
+

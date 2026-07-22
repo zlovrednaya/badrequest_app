@@ -1,0 +1,50 @@
+.quick-add-menu {
+    color: #878788;
+    height: 90%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 0.5px solid #a5a5a5;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px 1px #e7e7e7;
+    padding: 0 5px 0 5px;
+    justify-content: space-between;
+}
+.quick-add-menu input {
+    padding-left: 5px;
+}
+.quick-add-item {
+    position: relative;
+    width: 200px;
+    border: 0.5px solid  #a5a5a5;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.quick-item-form-text {
+    padding-left: 5px;
+    font-size: 14px;
+}
+
+.quick-add-item:hover {
+    cursor: pointer;
+    background-color: #c3c2c2;
+}
+
+.quick-add-item:not(:first-child) {
+  margin-left: 15px;
+}
+
+.quick-item-cost {
+    display: flex;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    align-items: center;
+}
+.item-cost-star {
+    font-size: 10px;
+}

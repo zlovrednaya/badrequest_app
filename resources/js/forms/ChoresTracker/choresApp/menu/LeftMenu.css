@@ -1,0 +1,127 @@
+.left-menu {
+    padding-top: 5px;
+    background-color: #F8FAFD;
+    height: 100%;
+    border-right: 1px solid #eee;
+    border-bottom-left-radius: 10px;
+;
+}
+.left-menu-content-item {
+    cursor: pointer;
+    padding: 0 5px 0 5px;
+    font-size: 13px;
+}
+
+.left-menu-content-item-child:hover,.left-menu-content-item-parent:hover{
+    font-weight: 700;
+}
+.left-menu-content-item-parent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    padding: 0 5px 0 5px;
+}
+.left-menu-content-item-child {
+    margin: 0 0 0 5px;
+    padding: 0 5px 0 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left-menu-content-item-child.selected, .left-menu-content-item-parent.selected {
+    background-color: #d8d5d5;
+    border-radius: 3px;
+    font-weight: 600;
+}
+.left-menu-item-color-circle {
+    flex: 1;
+}
+.left-menu-item-color-name {
+    flex: 4;
+}
+.left-menu-item-color-circle svg {
+    border: 0.5px solid #b3b3b3;
+    border-radius: 10px;
+}
+
+.left-menu .calendar {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.left-menu .calendar-simple, .left-menu .calendar-todolist {
+    bottom: 100px;
+    position: absolute;
+    width: 20%;
+}
+
+.left-menu .calendar-calendar {
+    position: relative;
+}
+.add-element {
+    width:20%;
+    max-width: 280px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+}
+.add-button {
+    width: 80%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #eee;
+    padding-left: 10px;
+    
+}
+
+.add-button:hover {
+    cursor: pointer;
+    background-color: rgb(216, 216, 216);
+}
+
+.add-button svg {
+    font-size: 15px;
+}
+.add-chore {  
+    bottom: 50px;
+}
+.add-drawing {
+    bottom: 10px;
+}
+
+.add-button span {
+    padding-left: 10px;
+}
+
+.menu-title {
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 10px;
+}
+
+.left-todo-menu-content-item {
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.left-todo-menu-content-item svg {
+    font-size: 25px;
+    padding-right: 5px;
+}
+
+.left-todo-menu-content-item:hover {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+

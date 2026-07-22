@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Notifications\Channels\EmailChannel;
+use App\Notifications\Channels\TelegramChannel;
 
 class NotificationFactory
 {
@@ -10,6 +11,7 @@ class NotificationFactory
     {
         return match(strtolower($channel)) {
             'email' => new EmailChannel(config('services.mailersend.token')),
+            'telegram' => new TelegramChannel(config('services.telegram.token')),
         };
     }
 }

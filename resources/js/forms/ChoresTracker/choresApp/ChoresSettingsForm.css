@@ -1,0 +1,16 @@
+.chores-settings-form {
+    background-color: #F8FAFD;
+}
+
+.chores-item-changetodo {
+    display: flex;
+    align-items: center;
+}
+
+.chores-item-changetodo:hover {
+    cursor: pointer;
+}
+
+.chores-item-changetodo span {
+    padding-left: 5px;
+}
