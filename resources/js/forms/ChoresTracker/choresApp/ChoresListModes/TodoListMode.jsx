@@ -8,7 +8,7 @@ import { MdDelete } from "react-icons/md";
 import { RiArrowDownWideFill } from "react-icons/ri";
 import { RiArrowRightWideFill } from "react-icons/ri";
 
-import { formatDateTime } from "../../../../utils/date";
+import { formatDateTime } from "../../../../utils/date.ts";
 
 import ToDoItem from "../item/ToDoItem";
 

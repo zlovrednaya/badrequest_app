@@ -15,7 +15,7 @@ import { SlStar } from "react-icons/sl";
 import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
 import PopUp from "../../components/elements/PopUp";
-import { formatDateTime } from "../../utils/date";
+import { formatDateTime } from "../../utils/date.ts";
 
 export default function ChoresTrackerAccount() {
     const {user} = useAuth();

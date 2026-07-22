@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CiCircleChevLeft } from "react-icons/ci";
 import { CiCircleChevRight } from "react-icons/ci";
-import { formatDateTime } from "../../utils/date";
+import { formatDateTime } from "../../utils/date.ts";
 
 import "./Planner.css";
 import HourlyPlanner from "./HourlyPlanner";

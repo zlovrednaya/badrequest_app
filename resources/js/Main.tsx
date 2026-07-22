@@ -1,12 +1,17 @@
 import React, { Component } from "react";
-import WidgetList from "./components/WidgetList";
-import WidgetForm from "./components/WidgetForm";
-import Header from "./components/Header";
-import Introduction from "./components/Introduction";
+import WidgetList from "./components/WidgetList.jsx";
+import WidgetForm from "./components/WidgetForm.jsx";
+import Header from "./components/Header.jsx";
+import Introduction from "./components/Introduction.jsx";
 import { useState } from "react";
 
 function Main() {
-  const [selectedWidget, setSelectedWidget] = useState(null);
+  interface Widget {
+    id: string,
+    name: string,
+    description: string,
+  };
+  const [selectedWidget, setSelectedWidget] = useState<Widget | null>(null);
 
   const widgets = [
     { id: "AviationStack", name: "AviationStack", description: "Flight subscription allows you to receive a message when the plane is near the airport", logo:"aviation.jpg" },

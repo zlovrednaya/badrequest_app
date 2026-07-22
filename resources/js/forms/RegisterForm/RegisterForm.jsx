@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { Link } from 'react-router-dom';
-import * as InputComponents from "../../components/elements/Inputs";
+import * as InputComponents from "../../components/elements/Inputs.tsx";
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";

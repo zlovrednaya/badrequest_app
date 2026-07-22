@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./HourlyPlanner.css";
 import { IoIosCloseCircle } from "react-icons/io";
 
-import { formatDateTime } from "../../utils/date";
+import { formatDateTime } from "../../utils/date.ts";
 import QuickAddForm from "./QuickAddForm";
 
 export default function HourlyPlanner({items, day, onClose, onSave}) {

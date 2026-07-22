@@ -3,7 +3,7 @@ import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 
-import { formatDateTime } from "../../../../utils/date";
+import { formatDateTime } from "../../../../utils/date.ts";
 import "../ChoresList.css";
 
 export default function SimpleMode({chores, selectedChores, actions, appSettings}) {

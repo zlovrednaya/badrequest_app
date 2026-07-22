@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./QuickAddForm.css";
 import QuickAddMenu from "../../forms/ChoresTracker/choresApp/menu/QuickAddMenu";
-import { formatDateTime } from "../../utils/date";
+import { formatDateTime } from "../../utils/date.ts";
 
 export default function QuickAddForm({ params, onSave }) {
 

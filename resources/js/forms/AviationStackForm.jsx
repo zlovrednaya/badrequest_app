@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { useState } from "react";
-import { Input, EmailInput } from "../components/elements/Inputs";
+import { Input, EmailInput } from "../components/elements/Inputs.tsx";
 
 function AviationStackForm({ widget, onClose }) {
     const [formData, setFormData] = useState({

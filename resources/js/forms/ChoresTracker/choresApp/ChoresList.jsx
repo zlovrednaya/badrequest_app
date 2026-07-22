@@ -8,7 +8,7 @@ import TodoListMode from "./ChoresListModes/TodoListMode";
 import CalendarMode from "./ChoresListModes/CalendarMode";
 
 import './ChoresList.css';
-import { formatDateTime } from "../../../utils/date";
+import { formatDateTime } from "../../../utils/date.ts";
 
 export default function ChoresList({chores, selectedChores, actions, appSettings}) {
 

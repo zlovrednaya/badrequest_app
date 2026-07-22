@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import './ThreeDaysPlanner.css';
 
-import { formatDateTime } from "../../utils/date";
+import { formatDateTime } from "../../utils/date.ts";
 export default function ThreeDaysPlanner({days})
 {
     useEffect(()=>{

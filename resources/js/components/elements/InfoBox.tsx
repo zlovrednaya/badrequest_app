@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 
-import Parser from 'html-react-parser';
+import parse from 'html-react-parser';
 
 import { HiOutlineInformationCircle } from "react-icons/hi2";
 
 import "./InfoBox.css";
-export default function InfoBox({infoMessage}) {
+
+interface InfoBoxProps {
+    infoMessage: string,
+};
+
+export default function InfoBox({infoMessage}: InfoBoxProps) {
     const [active, setActive] = useState(false);
     
     function onFocus() {
@@ -21,7 +26,7 @@ export default function InfoBox({infoMessage}) {
                 <HiOutlineInformationCircle />
                 
                 {active && (
-                    <div className="info-box-message">{Parser(infoMessage)}</div>
+                    <div className="info-box-message">{parse(infoMessage)}</div>
                 )} 
         </div>
         

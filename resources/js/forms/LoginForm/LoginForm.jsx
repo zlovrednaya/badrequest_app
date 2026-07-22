@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import * as InputComponents from "../../components/elements/Inputs";
+import * as InputComponents from "../../components/elements/Inputs.tsx";
 
 import { useAuth } from "../../auth/useAuth";
 

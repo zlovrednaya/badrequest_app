@@ -1,11 +1,25 @@
-import React, { Component } from "react";
+import React, { Component, type ChangeEvent } from "react";
 import { useState } from "react";
 
-export function Input({ label, name, placeholder, required=false, error, onValueChange }) {
+interface BaseInputParams {
+    label: string | null,
+    name: string | undefined,
+    placeholder: string | undefined,
+}
+interface InputParams extends BaseInputParams {
+    required?: boolean,
+    error: string | null,
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    onValueChange?: (e: React.ChangeEvent<HTMLInputElement>, value: string ) => void,
+    serverMessageText?: string,
+    success?: boolean,
+    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>,
+}
+export function Input({ label, name, placeholder, required=false, error, onValueChange }: InputParams) {
     const [value, setValue] = useState("");
 
-    const handleChange = (e) => {
-        const val = e.target.value;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val: string | null = e.target.value;
         setValue(val);
 
         if (typeof onValueChange === 'function') {
@@ -32,10 +46,14 @@ export function Input({ label, name, placeholder, required=false, error, onValue
     );
 }
 
-export function EmailInput({ label, name, placeholder }) {
+
+interface EmailInputProps extends BaseInputParams {
+}
+
+export function EmailInput({ label, name, placeholder }: EmailInputProps) {
     const [error, setError]=useState("");
 
-    const handleChangeEmail=(field, value) => {
+    const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>, value: string) => {
         const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(value)) {
@@ -56,7 +74,7 @@ export function EmailInput({ label, name, placeholder }) {
     );
 }
 
-export function CustomTextInput({ label, name, placeholder, required=false, error, icon: Icon, onChange }) {
+export function CustomTextInput({ label, name, placeholder, required=false, error, icon: Icon, onChange }: InputParams) {
     
     return (
         <div className="input-box">
@@ -75,7 +93,7 @@ export function CustomTextInput({ label, name, placeholder, required=false, erro
     );
 }
 
-export function CustomButtonInput({ placeholder, error }) {
+export function CustomButtonInput({ placeholder, error }: InputParams) {
     
     return (
         <button
@@ -85,7 +103,7 @@ export function CustomButtonInput({ placeholder, error }) {
     );
 }
 
-export function MessageInput({ serverMessageText, success }) {
+export function MessageInput({ serverMessageText, success }: InputParams) {
     
     return (
         <div className={`message-box ${success ? "message-success":"message-error"}`}>
