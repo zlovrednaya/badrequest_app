@@ -30,7 +30,7 @@ import ChoresSettingsForm from "../ChoresSettingsForm";
 import SaveBatch from "../../SaveBatch.jsx";
 
 
-import { useWarning } from "../../../../components/elements/Warning.jsx";
+import { useWarning } from "../../../../components/elements/Warning.tsx";
 import '../choresApp.css';
 import axios from "axios";
 

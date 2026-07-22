@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthProvider } from "../../auth/AuthContext";
-import { WarningProvider } from "../../components/elements/Warning";
+import { WarningProvider } from "../../components/elements/Warning.tsx";
 
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";

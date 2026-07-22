@@ -7,7 +7,7 @@ import AddEditMenu from './choresApp/menu/AddEditMenu';
 import LeftMenu from "./choresApp/menu/LeftMenu";
 import QuickAddMenu from './choresApp/menu/QuickAddMenu';
 import UserMenu from './user/UserMenu';
-import { useWarning } from "../../components/elements/Warning";
+import { useWarning } from "../../components/elements/Warning.tsx";
 import { useNavigate } from "react-router-dom";
 
 import { SlStar } from "react-icons/sl";

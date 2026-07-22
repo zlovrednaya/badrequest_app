@@ -5,7 +5,25 @@ import { IoIosCloseCircle } from "react-icons/io";
 
 import "./Warning.css"
 
-export const WarningContext = createContext(null);
+type WarningProviderProps = {
+    children: React.ReactNode,
+};
+type WarningOptions = {   
+        title: string,
+        message: string,
+        confirmText?: string,
+        cancelText?: string,
+};
+
+type WarningState = WarningOptions & {
+    resolve: (result: boolean) => void,
+};
+
+type WarningContextType = {
+    askWarning: (options:WarningOptions) => Promise<boolean>,
+}
+
+export const WarningContext = createContext<WarningContextType | null>(null);
 
 export const useWarning = () => {
     const context = useContext(WarningContext);
@@ -14,16 +32,17 @@ export const useWarning = () => {
     return context;
 };
 
-export const WarningProvider = ({children}) => {
-    const [state, setState] = useState(null);
+export const WarningProvider = ({children}: WarningProviderProps) => {
 
-    const askWarning = (options) => {
-        return new Promise((resolve) => {
+    const [state, setState] = useState<WarningState | null>(null);
+
+    const askWarning = (options: WarningOptions) => {
+        return new Promise<boolean>((resolve) => {
             setState({...options, resolve});
         });
     }
 
-    const closeWarning = (result) => {
+    const closeWarning = (result: boolean) => {
         if (state && state.resolve) {
             state.resolve(result);
         }
