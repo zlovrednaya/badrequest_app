@@ -6,7 +6,7 @@ import ChoresList from './choresApp/ChoresList';
 import AddEditMenu from './choresApp/menu/AddEditMenu';
 import LeftMenu from "./choresApp/menu/LeftMenu";
 import QuickAddMenu from './choresApp/menu/QuickAddMenu';
-import UserMenu from './user/UserMenu';
+import UserMenu from './user/UserMenu.tsx';
 import { useWarning } from "../../components/elements/Warning.tsx";
 import { useNavigate } from "react-router-dom";
 

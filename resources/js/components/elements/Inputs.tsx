@@ -8,12 +8,12 @@ interface BaseInputParams {
 }
 interface InputParams extends BaseInputParams {
     required?: boolean,
-    error: string | null,
+    error?: string | null,
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
     onValueChange?: (e: React.ChangeEvent<HTMLInputElement>, value: string ) => void,
     serverMessageText?: string,
     success?: boolean,
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>,
+    icon?: React.ComponentType<any>,
 }
 export function Input({ label, name, placeholder, required=false, error, onValueChange }: InputParams) {
     const [value, setValue] = useState("");
@@ -93,7 +93,11 @@ export function CustomTextInput({ label, name, placeholder, required=false, erro
     );
 }
 
-export function CustomButtonInput({ placeholder, error }: InputParams) {
+type CustomButtonInputProps = {
+    placeholder: string,
+    error?: string | null,
+};
+export function CustomButtonInput({ placeholder, error }: CustomButtonInputProps) {
     
     return (
         <button
@@ -103,7 +107,11 @@ export function CustomButtonInput({ placeholder, error }: InputParams) {
     );
 }
 
-export function MessageInput({ serverMessageText, success }: InputParams) {
+type MessageInputParams = {
+    serverMessageText: string,
+    success: boolean,
+}
+export function MessageInput({ serverMessageText, success }: MessageInputParams) {
     
     return (
         <div className={`message-box ${success ? "message-success":"message-error"}`}>

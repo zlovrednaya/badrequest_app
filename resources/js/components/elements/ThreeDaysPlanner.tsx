@@ -1,8 +1,22 @@
 import React, { useEffect } from "react";
 import './ThreeDaysPlanner.css';
 
-import { formatDateTime } from "../../utils/date.ts";
-export default function ThreeDaysPlanner({days})
+import { formatDateTime } from "../../utils/date";
+
+type DayItem = {
+    id: number,
+    title: string,
+    text?:string,
+    due_datetime: string,
+    color: string,
+};
+type ThreeDaysPlannerProps = {
+    days:{
+        [date: string]: DayItem[],
+    }
+};
+
+export default function ThreeDaysPlanner({days}: ThreeDaysPlannerProps)
 {
     useEffect(()=>{
         if(!days) return;

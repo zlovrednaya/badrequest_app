@@ -4,7 +4,7 @@ import "./HourlyPlanner.css";
 import { IoIosCloseCircle } from "react-icons/io";
 
 import { formatDateTime } from "../../utils/date.ts";
-import QuickAddForm from "./QuickAddForm";
+import QuickAddForm from "./QuickAddForm.tsx";
 
 export default function HourlyPlanner({items, day, onClose, onSave}) {
     const cursorRef = useRef(null);

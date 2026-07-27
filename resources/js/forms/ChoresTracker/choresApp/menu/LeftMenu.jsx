@@ -9,7 +9,7 @@ import { MdStickyNote2 } from "react-icons/md";
 import Calendar from "../../../../components/elements/Calendar";
 import TodoMenu from "./leftMenu/TodoMenu";
 import FilterMenu from "./leftMenu/FilterMenu";
-import ThreeDaysPlanner from "../../../../components/elements/ThreeDaysPlanner";
+import ThreeDaysPlanner from "../../../../components/elements/ThreeDaysPlanner.tsx";
 
 import './LeftMenu.css';
 

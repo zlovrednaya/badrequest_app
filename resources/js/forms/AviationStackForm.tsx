@@ -1,32 +1,44 @@
-import React, { Component } from "react";
+import React, { Component, type AnyActionArg } from "react";
 import { useState } from "react";
-import { Input, EmailInput } from "../components/elements/Inputs.tsx";
+import { Input, EmailInput } from "../components/elements/Inputs.js";
+import axios from "axios";
 
-function AviationStackForm({ widget, onClose }) {
-    const [formData, setFormData] = useState({
+type BaseWidgetFormProps = {
+  widget: {
+    name: string,
+  },
+  onClose: () => void,
+};
+
+type AviatioStackFormData = {
+    email: string,
+    flight_number: string,
+};
+function AviationStackForm({ widget, onClose }: BaseWidgetFormProps) {
+    const [formData, setFormData]: [AviatioStackFormData, React.Dispatch<React.SetStateAction<AviatioStackFormData>>] = useState({
         email: "",
         flight_number: "",
     });
 
-    const [serverMessage, setServerMessage] = useState(null);
+    const [serverMessage, setServerMessage]: [any, React.Dispatch<React.SetStateAction<any>>] = useState(null);
 
-    const sendData = (e) => {
+    const sendData = (e: any) => {
         e.preventDefault();
 
         const data = new FormData(e.target);
         const formData = {
-            email: data.get("email"),
-            flight_number: data.get("flight_number"),
+            email: String(data.get("email")) ?? "",
+            flight_number: String(data.get("flight_number")) ?? "",
         };
         setFormData(formData);
 
         axios( window.location.href + "observeFlight", {
                 method: 'POST', 
                 data: JSON.stringify(formData),
-                headers: new Headers({
+                headers: {
                      'Content-Type': 'application/json',
                      'Accept': 'application/json',
-                }),
+                },
             })
             .then((result) => {
                 console.log('success');

@@ -1,37 +1,47 @@
 import React, { Component, useState } from "react";
+import axios from "axios";
 import { Link } from 'react-router-dom';
-import * as InputComponents from "../../components/elements/Inputs.tsx";
+import * as InputComponents from "../../components/elements/Inputs.js";
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 
 import './RegisterForm.css';
 
-export default function RegisterForm(widget) {
+type RegisterFormProps = {
+    appName: string,
+    title: string,
+};
+
+export default function RegisterForm(widget: RegisterFormProps) {
     const [name, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [serverMessage, setServerMessage] = useState(null);
+    const [serverMessage, setServerMessage]: [any, React.Dispatch<React.SetStateAction<any>>] = useState(null);
 
-    const signUp = (signUpData) => {
-
+    const signUp = (signUpData: {
+        name: string,
+        email: string,
+        password: string,
+        appName?: string, 
+    }) => {
         signUpData.appName = widget.appName;
         axios( window.location.href, {
             method: 'POST', 
             data: JSON.stringify(signUpData),
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-            }),
+            },
         })
-        .then(data => {
+        .then((data: any) => {
             console.log(data.json);
             setServerMessage({ 
                 success: true, 
                 text: 'Successfully registered',
             });
         })
-        .catch(err => {
+        .catch((err: any) => {
             console.log(err);
             let errors = err.response.data.errors;
             let errorText = err.response.data.message;
@@ -41,7 +51,7 @@ export default function RegisterForm(widget) {
             });
         })
     }
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         signUp({
             name,
@@ -54,7 +64,8 @@ export default function RegisterForm(widget) {
             <div className="LoginRegisterFormBody">
                 <form onSubmit={onSubmit}>
                     <h1 className="LoginRegisterFormTitle">{widget.title} | Sign Up</h1>
-                    <InputComponents.CustomTextInput 
+                    <InputComponents.CustomTextInput
+                        label={null}
                         name="name"
                         required={true}
                         icon={FaUser}
@@ -62,6 +73,7 @@ export default function RegisterForm(widget) {
                         onChange={(e) => setUserName(e.target.value)}
                     />
                     <InputComponents.CustomTextInput 
+                        label={null}
                         name="email"
                         required={true}
                         icon={MdEmail}
@@ -69,6 +81,7 @@ export default function RegisterForm(widget) {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <InputComponents.CustomTextInput 
+                        label={null}
                         name="password"
                         required={true}
                         icon={RiLockPasswordFill}

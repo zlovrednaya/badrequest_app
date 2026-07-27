@@ -1,9 +1,8 @@
 import React, { Component, useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import * as InputComponents from "../../components/elements/Inputs.tsx";
+import * as InputComponents from "../../components/elements/Inputs.js";
 
-import { useAuth } from "../../auth/useAuth";
+import { useAuth } from "../../auth/useAuth.js";
 
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
@@ -14,16 +13,21 @@ import { RiCheckboxCircleLine } from "react-icons/ri";
 
 import './LoginForm.css';
 
-export default function LoginForm (widget) {
+type LoginFormProps = {
+    appName: string,
+    title: string,
+};
+
+export default function LoginForm (widget: LoginFormProps) {
     const appName = widget.appName;
     const {user, login, logout} = useAuth();
 
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [serverMessage, setServerMessage] = useState(null);
-    const [rememberMe, setRememberMe] = useState(null);
-    
+    const [serverMessage, setServerMessage]: [any, React.Dispatch<React.SetStateAction<any>>] = useState(null);
+    const [rememberMe, setRememberMe]: [boolean, React.Dispatch<React.SetStateAction<boolean>>] = useState(false);
+
     useEffect(() => {
         if (user) {
             console.log('navigate to account')
@@ -31,7 +35,7 @@ export default function LoginForm (widget) {
         }
      }, [navigate]);
 
-    const onSubmit = async (e) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const res = await login({email, password, appName});
 
@@ -51,7 +55,8 @@ export default function LoginForm (widget) {
             <div className="LoginRegisterFormBody">
                 <form onSubmit={onSubmit}>
                     <h1 className="login-register-form-title">{widget.title} | Login</h1>
-                    <InputComponents.CustomTextInput 
+                    <InputComponents.CustomTextInput
+                        label={null} 
                         name="username"
                         required={true}
                         icon={FaUser}
@@ -59,6 +64,7 @@ export default function LoginForm (widget) {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <InputComponents.CustomTextInput 
+                        label={null} 
                         name="password"
                         required={true}
                         icon={RiLockPasswordFill}

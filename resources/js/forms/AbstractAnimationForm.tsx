@@ -3,11 +3,16 @@ import { animate, splitText, stagger } from 'animejs';
 import { useEffect, useRef, useState } from 'react';
 import WidgetList from "../components/WidgetList";
 
-
-function AbstractAnimationForm({ widget, onClose }) {
+type BaseWidgetFormProps = {
+  widget: {
+    name: string,
+  },
+  onClose: () => void,
+};
+function AbstractAnimationForm({ widget, onClose }: BaseWidgetFormProps) {
 
   const [selectedWidget, setSelectedWidget] = useState(null);
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       alert(`${widget.name} settings saved!`);
       onClose();

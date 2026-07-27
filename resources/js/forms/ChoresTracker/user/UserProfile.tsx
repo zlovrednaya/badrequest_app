@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../auth/useAuth";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 import { CiLogout } from "react-icons/ci";
 import { PiKeyReturnLight } from "react-icons/pi";
 import { MdSave } from "react-icons/md";
@@ -19,9 +19,9 @@ export default function UserProfile() {
     const {user, logout, updateUser} = useAuth();
     const navigate = useNavigate();
 
-    const [formStatus, setFormStatus] = useState(null);
-    const [telegramSyncStatus, setTelegramSyncStatus] = useState('');
-    const [formData, setFormData] = useState({
+    const [formStatus, setFormStatus]: [any, React.Dispatch<React.SetStateAction<any>>] = useState(null);
+    const [telegramSyncStatus, setTelegramSyncStatus]: [string, React.Dispatch<React.SetStateAction<string>>] = useState('');
+    const [formData, setFormData]: [any, React.Dispatch<React.SetStateAction<any>>] = useState({
             email: user.email,
             name: user.name,
             phone: user?.phone,
@@ -36,9 +36,9 @@ export default function UserProfile() {
         navigate("/");
     }
 
-    function handleChange(e) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const {name, value} = e.target;
-        setFormData(prev => ({
+        setFormData((prev: any) => ({
             ...prev,
             [name]: value
         }));
@@ -47,14 +47,14 @@ export default function UserProfile() {
     async function handleSave() {
         await axios('/user/save', {
             method: 'POST',
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
             data: JSON.stringify(formData),
         })
-        .then((res) => {
+        .then((res: any) => {
             setFormStatus({
                 success: true,
                 message: 'User data successfully saved!'
@@ -62,7 +62,7 @@ export default function UserProfile() {
 
             updateUser();
         })
-         .catch(err => {
+         .catch((err: any) => {
             console.log(err);
             let errors = err.response.data.errors;
             let errorText = err.response.data.message;
@@ -78,14 +78,14 @@ export default function UserProfile() {
         setTelegramSyncStatus('load');
         await axios('/user/syncTelegram', {
             method: 'POST',
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
             data: JSON.stringify({telegram_name:formData.telegram_name}),
         })
-        .then((res) => {
+        .then((res: any) => {
             if(res?.data?.success) {
                 setTelegramSyncStatus('success');
             } else {
@@ -93,7 +93,7 @@ export default function UserProfile() {
             }
             
         })
-         .catch(err => {
+         .catch((err: any) => {
             setTelegramSyncStatus('error');
             console.log(err);
             let errors = err.response.data.errors;

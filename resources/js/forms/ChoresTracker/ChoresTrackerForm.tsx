@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthProvider } from "../../auth/AuthContext";
-import { WarningProvider } from "../../components/elements/Warning.tsx";
+import { WarningProvider } from "../../components/elements/Warning";
 
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
@@ -19,8 +19,14 @@ import {
 
 
 import './ChoresTrackerForm.css';
+type BaseWidgetFormProps = {
+  widget: {
+    name: string,
+  },
+  onClose: () => void,
+};
 
-export default function ChoresTracker({widget, onClose}) {    
+export default function ChoresTracker({widget, onClose}: BaseWidgetFormProps) {    
     const title = "Chores";
     const appName = "chores";
 

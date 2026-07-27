@@ -1,8 +1,14 @@
 // component consists of a simple integration form, including an API key button and a URL
 import React, { Component } from "react";
 
-function BaseWidgetForm({ widget, onClose }) {
-  const handleSubmit = (e) => {
+type BaseWidgetFormProps = {
+  widget: {
+    name: string,
+  },
+  onClose: () => void,
+};
+function BaseWidgetForm({ widget, onClose }: BaseWidgetFormProps) {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     alert(`${widget.name} settings saved!`);
     onClose();

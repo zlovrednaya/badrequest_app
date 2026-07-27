@@ -8,7 +8,12 @@ import { SlStar } from "react-icons/sl";
 
 import "./userMenu.css";
 
-export default function UserMenu({ appSettings }) {
+type UserMenuProps = {
+    appSettings: {
+        currentAmount: Record<string, any> | null,
+    },
+};
+export default function UserMenu({ appSettings }: UserMenuProps) {
     const {user, logout} = useAuth();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -22,7 +27,7 @@ export default function UserMenu({ appSettings }) {
     }
 
     useEffect(() => {
-        if (!user) add-edit-batchreturn;
+        if (!user) return;
     }, [user]);
 
     return (
