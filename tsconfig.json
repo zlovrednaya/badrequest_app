@@ -25,7 +25,7 @@
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
-
+     "allowImportingTsExtensions": true,
     // Style Options
     // "noImplicitReturns": true,
     // "noImplicitOverride": true,
@@ -49,6 +49,6 @@
   "include": [
       "resources/js/**/*.ts",
       "resources/js/**/*.tsx",
-      "resources/js/**/*.d.ts",
+      "resources/js/**/*.d.ts", "resources/js/forms/index.js",
     ],
 }
