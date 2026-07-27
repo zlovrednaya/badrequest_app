@@ -3,13 +3,18 @@ import "./QuickAddForm.css";
 import QuickAddMenu from "../../forms/ChoresTracker/choresApp/menu/QuickAddMenu";
 import { formatDateTime } from "../../utils/date";
 
+type QuickAddFormParams = {
+    day: Date | undefined,
+    hour: number,
+    minutes: number,
+};
+type QuickAddFormPayload = {
+    title: string, 
+    due_datetime: string | Date
+};
 type QuickAddFormProps = {
-    params: {
-        day?: string,
-        hour?: string,
-        minutes?: string,
-    },
-    onSave: (formData: {title: string, due_datetime: string | Date}) => void,
+    params: QuickAddFormParams | null,
+    onSave: (formData: QuickAddFormPayload) => void,
 };
 
 export default function QuickAddForm({ params, onSave }: QuickAddFormProps) {
@@ -29,7 +34,6 @@ export default function QuickAddForm({ params, onSave }: QuickAddFormProps) {
     }
 
     async function handleSave(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
         // save
         onSave(formData);
         // set to base

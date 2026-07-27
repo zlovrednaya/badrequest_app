@@ -6,15 +6,38 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { formatDateTime } from "../../utils/date.ts";
 import QuickAddForm from "./QuickAddForm.tsx";
 
-export default function HourlyPlanner({items, day, onClose, onSave}) {
-    const cursorRef = useRef(null);
-    const plannerRef = useRef(null);
-    const [quickAddPosition, setQuickAddPosition] = useState({
+type QuickAddFormParams = {
+    day: Date | undefined,
+    hour: number,
+    minutes: number,
+};
+type QuickAddFormPayload = {
+    title: string, 
+    due_datetime: string | Date
+};
+
+type HourlyPlannerProps = {
+    items: any,
+    day: Date | undefined,
+    onClose: () => void,
+    onSave: (formData: any) => Promise<void>,
+};
+
+type InitialState = {
+    top: number | string,
+    left: number | string,
+};
+
+export default function HourlyPlanner({items, day, onClose, onSave}: HourlyPlannerProps) {
+    const cursorRef = useRef<HTMLDivElement>(null);
+    const plannerRef = useRef<HTMLDivElement>(null);
+
+    const [quickAddPosition, setQuickAddPosition] = useState<InitialState>({
         top: 0,
         left: 0,
     });
-    const [isQuickAddFormOpened, setIsQuickAddFormOpened] = useState(null);
-    const [addFormParams, setAddFormParams] = useState(null);
+    const [isQuickAddFormOpened, setIsQuickAddFormOpened] = useState<boolean | null>(null);
+    const [addFormParams, setAddFormParams] = useState<QuickAddFormParams | null>(null);
 
     const topStep = 50;
     const currentTime = new Date();
@@ -23,13 +46,13 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
     const currentTimeTop = (topStep * hh) + mm; 
     
 
-    const createItem = (e) => {
+    const createItem = (e : React.MouseEvent<HTMLDivElement>) => {
        
         // 25px - element of datum
         const pixels = (e.clientY - e.currentTarget.getBoundingClientRect().top + e.currentTarget.scrollTop - 25) ;
         
         const hour = Math.abs(Math.floor(pixels / topStep));
-        const minutes = ((pixels / topStep) - hour) < 0.5 ? "00" : "30";
+        const minutes = Number(((pixels / topStep) - hour) < 0.5 ? "00" : "30");
 
         const currentPositionY = e.clientY - e.currentTarget.getBoundingClientRect().top;
         const currentPositionX = e.clientX - e.currentTarget.getBoundingClientRect().left; 
@@ -46,7 +69,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
         });
     };
 
-    function changeCursorPosition(e) {
+    function changeCursorPosition(e: React.MouseEvent<HTMLDivElement>) {
         if (!cursorRef.current) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const y = e.clientY - rect.top + e.currentTarget.scrollTop;
@@ -58,16 +81,16 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
         onClose();
     }
 
-    function selectItem(item) {
+    function selectItem(item: any[]) {
 
     }
     
-    function renderItems(items) {
+    function renderItems(items: any[]) {
         const elements = [];
         const width = 20;
-        const hourPosition = [];
+        const hourPosition: any[] = [];
         for(let itemsKey in items) {
-            const [hour, minute] = itemsKey.split(":").map(Number);
+            const [hour, minute] = itemsKey.split(":").map(Number) as [number, number];
             if(!hourPosition[hour])hourPosition[hour] = [];
 
             let elementTop = (topStep * (hour)) + (topStep/2) + (minute/60*topStep);
@@ -121,7 +144,7 @@ export default function HourlyPlanner({items, day, onClose, onSave}) {
         return rows;   
     }
 
-    const saveChore = async (formData) => {
+    const saveChore = async (formData: QuickAddFormPayload) => {
         await onSave(formData);
         // close quick add form
         setIsQuickAddFormOpened(false);

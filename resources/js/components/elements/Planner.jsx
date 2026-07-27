@@ -4,7 +4,7 @@ import { CiCircleChevRight } from "react-icons/ci";
 import { formatDateTime } from "../../utils/date.ts";
 
 import "./Planner.css";
-import HourlyPlanner from "./HourlyPlanner";
+import HourlyPlanner from "./HourlyPlanner.tsx";
 import { PiXFill } from "react-icons/pi";
 export default function Planner({items, currentDate, setCurrentDate, onSave}) {
     const now = new Date();

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function formatDateTime(dateValue: string | null, format: string | null = "datetime") {
+export function formatDateTime(dateValue: Date | undefined, format: string | null = "datetime") {
     if(!dateValue) return;
     const date = new Date(dateValue);
 
