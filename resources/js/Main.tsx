@@ -31,7 +31,7 @@ function Main() {
       />
       {selectedWidget && (
         <WidgetForm
-          widget = {selectedWidget}
+          widget = {selectedWidget as any}
           onClose = {() => setSelectedWidget(null)}
         />
       )}
