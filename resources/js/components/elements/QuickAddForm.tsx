@@ -4,7 +4,7 @@ import QuickAddMenu from "../../forms/ChoresTracker/choresApp/menu/QuickAddMenu"
 import { formatDateTime } from "../../utils/date";
 
 type QuickAddFormParams = {
-    day: Date | undefined,
+    day: Date | string | number,
     hour: number,
     minutes: number,
 };
@@ -47,7 +47,7 @@ export default function QuickAddForm({ params, onSave }: QuickAddFormProps) {
         <div className="quick-add-form">
             <div className="quick-add-form-title">Add a chore
                 on
-                <span className="quick-add-form-time">{formatDateTime(params?.day, 'shortmonthwithyear')}</span> 
+                <span className="quick-add-form-time">{formatDateTime(params?.day ?? '', 'shortmonthwithyear') ?? ''}</span> 
                  at 
                 <span className="quick-add-form-time">{params?.hour} : {params?.minutes}</span>
             </div>

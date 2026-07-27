@@ -6,7 +6,7 @@ import { GoPlus } from "react-icons/go";
 import { FaPenFancy } from "react-icons/fa6";
 import { MdStickyNote2 } from "react-icons/md";
 
-import Calendar from "../../../../components/elements/Calendar";
+import Calendar from "../../../../components/elements/Calendar.tsx";
 import TodoMenu from "./leftMenu/TodoMenu";
 import FilterMenu from "./leftMenu/FilterMenu";
 import ThreeDaysPlanner from "../../../../components/elements/ThreeDaysPlanner.tsx";

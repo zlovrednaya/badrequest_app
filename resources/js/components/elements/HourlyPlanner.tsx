@@ -7,7 +7,7 @@ import { formatDateTime } from "../../utils/date.ts";
 import QuickAddForm from "./QuickAddForm.tsx";
 
 type QuickAddFormParams = {
-    day: Date | undefined,
+    day: Date | string | number,
     hour: number,
     minutes: number,
 };
@@ -17,8 +17,8 @@ type QuickAddFormPayload = {
 };
 
 type HourlyPlannerProps = {
-    items: any,
-    day: Date | undefined,
+    items: any[],
+    day: Date | string | number,
     onClose: () => void,
     onSave: (formData: any) => Promise<void>,
 };

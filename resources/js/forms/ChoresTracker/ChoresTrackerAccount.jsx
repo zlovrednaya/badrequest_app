@@ -14,7 +14,7 @@ import { SlStar } from "react-icons/sl";
 
 import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
-import PopUp from "../../components/elements/PopUp";
+import PopUp from "../../components/elements/PopUp.tsx";
 import { formatDateTime } from "../../utils/date.ts";
 
 export default function ChoresTrackerAccount() {

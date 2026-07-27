@@ -6,7 +6,7 @@ import "react-day-picker/style.css";
 import "./Calendar.css";
 
 export default function Calendar(){
-    const [selected, setSelected] = useState(new Date());
+    const [selected, setSelected] = useState<Date| undefined>(new Date());
     return (
         <DayPicker
             animate

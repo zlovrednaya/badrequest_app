@@ -6,8 +6,13 @@ import { PiWarningLight } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
 import { RiProhibited2Line } from "react-icons/ri";
 
-
-export default function PopUp({isOpen, success, message, closeForm}) {
+type PopUpProps = {
+    isOpen: boolean,
+    success: boolean,
+    message: string,
+    closeForm: () => void,
+};
+export default function PopUp({isOpen, success, message, closeForm}: PopUpProps) {
     if(!isOpen) {
         return null;
     }

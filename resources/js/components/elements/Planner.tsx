@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CiCircleChevLeft } from "react-icons/ci";
 import { CiCircleChevRight } from "react-icons/ci";
 import { formatDateTime } from "../../utils/date.ts";
@@ -6,12 +6,19 @@ import { formatDateTime } from "../../utils/date.ts";
 import "./Planner.css";
 import HourlyPlanner from "./HourlyPlanner.tsx";
 import { PiXFill } from "react-icons/pi";
-export default function Planner({items, currentDate, setCurrentDate, onSave}) {
+
+type PlannerProps = {
+    items: Record<string | number, any>,
+    currentDate: any,
+    setCurrentDate: (date: Date) => void,
+    onSave: (formData: any) => Promise<void>,
+};
+export default function Planner({items, currentDate, setCurrentDate, onSave}: PlannerProps) {
     const now = new Date();
     const [selectedDate, setSelectedDay] = useState(now);
     const [selectedItem, setSelectedItem] = useState();
     const [showHourlyPlanner, setShowHourlyPlanner] = useState(false);
-    const [dayForHourlyPlanner, setDayForHourlyPlanner] = useState(null);
+    const [dayForHourlyPlanner, setDayForHourlyPlanner] = useState<string | number>('');
     const itemsDay = items?.[dayForHourlyPlanner] ?? [];
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
@@ -21,16 +28,16 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
     
     const days = [];
 
-    function openHourlyPlanner(day, monthStep = 0) {
+    const openHourlyPlanner = (day: number, monthStep: string = '0') =>{
         console.log(`openHourlyCalendar ${day} ${monthStep}`);
-        const showDate = formatDateTime(new Date(currentYear, currentMonth + Number(monthStep), day),'datewithdash');
+        const showDate = formatDateTime(new Date(currentYear, currentMonth + Number(monthStep), day),'datewithdash') ?? '';
         setDayForHourlyPlanner(showDate);
         setShowHourlyPlanner(true);
     }
     function closeHourlyPlanner() {
         setShowHourlyPlanner(false);
     }
-    function renderDays(currentDate) {
+    function renderDays(currentDate: any) {
         const cells = [];
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth();
@@ -42,14 +49,14 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
         const daysInMonth = lastDayOfMonth.getDate();
         const startWeekDay = (firstDayOfMonth.getDay() + 6) % 7; // normalize week - Monday is 0
 
-        const showAllItems = (day) => {
+        const showAllItems = (day: string | number) => {
             console.log('showAllItems' + day);
 
             setShowHourlyPlanner(true);
             setDayForHourlyPlanner(day);
         };
 
-        const selectItem = (id) => {
+        const selectItem = (id: string) => {
 
         };
 
@@ -69,7 +76,7 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
 
         for (let i = 0; i < daysInMonth; i++) {
             let dayElements = [];
-            let day = formatDateTime(new Date(year, month, i+1), 'datewithdash');
+            let day: string | number = formatDateTime(new Date(year, month, i+1), 'datewithdash') ?? '';
             
             if (items[day]) {
                 let k = 0;
@@ -126,7 +133,7 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
 
 
     //// whether i need to refresh hourly planner 
-    async function onSaveItems (formData) {
+    async function onSaveItems (formData: any[]) {
         await onSave(formData);
 
         // update hourly planner
@@ -136,12 +143,12 @@ export default function Planner({items, currentDate, setCurrentDate, onSave}) {
     function selectToday() {
         setCurrentDate(new Date());
     }
-    function setMonth(step) {
+    function setMonth(step: number) {
         const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + step, 1);
         setCurrentDate(firstDayOfMonth);
     }
 
-    useState(() => {
+    useEffect(() => {
         //renderDays(currentDate);
     }, [items]);
     

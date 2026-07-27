@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 
-import Planner from "../../../../components/elements/Planner";
+import Planner from "../../../../components/elements/Planner.tsx";
 import "../ChoresList.css";
 
 export default function CalendarMode({items, getCalendarChores, currentDate, setCurrentDate, onSave, appSettings, refreshCalendar}) {
