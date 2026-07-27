@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 
-function WidgetList({ widgets, onSelect }) {
+type WidgetListProps = {
+  widgets: {
+    id: string,
+    name: string,
+    description: string,
+    logo?: string
+  }[],
+  onSelect: (widget: { id: string, name: string, description: string, logo?: string }) => void
+};
+function WidgetList({ widgets, onSelect }: WidgetListProps) {
   const baseLogoUrl = window.location.origin + "/storage/";
   return (
     <div className="widgets-tab">

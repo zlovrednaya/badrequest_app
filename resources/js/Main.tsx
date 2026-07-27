@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import WidgetList from "./components/WidgetList.jsx";
+import WidgetList from "./components/WidgetList.tsx";
 import WidgetForm from "./components/WidgetForm.tsx";
-import Header from "./components/Header.jsx";
-import Introduction from "./components/Introduction.jsx";
+import Header from "./components/Header.tsx";
+import Introduction from "./components/Introduction.tsx";
 import { useState } from "react";
 
 function Main() {

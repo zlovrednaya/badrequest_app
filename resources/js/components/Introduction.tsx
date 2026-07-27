@@ -10,7 +10,7 @@ export default function () {
     )
 }
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   block: {
     display: "flex",
     justifyContent: "center",
