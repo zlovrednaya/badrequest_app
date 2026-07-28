@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 
-type WidgetListProps = {
-  widgets: {
-    id: string,
-    name: string,
-    description: string,
-    logo?: string
-  }[],
-  onSelect: (widget: { id: string, name: string, description: string, logo?: string }) => void
+export type Widget = {
+  id: string,
+  name: string,
+  description: string,
+  logo?: string
+}
+export type WidgetListProps = {
+  widgets: Widget[],
+  onSelect: (widget: Widget) => void
 };
 function WidgetList({ widgets, onSelect }: WidgetListProps) {
   const baseLogoUrl = window.location.origin + "/storage/";

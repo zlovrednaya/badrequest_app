@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
-function PDFButton({ pdfUrl, label = "CV" }) {
+type PDFButtonProps = {
+  pdfUrl: string;
+  label?: string;
+};
+function PDFButton({ pdfUrl, label = "CV" }: PDFButtonProps) {
   const handleClick = () => {
     window.open(pdfUrl, "_blank"); // open PDF in new tab
   };

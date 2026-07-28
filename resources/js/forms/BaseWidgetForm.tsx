@@ -1,10 +1,9 @@
 // component consists of a simple integration form, including an API key button and a URL
 import React, { Component } from "react";
+import type { Widget } from "../components/WidgetList.tsx";
 
-type BaseWidgetFormProps = {
-  widget: {
-    name: string,
-  },
+export type BaseWidgetFormProps = {
+  widget: Widget,
   onClose: () => void,
 };
 function BaseWidgetForm({ widget, onClose }: BaseWidgetFormProps) {

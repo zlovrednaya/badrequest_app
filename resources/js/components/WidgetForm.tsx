@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import * as Forms from "../forms"; 
+import * as Forms from "../forms";
+import type { Widget } from "./WidgetList";
 
 type BaseWidgetFormProps = {
-  widget: {
-    id: keyof typeof Forms;
-    name: string;
-  },
+  widget: Widget,
   onClose: () => void,
 };
 

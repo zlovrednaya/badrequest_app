@@ -27,7 +27,7 @@ import ChoresItem from "../item/ChoresItem.jsx";
 import DrawItem from "../item/DrawItem.jsx";
 import ToDoItem from "../item/ToDoItem.jsx";
 import ChoresSettingsForm from "../ChoresSettingsForm";
-import SaveBatch from "../../SaveBatch.jsx";
+import SaveBatch from "../../SaveBatch.tsx";
 
 
 import { useWarning } from "../../../../components/elements/Warning.tsx";

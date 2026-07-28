@@ -1,6 +1,6 @@
 // resoureces/js/app.js
 
-import './bootstrap';
+import './bootstrap.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

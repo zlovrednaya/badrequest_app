@@ -49,6 +49,6 @@
   "include": [
       "resources/js/**/*.ts",
       "resources/js/**/*.tsx",
-      "resources/js/**/*.d.ts", "resources/js/forms/index.js",
+      "resources/js/**/*.d.ts", "resources/js/forms/index.js", "resources/js/app.js",
     ],
 }

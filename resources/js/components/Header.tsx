@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PDFButton from "./elements/PDFButton";
+import PDFButton from "./elements/PDFButton.tsx";
 
 
 export default function Header() {

@@ -4,16 +4,20 @@ import { CiViewList } from "react-icons/ci";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdSave } from "react-icons/md";
+import axios from "axios";
 
 
 
 import './SaveBatch.css';
 
-export default function SaveBatch({actions}) {
+type SaveBatchProps = {
+    actions: any,
+};
+export default function SaveBatch({actions}: SaveBatchProps) {
     const [batchName, setBatchName] = useState('');
     const [batchIsVisible, setBatchIsVisible] = useState(false);
 
-    function onKeyUp(e) {
+    function onKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
         if(e.which != 13) return;
         saveBatch();
     }
@@ -22,12 +26,12 @@ export default function SaveBatch({actions}) {
         await axios('/chores/saveBatch', {
             method: 'POST', 
             data: JSON.stringify({batch_name: batchName || 'List from '}),
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-            }),
+            },
         })
-        .then(res => {
+        .then((res: any) => {
             actions.menu.setBatchesMenu();
         });
     };
@@ -46,7 +50,7 @@ export default function SaveBatch({actions}) {
                         <input 
                             type="text"
                             placeholder="Enter batch name ..."
-                            onChange={(e)=>setBatchName(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setBatchName(e.target.value)}
                             autoFocus
                         />
                         <div className="save-batch-button button-left-icon" onClick={() => saveBatch()}>

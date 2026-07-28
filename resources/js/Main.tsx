@@ -6,20 +6,15 @@ import Introduction from "./components/Introduction.tsx";
 import { useState } from "react";
 
 function Main() {
-  type Widget = {
-    id: string,
-    name: string,
-    description: string,
-    logo?:string
-  };
-  const [selectedWidget, setSelectedWidget] = useState<Widget | null>(null);
-
-  const widgets: Widget[] = [
+  const widgets = [
     { id: "AviationStack", name: "AviationStack", description: "Flight subscription allows you to receive a message when the plane is near the airport", logo:"aviation.jpg" },
     { id: "ChoresTracker", name: "ChoresTracker", description: "An app that helps you organize your life, earn rewards, and track your daily tasks.", logo: "chores_logo.svg" },
     { id: "BaseWidget", name: "BaseWidget", description: "Default widget form" },
     { id: "AbstractAnimationWidget", name: "AbstractAnimationWidget", description: "animation patterns" },
   ];
+
+  type Widget = (typeof widgets)[number];
+  const [selectedWidget, setSelectedWidget] = useState<Widget | null>(null);
 
   return (
     <div>

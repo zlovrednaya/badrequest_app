@@ -9,7 +9,7 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 import ChoresTrackerAccount from "./ChoresTrackerAccount";
 import UserProfile from "./user/UserProfile";
 
-import ProtectedRoute from "../../components/ProtectedRoute";
+import ProtectedRoute from "../../components/ProtectedRoute.tsx";
 import {
   BrowserRouter as Router,
   Routes,
@@ -19,12 +19,7 @@ import {
 
 
 import './ChoresTrackerForm.css';
-type BaseWidgetFormProps = {
-  widget: {
-    name: string,
-  },
-  onClose: () => void,
-};
+import type { BaseWidgetFormProps } from "../BaseWidgetForm.tsx";
 
 export default function ChoresTracker({widget, onClose}: BaseWidgetFormProps) {    
     const title = "Chores";

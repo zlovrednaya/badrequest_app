@@ -2,13 +2,7 @@ import React, { Component, type AnyActionArg } from "react";
 import { useState } from "react";
 import { Input, EmailInput } from "../components/elements/Inputs.js";
 import axios from "axios";
-
-type BaseWidgetFormProps = {
-  widget: {
-    name: string,
-  },
-  onClose: () => void,
-};
+import type { BaseWidgetFormProps } from "./BaseWidgetForm.tsx";
 
 type AviatioStackFormData = {
     email: string,
