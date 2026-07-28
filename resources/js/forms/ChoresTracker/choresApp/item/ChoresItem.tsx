@@ -10,7 +10,12 @@ import axios from "axios";
 import { RiCheckboxBlankCircleLine } from "react-icons/ri";
 import { RiCheckboxCircleLine } from "react-icons/ri";
 
-export default function ChoresItem( {choreId, actions}) {
+type ChoresItemProps = {
+    choreId: string | null,
+    actions: any,
+};
+
+export default function ChoresItem( {choreId, actions}: ChoresItemProps ) {
     const [formData, setFormData] = useState({
         title: "",
         text: "",
@@ -44,7 +49,7 @@ export default function ChoresItem( {choreId, actions}) {
         actions.chore.setChoreId(null);
     };
 
-    function handleChange(e) {
+    function handleChange(e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
         const {name, value} = e.target;
         setFormData(prev => ({
             ...prev,
@@ -52,19 +57,20 @@ export default function ChoresItem( {choreId, actions}) {
         }));
     };
 
-    function handleSave(e) {
+    function handleSave(e: React.MouseEvent<HTMLDivElement>) {
         //e.preventDefault();
         actions.chore.saveChore(formData);
     };
 
-    async function loadChoreData(choreId) {
+    async function loadChoreData(choreId: string | null) {
+        if (!choreId) return;
         await axios(`/chores/${choreId}`, {
             method: 'GET', 
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
         })
         .then((res) => {
             console.log("chore is loaded");
@@ -133,9 +139,7 @@ export default function ChoresItem( {choreId, actions}) {
                         <label htmlFor="category">Category: </label>
                         <select 
                             id="category"
-                            placeholder="Choose category" 
                             name="category"
-                            list="category"
                             onChange={handleChange}
                             value={formData.category}
                         >
@@ -148,8 +152,6 @@ export default function ChoresItem( {choreId, actions}) {
                         <label htmlFor="color">Color: </label>
                         <select 
                             id="color"
-                            placeholder="Choose color" 
-                            list="color"
                             name="color"
                             onChange={handleChange}
                             value={formData.color}

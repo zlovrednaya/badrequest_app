@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 import { IoIosCloseCircle } from "react-icons/io";
 import { IoIosSettings } from "react-icons/io";
 import { RiCheckboxBlankCircleLine } from "react-icons/ri";
@@ -8,7 +8,12 @@ import { RiCheckboxCircleLine } from "react-icons/ri";
 import './choresApp.css';
 import './ChoresSettingsForm.css';
 
-export default function ChoresSettingsForm({actions, settings}){
+type ChoresSettingsFormProps = {
+    actions: any,
+    settings: any,
+};
+
+export default function ChoresSettingsForm({actions, settings}: ChoresSettingsFormProps){
     const [formData, setFormData] = useState({
         mode: settings.userSettings.mode,
         changetodo: settings.userSettings.changetodo,
@@ -24,8 +29,9 @@ export default function ChoresSettingsForm({actions, settings}){
         actions.form.closeForm();
     };
 
-    const handleChange = (e) => {
-        const {name, value, type, checked} = e.target
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+        const {name, value, type} = e.target;
+        const checked = type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
         setFormData((prev) => ({
             ...prev,
             [name]: type === "checkbox" ? checked : value,
@@ -35,14 +41,14 @@ export default function ChoresSettingsForm({actions, settings}){
     const handleSave = async () => {
         await axios('/chores/saveUserSettings' , {
             method: 'POST', 
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
             data: JSON.stringify({settings: formData}),
         })
-        .then((res) => {
+        .then((res: { data: { success: any; message: any } }) => {
             actions.popup.setPopUp({
                 isOpen: true,
                 success: res.data.success, 
@@ -80,8 +86,6 @@ export default function ChoresSettingsForm({actions, settings}){
                         <label htmlFor="mode">Default mode: </label>
                         <select 
                             id="mode"
-                            placeholder="Default mode" 
-                            list="mode"
                             name="mode"
                             onChange={handleChange}
                             value={formData.mode}
