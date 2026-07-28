@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 
 import QuickAddMenu from "./QuickAddMenu.jsx";
 import ChoresItem from "../item/ChoresItem.tsx";
-import DrawItem from "../item/DrawItem.jsx";
+import DrawItem from "../item/DrawItem.tsx";
 import ToDoItem from "../item/ToDoItem.jsx";
 import ChoresSettingsForm from "../ChoresSettingsForm.tsx";
 import SaveBatch from "../../SaveBatch.tsx";

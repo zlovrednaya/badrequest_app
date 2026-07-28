@@ -8,11 +8,14 @@ import { GrClearOption } from "react-icons/gr";
 
 import '../choresApp.css';
 import './DrawItem.css';
+type DrawItemProps = {
+    actions: any,
+};
 
-export default function DrawItem({actions}) {
+export default function DrawItem({actions}: DrawItemProps ) {
 
-    const canvasReference = useRef();
-    const contextReference = useRef();
+    const canvasReference = useRef<HTMLCanvasElement | null>(null);
+    const contextReference = useRef<CanvasRenderingContext2D | null>(null);
 
     const [isPressed, setIfPressed] = useState(false);
     const [isVisiblePenSize, setIsVisiblePenSize] = useState(false);
@@ -20,46 +23,57 @@ export default function DrawItem({actions}) {
     const [circleSize, setCircleSize] = useState(10);
     const [penColor, setPenColor] = useState('#000000');
 
-    const beginDraw = (e) => {
+    const beginDraw = (e: React.MouseEvent<HTMLCanvasElement>) => {
+        if(!contextReference.current) return;
         contextReference.current.beginPath();
         contextReference.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
         setIfPressed(true);
         console.log(e);
     };
     const endDraw = () => {
+        if(!contextReference.current) return;
         contextReference.current.closePath();
         setIfPressed(false);
     };
-    const updateDraw = (e) => {
-        if(!isPressed) return;
+    const updateDraw = (e: React.MouseEvent<HTMLCanvasElement>) => {
+        if(!isPressed || !contextReference.current) return;
         contextReference.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
         contextReference.current.stroke();
     };
 
-    const changeSize = (e) => {
-        debugger;
+    const changeSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(!canvasReference.current) return;
         const canvas = canvasReference.current;
         const context = canvas.getContext("2d");
-        let sizeValue = e.currentTarget.value;
+        if (!context) return;
+        const sizeValue = Number(e.currentTarget.value);
         context.lineWidth = sizeValue;
-        setCircleSize(sizeValue/2);
+        setCircleSize(sizeValue / 2);
     };
 
-    const changeColor = (e) => {
+    const changeColor = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(!canvasReference.current) return;
         const canvas = canvasReference.current;
         const context = canvas.getContext("2d");
-        setPenColor(e.currentTarget.value);
-        context.strokeStyle = e.currentTarget.value;
+        if (!context) return;
+        const color = e.currentTarget.value;
+        setPenColor(color);
+        context.strokeStyle = color;
     };
     const clearCanvas = () => {
+        if (!canvasReference.current) return;
+
         const canvas = canvasReference.current;
         const context = canvas.getContext("2d");
+
+        if (!context) return;
         context.fillStyle = "white";
         context.fillRect(0, 0, canvas.width, canvas.height);
 
     };
 
     const handleSave = () => {
+        if (!canvasReference.current) return;
         const drawing = canvasReference.current.toDataURL();
 
         actions.chore.saveChore({drawing: drawing});
@@ -67,10 +81,12 @@ export default function DrawItem({actions}) {
 
     useEffect(() => {
         const canvas = canvasReference.current;
+        if (!canvas) return;
         canvas.width = 400;
         canvas.height = 300;
 
         const context = canvas.getContext("2d");
+        if (!context) return;
         context.lineCap = "round";
         context.lineWidth = 5;
         context.strokeStyle = penColor;
