@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../auth/useAuth";
+import { useAuth } from "../../auth/useAuth.js";
 import { useSortable } from '@dnd-kit/react/sortable';
 
-import ChoresList from './choresApp/ChoresList';
-import AddEditMenu from './choresApp/menu/AddEditMenu';
-import LeftMenu from "./choresApp/menu/LeftMenu";
-import QuickAddMenu from './choresApp/menu/QuickAddMenu';
+import ChoresList from './choresApp/ChoresList.tsx';
+import AddEditMenu from './choresApp/menu/AddEditMenu.tsx';
+import LeftMenu from "./choresApp/menu/LeftMenu.tsx";
+import QuickAddMenu from './choresApp/menu/QuickAddMenu.tsx';
 import UserMenu from './user/UserMenu.tsx';
 import { useWarning } from "../../components/elements/Warning.tsx";
 import { useNavigate } from "react-router-dom";
 
 import { SlStar } from "react-icons/sl";
+import axios from "axios";
 
 import './ChoresTrackerAccount.css';
 import './ChoresTrackerForm.css';
@@ -21,29 +22,29 @@ export default function ChoresTrackerAccount() {
     const {user} = useAuth();
     const navigate = useNavigate();
     const {askWarning} = useWarning();
-    const [selectedFilter, setSelectedFilter] = useState(null);
-    const [chores, setChores] = useState([]);
-    const [currentAmount, setCurrentAmount] = useState(0);
-    const [selectedChores, setSelectedChores] = useState({});
-    const [calendarMode, setCalendarMode] = useState(null);
-    const [refreshView, setRefreshView] = useState(() => async () =>{});
+    const [selectedFilter, setSelectedFilter] = useState<any | null>(null);
+    const [chores, setChores] = useState<any[] | null>([]);
+    const [currentAmount, setCurrentAmount] = useState<any>(0);
+    const [selectedChores, setSelectedChores] = useState<{[key: string]: any}>({});
+    const [calendarMode, setCalendarMode] = useState<(string | null)>(null);
+    const [refreshView, setRefreshView] = useState<(s: string | null) => Promise<void>>(() => async () =>{});
 
-    const [disabledForm, setDisabledForm] = useState('');
-    const [activeForm, setActiveForm] = useState(null);
+    const [disabledForm, setDisabledForm] = useState<boolean>(false);
+    const [activeForm, setActiveForm] = useState<string | null>(null);
 
-    const [leftMenuTree, setLeftMenuTree] = useState([]);
+    const [leftMenuTree, setLeftMenuTree] = useState<any[]>([]);
     const [batchesMenu, setBatchesMenuTree] = useState(null);
     const [threeDaysMenu, setThreeDaysMenuTree] = useState(null);
-    const [popUp, setPopUp] = useState(null);
-    const [userSettings, setUserSettings] = useState({});
+    const [popUp, setPopUp] = useState<any | null>(null);
+    const [userSettings, setUserSettings] = useState<any | null>({});
 
-    const changeCalendarMode = (mode) => {
+    const changeCalendarMode = (mode: string | null) => {
         console.log('on changeCalendarMode');
 
         setCalendarMode(mode);
     };
 
-    const openForm = (formName, id) => {
+    const openForm = (formName: string | null, id: string | null) => {
         setActiveForm(formName);
         setDisabledForm(true);
     };
@@ -57,11 +58,11 @@ export default function ChoresTrackerAccount() {
         console.log('load settings');
         await axios('/chores/getUserSettings', {
                 method: 'GET', 
-                headers: new Headers({
+                headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                }),
+                },
             },
         )
         .then((res) => {
@@ -72,14 +73,14 @@ export default function ChoresTrackerAccount() {
         });
     }
 
-    async function loadChores(mode) {
+    async function loadChores(mode: string | null) {
         console.log('loadChores mode is ' + mode);
         let url = window.location.origin + '/chores/getList';
 
         const params = new URLSearchParams();
         if(selectedFilter && mode === 'simple') {
-            params.append("column", selectedFilter.column);
-            params.append("filterWord", selectedFilter.filterWord);
+            params.append("column", selectedFilter?.column);
+            params.append("filterWord", selectedFilter?.filterWord);
         }
         if(mode === 'todolist') {
             params.append("istodo", "true");
@@ -89,11 +90,11 @@ export default function ChoresTrackerAccount() {
         url += `?${params.toString()}`;
         await axios(url , {
             method: 'GET', 
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
         })
         .then(res => {
             setChores(res.data);
@@ -105,29 +106,29 @@ export default function ChoresTrackerAccount() {
         await updateAmount();
     };
 
-    async function onSelectFilter(filterData) {
+    async function onSelectFilter(filterData: any | null) {
         console.log('onSelectFilter');
         setSelectedFilter(filterData);
         loadChores(appSettings.calendarMode);
     }
 
-    async function onChoreSaved(mode) {
+    async function onChoreSaved(mode: string | null) {
         await refreshView(mode);
         await setLeftMenu();
         await updateAmount();
     };
 
-    const saveChore = async (formData) => {
+    const saveChore = async (formData: any) => {
         if(formData.due_datetime) {
             formData.due_datetime = formatDateTime(formData.due_datetime, 'dbstorage');
         }
         await axios('/chores/add', {
             method: 'POST', 
             data: JSON.stringify(formData),
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-            }),
+            },
         })
         .then(async (res) => {
             actions.form.closeForm();
@@ -143,11 +144,11 @@ export default function ChoresTrackerAccount() {
     function updateAmount() {
         axios('/chores/getAmount' , {
             method: 'GET', 
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
         })
         .then(res => {
             setCurrentAmount(res.data.amount);
@@ -155,7 +156,7 @@ export default function ChoresTrackerAccount() {
     }
 
     const choreIds = Object.keys(selectedChores).filter(key=>selectedChores[key]);
-    const deleteChores = async (ids, needWarning = true) => {
+    const deleteChores = async (ids: string[] | null, needWarning = true) => {
         const toDeleteIds = ids || choreIds;
 
         if (needWarning) {
@@ -171,11 +172,11 @@ export default function ChoresTrackerAccount() {
         
         await axios('/chores/deleteChores', {
             method: 'POST',
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
             data: JSON.stringify({ids:toDeleteIds}),
         })
         .then((res) => {
@@ -194,11 +195,11 @@ export default function ChoresTrackerAccount() {
     const setLeftMenu = async () => {
         await axios('/chores/getChoresStructure', {
             method: 'POST', 
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
         })
         .then(res => {
             setLeftMenuTree(res.data);
@@ -208,11 +209,11 @@ export default function ChoresTrackerAccount() {
     const setBatchesMenu = async () => {
         await axios('/chores/getBatches', {
             method: 'GET', 
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
         })
         .then(res => {
             setBatchesMenuTree(res.data);
@@ -222,11 +223,11 @@ export default function ChoresTrackerAccount() {
     const setThreeDaysCalendar = async (dayQuantity = 3) => {
         await axios('/chores/getChoresByDays/days/' + dayQuantity, {
             method: 'GET', 
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
         })
         .then(res => {
             setThreeDaysMenuTree(res.data);
@@ -316,24 +317,20 @@ export default function ChoresTrackerAccount() {
                         <AddEditMenu 
                             chores={chores}  
                             selectedChores={selectedChores}
-                            calendarMode={calendarMode} 
                             actions={actions}
                             appSettings={appSettings}
                         />
                         <ChoresList
                             appSettings={appSettings} 
-                            filter={selectedFilter} 
                             selectedChores={selectedChores} 
-                            setSelectedChores={setSelectedChores} 
                             chores={chores}
-                            calendarMode={calendarMode}
                             actions={actions}
                         />
                         <div className="chores-tracker-footer">
                             {calendarMode == 'todolist' && (
                                 <div className="amount-component">
                                     <span>ToDo list amount:</span> <SlStar /> 
-                                    <div>{appSettings.currentAmount.todo_done_amount}</div>
+                                    <div>{appSettings?.currentAmount?.todo_done_amount}</div>
                                 </div> 
                             )}
                         </div>

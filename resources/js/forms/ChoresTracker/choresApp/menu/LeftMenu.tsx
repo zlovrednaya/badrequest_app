@@ -7,17 +7,21 @@ import { FaPenFancy } from "react-icons/fa6";
 import { MdStickyNote2 } from "react-icons/md";
 
 import Calendar from "../../../../components/elements/Calendar.tsx";
-import TodoMenu from "./leftMenu/TodoMenu";
-import FilterMenu from "./leftMenu/FilterMenu";
+import TodoMenu from "./leftMenu/TodoMenu.tsx";
+import FilterMenu from "./leftMenu/FilterMenu.tsx";
 import ThreeDaysPlanner from "../../../../components/elements/ThreeDaysPlanner.tsx";
 
 import './LeftMenu.css';
-
-export default function LeftMenu({onSelectFilter, actions, appSettings}) {
+type LeftMenuProps = {
+    onSelectFilter: (filterData: {column: string, filterWord: string}) => void,
+    actions: any,
+    appSettings: any,
+};
+export default function LeftMenu({onSelectFilter, actions, appSettings}: LeftMenuProps) {
     
     const [selected, setSelected] = useState();
 
-    const filterChores = (column, filterWord) => {
+    const filterChores = (column: string, filterWord: string) => {
         const filterData = {
             column: column,
             filterWord: filterWord,

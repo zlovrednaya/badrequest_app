@@ -1,16 +1,18 @@
 import axios from "axios";
 import React from "react";
 import { CiViewList } from "react-icons/ci";
-
-export default function TodoMenu({items}) {
-    const openToDoList = async (id) => {
+type TodoMenuProps = {
+    items: any[],
+};
+export default function TodoMenu({items}: TodoMenuProps) {
+    const openToDoList = async (id: number) => {
         await axios(`/chores/openBatch/id/${id}`, {
             method: 'GT',
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
         })
         .then(()=>{
             

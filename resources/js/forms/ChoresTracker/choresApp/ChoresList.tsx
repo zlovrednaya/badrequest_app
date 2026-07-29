@@ -2,30 +2,37 @@ import React, { useState, useEffect }  from "react";
 
 import { LuClock } from "react-icons/lu";
 import { SlStar } from "react-icons/sl";
+import axios from "axios";
 
-import SimpleMode from "./ChoresListModes/SimpleMode";
-import TodoListMode from "./ChoresListModes/TodoListMode";
-import CalendarMode from "./ChoresListModes/CalendarMode";
+import SimpleMode from "./ChoresListModes/SimpleMode.tsx";
+import TodoListMode from "./ChoresListModes/TodoListMode.tsx";
+import CalendarMode from "./ChoresListModes/CalendarMode.tsx";
 
 import './ChoresList.css';
 import { formatDateTime } from "../../../utils/date.ts";
 
-export default function ChoresList({chores, selectedChores, actions, appSettings}) {
+type ChoresListProps = {
+    chores: any[] | null,
+    selectedChores: Record<string, boolean>,
+    actions: any,
+    appSettings: any
+};
+export default function ChoresList({chores, selectedChores, actions, appSettings}: ChoresListProps) {
 
     const [calendarItems, setCalendarItems] = useState([]);
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    const [currentDate, setCurrentDate] = useState(firstDay);
+    const [currentDate, setCurrentDate] = useState<Date | string>(firstDay);
 
      // chores for calendar
-    const getCalendarChores = async (currentDate) => {
+    const getCalendarChores = async (currentDate: Date | string) => {
         axios('/chores/getAllForCalendar' , {
             method: 'GET', 
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
             params: {
                 date: formatDateTime(currentDate, 'datewithdash'),
             },
@@ -38,8 +45,8 @@ export default function ChoresList({chores, selectedChores, actions, appSettings
         })
     };
 
-    function selectItem(itemKey) {
-        actions.chore.setSelectedChores((prev) => ({
+    function selectItem(itemKey: string) {
+        actions.chore.setSelectedChores((prev: Record<string, boolean>) => ({
             ...prev,
             [itemKey]: !prev[itemKey]
         }));
@@ -117,7 +124,6 @@ export default function ChoresList({chores, selectedChores, actions, appSettings
                     getCalendarChores={getCalendarChores}
                     refreshCalendar={actions.view.refreshView}
                     setCurrentDate={setCurrentDate}
-                    actions={listActions}
                     appSettings={appSettings} 
                     onSave={listActions.chore.saveChore}
              />

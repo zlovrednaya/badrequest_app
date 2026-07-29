@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./QuickAddForm.css";
-import QuickAddMenu from "../../forms/ChoresTracker/choresApp/menu/QuickAddMenu";
+import QuickAddMenu from "../../forms/ChoresTracker/choresApp/menu/QuickAddMenu.tsx";
 import { formatDateTime } from "../../utils/date";
 
 type QuickAddFormParams = {

@@ -10,30 +10,38 @@ import { RiArrowRightWideFill } from "react-icons/ri";
 
 import { formatDateTime } from "../../../../utils/date.ts";
 
-import ToDoItem from "../item/ToDoItem";
+import ToDoItem from "../item/ToDoItem.tsx";
+import axios from "axios";
 
 import "../ChoresList.css";
 import "./TodoListMode.css";
 
-export default function TodoListMode({chores, selectedChores, actions, appSettings}) {
+type TodoListModeProps = {
+    chores: any[] | null,
+    selectedChores: Record<string, boolean>,
+    actions: any,
+    appSettings: any,
+}
+export default function TodoListMode({chores, selectedChores, actions, appSettings}: TodoListModeProps) {
 
-    const [doneChores, setDoneChores] = useState([]);
+    const [doneChores, setDoneChores] = useState<any[]>([]);
     const [isHiddenDone, setIsHiddenDone] = useState(true); 
 
     const selectAll = () => {
         console.log('select');
     };
 
-    const selectTodoElement = async (choreItem, isDone) => {
+    const selectTodoElement = async (choreItem: any, isDone: boolean) => {
         await axios( '/chores/update/'+ choreItem.id, {
             method: 'PATCH', 
             data: JSON.stringify({
                 done: isDone
             }),
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-            }),
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
         })
         .then(res => {
             actions.chore.setSelectedChores([]);
@@ -53,18 +61,18 @@ export default function TodoListMode({chores, selectedChores, actions, appSettin
 
         const params = new URLSearchParams();
         params.append("istodo", "true");
-        params.append("done", 1);
+        params.append("done", '1');
         
 
         url += `?${params.toString()}`;
         
         await axios(url , {
             method: 'GET', 
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            }),
+            },
         })
         .then(res => {
             setDoneChores(res.data);
@@ -88,7 +96,7 @@ export default function TodoListMode({chores, selectedChores, actions, appSettin
                         </div>
                     )}
                     {hasSelected === 0 && (
-                        <div className="unselected" onClick={() => selectAll(true)}>
+                        <div className="unselected" onClick={() => selectAll()}>
                             <MdOutlineCheckBoxOutlineBlank />
                         </div>
                     )}
@@ -158,7 +166,7 @@ export default function TodoListMode({chores, selectedChores, actions, appSettin
                     
                     {
                         doneChores && doneChores.map((choreItem, i)=>(
-                            <div className={`todo-item ${choreItem.done?"todo-item-done":""}`} key={`done-${choreItem.id}`} style={{backgroundColor:choreItem.color}}>
+                            <div className={`todo-item ${choreItem?.done?"todo-item-done":""}`} key={`done-${choreItem.id}`} style={{backgroundColor:choreItem.color}}>
                                 <div className="todo-item-title-select-element" onClick={() => actions.selection.selectItem(choreItem.id)}>
                                     {selectedChores && (selectedChores[choreItem.id] === true || choreItem.done === true) && (
                                         <div className="selected" onClick={() => selectTodoElement(choreItem, false)}>
@@ -172,29 +180,29 @@ export default function TodoListMode({chores, selectedChores, actions, appSettin
                                     )}
                                 </div>
                                 <div className="todo-item-cost">
-                                    {choreItem.cost && (
+                                    {choreItem?.cost && (
                                         <div className="todo-item-cost-value">
                                             <SlStar /> 
-                                            <div >{choreItem.cost}</div>
+                                            <div >{choreItem?.cost}</div>
                                         </div>
                                     )}
                                 </div>
                                 <div className="todo-item-info">
-                                    {choreItem.title && (
+                                    {choreItem?.title && (
                                         <div className="todo-item-title">
-                                            {choreItem.title}
+                                            {choreItem?.title}
                                         </div>
                                     )}
-                                    {choreItem.text && (
+                                    {choreItem?.text && (
                                         <div className="todo-item-text">
-                                            {choreItem.text}
+                                            {choreItem?.text}
                                         </div>
                                     )}
                                     
-                                    {choreItem.due_datetime && (
+                                    {choreItem?.due_datetime && (
                                         <div className="todo-item-date">
                                             <LuClock />
-                                            <span>{formatDateTime(choreItem.due_datetime)}</span>
+                                            <span>{formatDateTime(choreItem?.due_datetime)}</span>
                                         </div>
                                     )} 
                                 </div>

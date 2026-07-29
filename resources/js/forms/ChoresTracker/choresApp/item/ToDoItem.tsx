@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import { SlStar } from "react-icons/sl";
 import "./ToDoItem.css";
 
-export default function ToDoItem ({actions}) {
+type ToDoItemProps = {
+    actions: any,
+};
+
+
+export default function ToDoItem ({actions}: ToDoItemProps) {
 
     const baseFormState = {
             cost: "",
@@ -14,17 +19,17 @@ export default function ToDoItem ({actions}) {
     const [formData, setFormData] = useState(baseFormState);
 
     
-    function handleSave(e) {
+    function handleSave() {
         actions.chore.saveChore(formData);
         setFormData(baseFormState);
     };
 
-    function onKeyUp(e) {
+    function onKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
         if(e.which != 13) return;
         handleSave();
     }
     
-    function handleChange(e) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const {name, value} = e.target;
         setFormData(prev => ({
             ...prev,

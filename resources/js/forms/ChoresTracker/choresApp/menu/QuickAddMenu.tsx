@@ -13,7 +13,12 @@ const BASE_FORM_STATE = {
     due_datetime: "",
 };
 
-export default function QuickAddMenu({formData, onChange, onSave}) {
+type QuickAddMenuProps = {
+    formData: any,
+    onChange: (value: any) => void,
+    onSave: (formData: any) => void,
+};
+export default function QuickAddMenu({formData, onChange, onSave}: QuickAddMenuProps) {
     const [showList, setShowList] = useState(false);
     const defaultChoreList = [
         {  
@@ -25,7 +30,7 @@ export default function QuickAddMenu({formData, onChange, onSave}) {
             'cost': null,
         }
     ];
-    function handleSave(e) {
+    function handleSave(e: React.FormEvent<HTMLFormElement>) {
         onSave(formData);
     };
 
@@ -33,7 +38,7 @@ export default function QuickAddMenu({formData, onChange, onSave}) {
         <form className="quick-add-menu" 
             onSubmit={(e) => {
             e.preventDefault();
-            handleSave();
+            handleSave(e);
         }}>
             <IoIosAddCircleOutline />
             <input
@@ -42,7 +47,7 @@ export default function QuickAddMenu({formData, onChange, onSave}) {
                 className="quick-item-form-title"
                 placeholder="Add a chore ..."
                 onChange={(e) =>
-                    onChange(prev => ({
+                    onChange((prev: any) => ({
                         ...prev,
                         title: e.target.value,
                     }))

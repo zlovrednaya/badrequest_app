@@ -5,13 +5,21 @@ import { IoCheckmarkCircleOutline } from "react-icons/io5";
 
 import { formatDateTime } from "../../../../utils/date.ts";
 import "../ChoresList.css";
-
-export default function SimpleMode({chores, selectedChores, actions, appSettings}) {
-
+type SimpleModeProps = {
+    chores: any[] | null,
+    selectedChores: Record<string, boolean>,
+    actions: any,
+    appSettings: any,
+}
+export default function SimpleMode({chores, selectedChores, actions, appSettings}: SimpleModeProps) {
+    const editChore = () => {};
+    useEffect(() => {
+        if(!chores) return;
+    }, [chores]);
     return (
         <div className="chores-list-simple">
             {
-                chores.map((choreItem, i) => (
+                chores?.map((choreItem, i) => (
                     <div className="chore-item-main" key={choreItem.id} onClick={()=>actions.selection.selectItem(choreItem.id)} onDoubleClick={() => editChore()}>
                         
                         <div className={`chore-item ${selectedChores[choreItem.id] === true && "selected"}`}>

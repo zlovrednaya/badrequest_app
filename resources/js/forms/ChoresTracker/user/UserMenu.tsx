@@ -9,9 +9,7 @@ import { SlStar } from "react-icons/sl";
 import "./userMenu.css";
 
 type UserMenuProps = {
-    appSettings: {
-        currentAmount: Record<string, any> | null,
-    },
+    appSettings: any,
 };
 export default function UserMenu({ appSettings }: UserMenuProps) {
     const {user, logout} = useAuth();
@@ -36,7 +34,7 @@ export default function UserMenu({ appSettings }: UserMenuProps) {
                 <div className="user-profile-child" onClick={toggleMenu}>
                     <div className="user-avatar"></div>
                     <div className="user-profile-info">
-                        <div className="user-name">{user.name}</div>
+                        <div className="user-name">{user?.name}</div>
                         {appSettings.currentAmount && (
                             <div className="user-balance">
                                 <SlStar /> 
