@@ -8,6 +8,7 @@
         @viteReactRefresh
         @vite('resources/js/app.js')
         
+        <link rel="icon" type="image/png" href="/favicon.ico" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -20,6 +21,6 @@
     <body class="antialiased">
       <div id="root"></div>
       
-      <script src="{{ asset('js/app.js') }}" defer></script>
+      <!--script src="{{ asset('js/app.js') }}" defer></script> -->
     </body>
 </html>
