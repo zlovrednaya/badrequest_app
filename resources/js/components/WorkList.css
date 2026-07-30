@@ -1,0 +1,40 @@
+.work-list {
+    
+    margin: 0 auto;
+}
+.work-list-container {
+    display: grid; 
+    grid-template-columns: auto auto auto;
+    grid-gap: 20px;
+}
+
+.work-item {
+    border: 1px solid #ccc;
+}
+
+.work-item img {
+    width: 100%;
+    height: auto;
+}
+
+.works-container {
+    width: 100vw;
+    height: 100hv;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.works-content-box {
+    width: 2400px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.works-scroll-item {
+    width: 600px;
+    height: 400px;
+}
+
+.scrollbar::-webkit-scrollbar { display: none; }

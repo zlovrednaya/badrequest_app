@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import WidgetList from "./components/WidgetList.tsx";
 import WidgetForm from "./components/WidgetForm.tsx";
+import WorkList from "./components/WorkList.tsx";
 import Header from "./components/Header.tsx";
 import Introduction from "./components/Introduction.tsx";
 import { useState } from "react";
+
 
 function Main() {
   const widgets = [
@@ -30,6 +32,7 @@ function Main() {
           onClose = {() => setSelectedWidget(null)}
         />
       )}
+      <WorkList />
     </div>
   );
 }
