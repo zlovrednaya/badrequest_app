@@ -4,6 +4,7 @@ import WidgetForm from "./components/WidgetForm.tsx";
 import WorkList from "./components/WorkList.tsx";
 import Header from "./components/Header.tsx";
 import Introduction from "./components/Introduction.tsx";
+import About from "./components/About.tsx";
 import { useState } from "react";
 
 
@@ -19,9 +20,8 @@ function Main() {
   const [selectedWidget, setSelectedWidget] = useState<Widget | null>(null);
 
   return (
-    <div>
-      <Header/>
-      <Introduction/>
+    <div className="main-container">
+      <Introduction id="page1"/>
       <WidgetList
         widgets = {widgets}
         onSelect = {setSelectedWidget}
@@ -30,9 +30,11 @@ function Main() {
         <WidgetForm
           widget = {selectedWidget as any}
           onClose = {() => setSelectedWidget(null)}
+          id="page3"
         />
       )}
-      <WorkList />
+      <WorkList id="page4"/>
+      <About id="page5"/>
     </div>
   );
 }

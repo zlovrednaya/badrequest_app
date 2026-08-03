@@ -13,8 +13,9 @@ type WorkListProps = {
     year: string,
 };
 
+const SCROLL_COMPONENT_WIDTH = 2400;
 const ITEM_WIDTH = 600;
-export default function WorkList() {
+export default function WorkList({ id }: { id: string }) {
     const baseLogoUrl = window.location.origin + "/storage/";
     const [scrollPosition, setScrollPosition] = useState<number>(0);
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -61,27 +62,65 @@ export default function WorkList() {
             link: "https://rtmis.ru/",
             year: "2023-2023",
             scrollComponent: [
-
+                {
+                    'id': 0,
+                    'text': null,
+                    'image': "rtmis_logo.svg",
+                },
+                {
+                    'id': 1,
+                    'text': "Huge healthcare system for managing patient records, appointments, and medical data.", 
+                    'image': null,
+                },
+                {
+                    'id': 2,
+                    'text': null, 
+                    'image': "rtmis_example.jpg",
+                },
+                {
+                    'id': 3,
+                    'text': null, 
+                    'image': "rtmis_example_2.jpg",
+                },
             ]
         },
     ];
 
     const handleScroll = (step: number) => {
-        debugger;
-        const newScrollPosition = scrollPosition + step;
-        setScrollPosition(newScrollPosition);
+        
+        setScrollPosition((prev: any) => {
+            let newScrollPosition = prev + step;
 
-        if (!scrollContainerRef.current) return;
-        scrollContainerRef.current.scrollLeft = newScrollPosition;
+            if (newScrollPosition > SCROLL_COMPONENT_WIDTH) newScrollPosition = 0;
+            if (!scrollContainerRef.current) return;
+            scrollContainerRef.current.scrollLeft = newScrollPosition;
+
+            console.log({
+                prev,
+                step,
+                newScrollPosition,
+            });
+
+            return newScrollPosition;
+        });
+
+        
+
+        
     };
 
     useEffect(()=>{
-        
+        // scroll work element
+        const interval = setInterval(() => {
+            handleScroll(ITEM_WIDTH);           
+        }, 3000);
+
+        return () => clearInterval(interval);
     },[]);
 
     return (
-    <div className="work-list">
-        <div>MY EXPERIENCE</div>
+    <div className="page-block work-list" id={id}>
+        <div className="work-list-title">MY EXPERIENCE</div>
         <div className="work-list-container">
             {works.map((work) => (
             <div className="work-item"

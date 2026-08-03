@@ -5,9 +5,10 @@ import type { Widget } from "./WidgetList";
 type BaseWidgetFormProps = {
   widget: Widget,
   onClose: () => void,
+  id?: string
 };
 
-function WidgetForm({ widget, onClose }: BaseWidgetFormProps) {
+function WidgetForm({ widget, onClose, id }: BaseWidgetFormProps) {
   const FormComponent = Forms[widget.id as keyof typeof Forms];
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -13,8 +13,8 @@ export type WidgetListProps = {
 function WidgetList({ widgets, onSelect }: WidgetListProps) {
   const baseLogoUrl = window.location.origin + "/storage/";
   return (
-    <div className="widgets-tab">
-      <div className="widget-title">Widgets</div>
+    <div className="page-block widgets-tab" id="page2">
+      <div className="widget-title">Projects</div>
       <div className="grid grid-cols-3 gap-4 widget-list">
         {widgets.map((widget) => (
           <div

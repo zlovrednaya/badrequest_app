@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chango&display=swap');
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -9,6 +12,12 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
 }
 
 #AbstractAnimationWidget {
@@ -35,6 +44,13 @@
     right: 6px;
 
 }
+.page-block {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .widgets-tab {
     background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0), rgb(203 212 255));
@@ -45,6 +61,16 @@
     display: flex;
     justify-content: center;
     text-transform: uppercase;
+    font-family: 'BBH Bartle', sans-serif;
+    /*font-family: "Climate Crisis", sans-serif;*/
+    /*font-family: "Chango", sans-serif;*/
+    font-size: 1rem;
+    text-align: center;
+}
+
+.name-title {
+    font-family: "Chango", sans-serif;
+    font-size: 2rem;
 }
 
 .widget-list {
@@ -68,4 +94,8 @@
     box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.20);
     border-radius: 8px;
     border: 0.5px solid #c5c5c5;
+}
+
+.header-container {
+    width: 70%
 }
