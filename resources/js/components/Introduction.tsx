@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { FaArrowCircleDown } from "react-icons/fa";
 import Header from "./Header.tsx";  
+import "../Landing.css";
 export default function Introduction({ id }: { id: string }) {
   const setScroll = () => {
-    const el = document.getElementById('page2');
+    const el = document.getElementById('widget-list');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -15,11 +16,11 @@ export default function Introduction({ id }: { id: string }) {
         <Header />
         <div className="introduction-content" style={styles.introductionContent}>
           <div style={styles.hello}>Hello!</div>
-          <div style={styles.introtext}>I’m Daria Hostieva, a full-stack software engineer. Welcome to my personal website. </div>
+          <div style={styles.introtext}>I’m Daria Hostieva, a full-stack software engineer </div>
           <div>Welcome to my personal website!</div>
         </div>
           
-          <div style={styles.learnMore} onClick={() => setScroll()}>
+          <div className="learn-more" style={styles.learnMore} onClick={() => setScroll()}>
               <span> Learn more </span>
               <FaArrowCircleDown />
           </div>

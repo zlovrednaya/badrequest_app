@@ -1,0 +1,37 @@
+.header-container {
+    width: 70%
+}
+
+.page-block {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.learn-more {
+    animation: animdown .7s infinite alternate;
+}
+
+.learn-more svg {
+    transition: 400ms ease-in-out;
+}
+.learn-more:hover {
+    animation: animdown .7s infinite alternate;
+    color: #ffa33a;
+}
+
+@keyframes animdown {
+    0% {
+        transform: translate(0%, 20%);
+    }
+    50% {
+        transform: translate(0%, 0%);
+    } 
+}
+
+.name-title {
+    font-size: 70px;
+    font-weight: bold;
+}

@@ -1,7 +1,11 @@
 .work-list {
-    
+    overflow-y: auto;
     margin: 0 auto;
+    background-color: #ffe7cf;
 }
+
+.work-list::-webkit-scrollbar { display: none; }
+
 .work-list-title {
     font-family: 'BBH Bartle', sans-serif;
     font-size: 1rem;
@@ -43,3 +47,115 @@
 }
 
 .scrollbar::-webkit-scrollbar { display: none; }
+
+
+.work-list-timeline {
+    margin-top: 20px;
+    width: 60%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.work-list-timeline::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  background-color: rgb(255, 173, 30);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+}
+
+.work-list-timeline h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.container-set {
+    display: flex;
+}
+
+.container-set:nth-child(even){
+    background-color: #fff;
+    border-radius: 30px;
+}
+.container {
+    position: relative;
+    width: 50%;
+    padding: 20px 40px;
+    box-sizing: border-box;
+}
+/*circles*/
+.container:not(.no-point)::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -12px;
+    background-color: white;
+    border: 4px solid #FF9F55;
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.container-right::after {
+  left: -12px;
+}
+
+
+.container-left {
+    left: 0;
+}
+
+.container a {
+    display: inline-flex;
+    align-items: center;
+}
+.container a:hover {
+    cursor: pointer;
+    color: rgb(255, 173, 30);
+}
+.container a svg {
+    margin-left: 5px;
+}
+
+.container p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #909090;
+}
+
+.flip-card {
+    position: relative;
+    perspective: 1000px;
+    aspect-ratio: 4 / 3;
+}
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(-180deg);
+}
+.front-card, .back-card {
+    position: absolute;
+    inset: 0;
+    
+    backface-visibility: hidden;
+
+    display: flex;
+    align-items: center;
+}
+
+.back-card {
+    transform: rotateY(180deg);
+}
+
+.back-card-content {
+    font-size: 16px;
+}

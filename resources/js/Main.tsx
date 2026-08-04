@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import WidgetList from "./components/WidgetList.tsx";
 import WidgetForm from "./components/WidgetForm.tsx";
 import WorkList from "./components/WorkList.tsx";
 import Header from "./components/Header.tsx";
 import Introduction from "./components/Introduction.tsx";
 import About from "./components/About.tsx";
-import { useState } from "react";
+import "./Landing.css";
 
 
 function Main() {
@@ -33,7 +33,7 @@ function Main() {
           id="page3"
         />
       )}
-      <WorkList id="page4"/>
+      <WorkList id="work-list"/>
       <About id="page5"/>
     </div>
   );

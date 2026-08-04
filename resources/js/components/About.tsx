@@ -11,7 +11,9 @@ export default function About({ id }: { id: string }) {
         <p>I refactor</p>
         <p>I maintain</p>
       </div>
-      <p>Discover my LinkedIn</p>
+      <a href="https://www.linkedin.com/in/daria-hostieva/" target="_blank" rel="noopener noreferrer">
+        Discover my LinkedIn
+      </a>
       <div className="skill-list">
         <SkillList />
       </div>
