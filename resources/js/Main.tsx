@@ -1,10 +1,10 @@
 import React, { Component, useState } from "react";
 import WidgetList from "./components/WidgetList.tsx";
 import WidgetForm from "./components/WidgetForm.tsx";
-import WorkList from "./components/WorkList.tsx";
+import WorkList from "./components/landing/WorkList.tsx";
 import Header from "./components/Header.tsx";
-import Introduction from "./components/Introduction.tsx";
-import About from "./components/About.tsx";
+import Introduction from "./components/landing/Introduction.tsx";
+import About from "./components/landing/About.tsx";
 import "./Landing.css";
 
 

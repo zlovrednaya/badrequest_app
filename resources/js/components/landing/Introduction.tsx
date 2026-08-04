@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useRef, useEffect } from "react";
 import { FaArrowCircleDown } from "react-icons/fa";
-import Header from "./Header.tsx";  
-import "../Landing.css";
+import Header from "../Header.tsx";  
+import "../../Landing.css";
 export default function Introduction({ id }: { id: string }) {
   const setScroll = () => {
     const el = document.getElementById('widget-list');
@@ -10,12 +10,31 @@ export default function Introduction({ id }: { id: string }) {
     }
   };
 
+  const refHello = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if(!refHello.current) return;
+    // typewriter effect
+    const text = refHello.current.textContent || '';
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        refHello.current!.textContent = text.slice(0, index + 1);
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 100);
+  }, []);
+
   return (
     <div className="introduction-container" id={id}>
       <section className="page-block">
         <Header />
         <div className="introduction-content" style={styles.introductionContent}>
-          <div style={styles.hello}>Hello!</div>
+          <div style={styles.hello} ref={refHello}>
+            Hello!
+          </div>
           <div style={styles.introtext}>I’m Daria Hostieva, a full-stack software engineer </div>
           <div>Welcome to my personal website!</div>
         </div>
@@ -42,6 +61,7 @@ const styles: Record<string, React.CSSProperties> = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    transform: "translateY(-20%)",
   },
   introtext: {
    // display: "none",
@@ -54,6 +74,6 @@ const styles: Record<string, React.CSSProperties> = {
     gap: "10px",
     fontSize: "20px",
     cursor: "pointer",
-    marginBottom: "20px",
+    marginBottom: "40px",
   },
 };
