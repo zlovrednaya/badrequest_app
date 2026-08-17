@@ -54,6 +54,7 @@
     width: 60%;
     position: relative;
     margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 .work-list-timeline::after {

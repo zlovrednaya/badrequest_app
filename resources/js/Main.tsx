@@ -22,7 +22,7 @@ function Main() {
   return (
     <div className="main-container">
       <Introduction id="page1"/>
-      <WidgetList
+      <WidgetList id="projects"
         widgets = {widgets}
         onSelect = {setSelectedWidget}
       />
@@ -34,7 +34,7 @@ function Main() {
         />
       )}
       <WorkList id="work-list"/>
-      <About id="page5"/>
+      <About id="about"/>
     </div>
   );
 }

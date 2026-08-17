@@ -2,9 +2,13 @@ import React, { Component, useRef, useEffect } from "react";
 import { FaArrowCircleDown } from "react-icons/fa";
 import Header from "../Header.tsx";  
 import "../../Landing.css";
+import FactoryAnimation from "../animation/FactoryAnimation.tsx";
 export default function Introduction({ id }: { id: string }) {
+
+  const baseLogoUrl:string = window.location.origin + "/storage/";
+
   const setScroll = () => {
-    const el = document.getElementById('widget-list');
+    const el = document.getElementById('projects');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -31,14 +35,18 @@ export default function Introduction({ id }: { id: string }) {
     <div className="introduction-container" id={id}>
       <section className="page-block">
         <Header />
-        <div className="introduction-content" style={styles.introductionContent}>
-          <div style={styles.hello} ref={refHello}>
-            Hello!
+        <div className="introduction-content-container">
+          <div className="introduction-content side-component" style={styles.introductionContent}>
+            <div style={styles.welcomeText}>Hello, I'm</div>
+            <div style={styles.name} ref={refHello}>
+               Daria Hostieva
+            </div>
+            <div style={styles.role}><span>Full-stack Software Developer</span> </div>
           </div>
-          <div style={styles.introtext}>I’m Daria Hostieva, a full-stack software engineer </div>
-          <div>Welcome to my personal website!</div>
-        </div>
-          
+          <div className="side-component">
+            <img className="portfolio-image" src={`${baseLogoUrl}portfolio_sk.jpg`} />
+          </div>         
+        </div> 
           <div className="learn-more" style={styles.learnMore} onClick={() => setScroll()}>
               <span> Learn more </span>
               <FaArrowCircleDown />
@@ -49,10 +57,13 @@ export default function Introduction({ id }: { id: string }) {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  hello: {
-    paddingTop: "30px",
-    fontSize: "100px",
+  welcomeText: {
+    display: "flex",
+  },
+  name: {
+    fontSize: "75px",
     fontWeight: "bold",
+    lineHeight:"70px",
     //fontFamily: "Playwrite US Trad Guides",
   },
   introductionContent: {
@@ -60,12 +71,13 @@ const styles: Record<string, React.CSSProperties> = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
-    transform: "translateY(-20%)",
+    alignItems: "flex-start",
   },
-  introtext: {
-   // display: "none",
-   
+  role: {
+    paddingTop: "20px",
+    fontSize: "50px",
+    lineHeight:"50px",
+    color:"#ff984b",
   },
   learnMore: {
     display: "flex",

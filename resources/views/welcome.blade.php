@@ -8,7 +8,7 @@
         @viteReactRefresh
         @vite('resources/js/app.js')
         
-        <link rel="icon" type="image/png" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/industry.ico" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

@@ -139,7 +139,7 @@ export default function WorkList({ id }: { id: string }) {
                 <div className="container container-left">
                     <h2>2025 - present</h2>
                     <p>Fullstack Software Engineer</p>
-                    <a href="#" onClick={() => scrollTo('widget-list')}>Own projects</a>
+                    <a href="#" onClick={() => scrollTo('projects')}>Own projects</a>
                 </div>
                 <div className="container container-right no-point">
                     <div className="flip-card">
