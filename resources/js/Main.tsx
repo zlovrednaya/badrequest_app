@@ -5,10 +5,12 @@ import WorkList from "./components/landing/WorkList.tsx";
 import Header from "./components/Header.tsx";
 import Introduction from "./components/landing/Introduction.tsx";
 import About from "./components/landing/About.tsx";
+import ContactForm from "./forms/ContactForm/ContactForm.tsx";
 import "./Landing.css";
 
 
 function Main() {
+  const [isContactOpen, setIsContactOpen] = useState<boolean>(false);
   const widgets = [
     { id: "AviationStack", name: "AviationStack", description: "Flight subscription allows you to receive a message when the plane is near the airport", logo:"aviation.jpg" },
     { id: "ChoresTracker", name: "ChoresTracker", description: "An app that helps you organize your life, earn rewards, and track your daily tasks.", logo: "chores_logo.svg" },
@@ -21,7 +23,10 @@ function Main() {
 
   return (
     <div className="main-container">
-      <Introduction id="page1"/>
+      <Introduction 
+        id="introduction"
+        onOpenContactForm={()=>setIsContactOpen(true)}
+      />
       <WidgetList id="projects"
         widgets = {widgets}
         onSelect = {setSelectedWidget}
@@ -30,11 +35,20 @@ function Main() {
         <WidgetForm
           widget = {selectedWidget as any}
           onClose = {() => setSelectedWidget(null)}
-          id="page3"
+          id={selectedWidget?.name}
         />
       )}
       <WorkList id="work-list"/>
-      <About id="about"/>
+      <About 
+        id="about"
+        onOpenContactForm={()=>setIsContactOpen(true)}
+      />
+      
+      <ContactForm 
+        isOpen={isContactOpen} 
+        onClose={()=>setIsContactOpen(false)}
+      />
+      
     </div>
   );
 }

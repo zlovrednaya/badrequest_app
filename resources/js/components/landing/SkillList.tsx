@@ -11,6 +11,9 @@ import { FaHtml5 } from "react-icons/fa";
 import { FaCss } from "react-icons/fa6";
 import { FaDocker } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io";
+import { FiArrowRightCircle } from "react-icons/fi";
+
+
 
 
 import { BsFiletypeJson } from "react-icons/bs";
@@ -31,7 +34,14 @@ export default function SkillList() {
     return (
         <div className="skill-list">
             <div className="skill-title red-text">Technologies</div>
-            <div className="skill-title-description">I work with modern <span>technologies</span></div>
+            <div className="skill-title-description">
+                Skills and expertise
+            </div>
+            <div className="skill-area">
+                <span><FiArrowRightCircle />Frontend</span>
+                <span><FiArrowRightCircle />Backend</span>
+                <span><FiArrowRightCircle />Databases</span>
+            </div>
             <div className="skill-icons">
                 <IoLogoJavascript />
                 <SiTypescript />

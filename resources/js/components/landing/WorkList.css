@@ -49,7 +49,7 @@
 .scrollbar::-webkit-scrollbar { display: none; }
 
 
-.work-list-timeline {
+.work-list-timeline, .edu-list-timeline {
     margin-top: 20px;
     width: 60%;
     position: relative;
@@ -57,15 +57,19 @@
     margin-bottom: 20px;
 }
 
-.work-list-timeline::after {
+.work-list-timeline::after , .edu-list-timeline::after{
   content: '';
   position: absolute;
   width: 3px;
-  background-color: rgb(255, 173, 30);
+  background-color: var(--highlight-color);
   top: 0;
   bottom: 0;
   left: 50%;
   margin-left: -3px;
+}
+
+.edu-list-timeline::after {
+    background-color: var(--complimentary-color-2);
 }
 
 .work-list-timeline h2 {
@@ -75,6 +79,10 @@
 
 .container-set {
     display: flex;
+}
+
+.container-set.right{
+    flex-direction: row-reverse;
 }
 
 .container-set:nth-child(even){
@@ -101,10 +109,15 @@
     z-index: 1;
 }
 
-.container-right::after {
-  left: -12px;
+.edu-list-timeline>.container:not(.no-point)::after {
+    border: 4px solid var(--complimentary-color-2);
+    
 }
 
+.container.right::after {
+    right: none;
+    left: -13px;
+}
 
 .container-left {
     left: 0;
@@ -159,4 +172,19 @@
 
 .back-card-content {
     font-size: 16px;
+}
+
+.experience-switch {
+    display: flex;
+    gap: 20px;
+    padding: 0 0 10px 0;
+}
+
+.experience-switch:hover {
+    cursor: pointer;
+}
+
+.experience-switch .active {
+    font-weight: 500;
+    border-bottom: 2px solid #777777;
 }

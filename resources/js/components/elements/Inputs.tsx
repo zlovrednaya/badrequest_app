@@ -46,6 +46,22 @@ export function Input({ label, name, placeholder, required=false, error, onValue
     );
 }
 
+interface TextareaInputProps {
+    label?: string | null
+    placeholder: string | null,
+}
+export function TextareaInput({label, placeholder}: TextareaInputProps) {
+    return (
+        <div className="textarea-input-component">
+            {label && (<label className="block text-sm font-medium">{label}</label>)}
+            <textarea className="textarea-input"
+                id="textarea-element"
+                placeholder={placeholder || ''}
+            />
+        </div>
+    );
+}
+
 
 interface EmailInputProps extends BaseInputParams {
 }
@@ -102,7 +118,7 @@ export function CustomButtonInput({ placeholder, error }: CustomButtonInputProps
     return (
         <button
             type="submit"
-            className="button-submit"
+            className="button-submit component-button"
         >{placeholder}</button>
     );
 }

@@ -1,5 +1,7 @@
 .header-container {
-    width: 70%
+    z-index: 10;
+    width: 70%;
+    padding: 20px 0;
 }
 
 .page-block {
@@ -15,11 +17,12 @@
 }
 
 .learn-more svg {
-    transition: 400ms ease-in-out;
+    background-color: #000;
+    color: #fff;
+    border-radius: 3px;
 }
 .learn-more:hover {
     animation: animdown .7s infinite alternate;
-    color: #ffa33a;
 }
 
 @keyframes animdown {
@@ -56,12 +59,33 @@
     height: 30px;
 }
 
-.linkedin-link {
+.skill-area span {
     display: flex;
-    padding: 5px 15px;
+    align-items: center;
+    gap: 5px;
+}
+
+.component-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 150px;
+    height: 30px;
+    font-weight: 500;
     border-radius: 5px;
-    color: #fff;
-    background-color: #000;
+    gap: 5px;
+    color: var(--btn-text-color);
+    background-color: var(--btn-color);
+    padding: 5px 15px;
+}
+
+.component-button:hover {
+    cursor: pointer;
+}
+
+.linkedin-link {
+    max-width: 250px;
+    font-weight: 500;
 }
 
 .linkedin-link a {
@@ -78,7 +102,7 @@
     text-transform: uppercase;
 }
 .red-text {
-    color: #ff3a3a;
+    color: var(--red-highlight-color);
 }
 
 
@@ -89,7 +113,6 @@
     flex: 1 1 0%;
     align-items: center;
     transform: translateY(-10%);
-
 }
 
 
@@ -100,4 +123,24 @@
 
 .side-component {
     width: 50%;
+}
+
+.contact-back {
+    z-index: 100;
+    position: fixed;
+    top:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.406);
+}
+.hover-effect {
+    transition: 400ms ease-in-out;
+}
+
+.hover-effect:hover {
+    color: var(--highlight-color);
+}
+
+.hover-effect:hover svg {
+    background-color: var(--highlight-color);
 }

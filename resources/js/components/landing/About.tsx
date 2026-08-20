@@ -3,8 +3,11 @@ import SkillList from "./SkillList.tsx";
 import { GrLocationPin } from "react-icons/gr";
 import { CiLinkedin } from "react-icons/ci";
 
-
-export default function About({ id }: { id: string }) {
+type AboutFormProps = {
+  id: string,
+  onOpenContactForm: () => void,
+}
+export default function About({ id, onOpenContactForm }: AboutFormProps) {
   return (
     <div className="page-block about-tab" id={id}>
       <div className="name-title">Daria Hostieva</div>
@@ -20,7 +23,7 @@ export default function About({ id }: { id: string }) {
         <p>I maintain</p>
       </div>
 
-      <div className="linkedin-link">
+      <div className="component-button linkedin-link">
         <a href="https://www.linkedin.com/in/daria-hostieva/" target="_blank" rel="noopener noreferrer">
           <CiLinkedin /> Discover my LinkedIn
         </a>

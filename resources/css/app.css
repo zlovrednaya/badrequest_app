@@ -19,6 +19,7 @@ body {
     height: 100%;
     margin: 0;
     scroll-behavior: smooth;
+    font-family: "Montserrat", sans-serif;
 }
 
 #AbstractAnimationWidget {
@@ -87,4 +88,25 @@ body {
 }
 .widget-item:hover {
     transform: scale(1.05);
+}
+
+.button-right {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0 ;
+}
+
+input,textarea:focus {
+    outline: none;
+}
+
+:root {
+    --main-bg-color: #fff;
+    --complimentary-color-1: #F7C566;
+    --complimentary-color-2: #e4c1ff;
+    --highlight-color: #ff984b;
+    --red-highlight-color: #ff3a3a;
+    --btn-color: #000;
+    --btn-text-color: #fff;
+    --input-text-color: #1c1c1c;
 }

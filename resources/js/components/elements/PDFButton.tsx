@@ -14,7 +14,7 @@ function PDFButton({ pdfUrl, label = "CV" }: PDFButtonProps) {
   return (
     <div
       onClick={handleClick}
-      className="px-4 py-2 bg-black text-white hover:bg-neutral-700 cursor-pointer"
+      className="component-button px-4 py-2 bg-black text-white hover:bg-neutral-700 cursor-pointer"
     >
       {label}
     </div>

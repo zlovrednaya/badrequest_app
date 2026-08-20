@@ -1,9 +1,17 @@
 import React, { Component, useRef, useEffect } from "react";
 import { FaArrowCircleDown } from "react-icons/fa";
+import { IoArrowDown } from "react-icons/io5";
+
 import Header from "../Header.tsx";  
 import "../../Landing.css";
 import FactoryAnimation from "../animation/FactoryAnimation.tsx";
-export default function Introduction({ id }: { id: string }) {
+
+type IntroductionProps = {
+  id: string,
+  onOpenContactForm: () => void,
+};
+
+export default function Introduction({ id, onOpenContactForm }: IntroductionProps) {
 
   const baseLogoUrl:string = window.location.origin + "/storage/";
 
@@ -34,7 +42,7 @@ export default function Introduction({ id }: { id: string }) {
   return (
     <div className="introduction-container" id={id}>
       <section className="page-block">
-        <Header />
+        <Header onOpenContactForm={()=>onOpenContactForm()}/>
         <div className="introduction-content-container">
           <div className="introduction-content side-component" style={styles.introductionContent}>
             <div style={styles.welcomeText}>Hello, I'm</div>
@@ -42,14 +50,15 @@ export default function Introduction({ id }: { id: string }) {
                Daria Hostieva
             </div>
             <div style={styles.role}><span>Full-stack Software Developer</span> </div>
+            <div style={styles.contact} className="component-button" onClick={onOpenContactForm}>Get in touch</div>
           </div>
           <div className="side-component">
             <img className="portfolio-image" src={`${baseLogoUrl}portfolio_sk.jpg`} />
           </div>         
         </div> 
-          <div className="learn-more" style={styles.learnMore} onClick={() => setScroll()}>
+          <div className="learn-more hover-effect" style={styles.learnMore} onClick={() => setScroll()}>
               <span> Learn more </span>
-              <FaArrowCircleDown />
+              <IoArrowDown />
           </div>
       </section>
     </div>  
@@ -77,7 +86,7 @@ const styles: Record<string, React.CSSProperties> = {
     paddingTop: "20px",
     fontSize: "50px",
     lineHeight:"50px",
-    color:"#ff984b",
+    color:"var(--highlight-color)",
   },
   learnMore: {
     display: "flex",
@@ -88,4 +97,11 @@ const styles: Record<string, React.CSSProperties> = {
     cursor: "pointer",
     marginBottom: "40px",
   },
+  contact: {
+    display: "flex",
+    alignItems: "center",
+    marginTop: "20px",
+    backgroundColor:"var(--complimentary-color-2)",
+    color: "#000",
+  }
 };
