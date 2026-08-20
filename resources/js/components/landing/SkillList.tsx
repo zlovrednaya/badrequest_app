@@ -22,12 +22,6 @@ import { BsFiletypeCss } from "react-icons/bs";
 import { SiTypescript } from "react-icons/si";
 
 
-
-
-
-
-
-
 export default function SkillList() {
     const baseLogoUrl = window.location.origin + "/storage/technologies/";
     
@@ -37,26 +31,29 @@ export default function SkillList() {
             <div className="skill-title-description">
                 Skills and expertise
             </div>
-            <div className="skill-area">
-                <span><FiArrowRightCircle />Frontend</span>
-                <span><FiArrowRightCircle />Backend</span>
-                <span><FiArrowRightCircle />Databases</span>
-            </div>
-            <div className="skill-icons">
-                <IoLogoJavascript />
-                <SiTypescript />
-                <FaReact />
-                <FaPhp />
-                <FaLaravel />
-                <SiPostgresql />
-                <FaAws />
-                <DiRedis />
-                <SiMongodb />
-                <FaHtml5 />
-                <FaDocker />
-                <BsFiletypeCss />
-                <BsFiletypeJson />
-                <BsFiletypeXml />
+            <div className="skill-component">
+                <div className="skill-area">
+                    <span><FiArrowRightCircle />Frontend</span>
+                    <span><FiArrowRightCircle />Backend</span>
+                    <span><FiArrowRightCircle />Databases</span>
+                </div>
+                <div className="skill-icons">
+                    <IoLogoJavascript />
+                    <SiTypescript />
+                    <FaReact />
+                    <FaPhp />
+                    <FaLaravel />
+                    <SiPostgresql />
+                    <FaAws />
+                    <DiRedis />
+                    <SiMongodb />
+                    <FaHtml5 />
+                    <FaDocker />
+                    <BsFiletypeCss />
+                    <BsFiletypeJson />
+                    <BsFiletypeXml />
+                </div>
+
             </div>
         </div>
     );

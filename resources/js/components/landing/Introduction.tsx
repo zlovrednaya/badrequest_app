@@ -101,7 +101,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: "flex",
     alignItems: "center",
     marginTop: "20px",
-    backgroundColor:"var(--complimentary-color-2)",
+    backgroundColor:"var(--highlight-color)",
     color: "#000",
   }
 };
