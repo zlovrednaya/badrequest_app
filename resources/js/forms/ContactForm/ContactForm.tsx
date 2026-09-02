@@ -27,7 +27,7 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
                         dariahostieva.nl@gmail.com
                     </div>
                     <div className="contact-info-phone">
-                        +31(6) 3000-41-21
+                        +31 (6) 3000-41-21
                     </div>
 
                 </div>

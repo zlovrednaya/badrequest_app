@@ -108,5 +108,7 @@ input,textarea:focus {
     --red-highlight-color: #ff3a3a;
     --btn-color: #000;
     --btn-text-color: #fff;
+    --btn-text-color-inverted: #000;
     --input-text-color: #1c1c1c;
+    --btn-color-inverted: #ff984b;
 }

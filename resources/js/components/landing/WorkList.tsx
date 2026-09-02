@@ -264,7 +264,7 @@ export default function WorkList({ id }: { id: string }) {
                         <div className={`container ${i % 2 === 0 ? "":"right"}`}>
                             <h2>{item.year}</h2>
                             <p>{item.role}</p>
-                            <a href={`${item.link || "#"}`} onClick={item.onClick}>{item.name} <CiShare1 /></a>
+                            <a href={`${item.link || "#projects"}`} onClick={item.onClick}>{item.name} <CiShare1 /></a>
                         </div>
                         <div className="container no-point">
                             <div className="flip-card">

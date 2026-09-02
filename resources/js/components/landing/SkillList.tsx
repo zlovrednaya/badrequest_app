@@ -27,10 +27,7 @@ export default function SkillList() {
     
     return (
         <div className="skill-list">
-            <div className="skill-title red-text">Technologies</div>
-            <div className="skill-title-description">
-                Skills and expertise
-            </div>
+            <div className="skill-title highlight-text">Skills and expertise</div>
             <div className="skill-component">
                 <div className="skill-area">
                     <span><FiArrowRightCircle />Frontend</span>

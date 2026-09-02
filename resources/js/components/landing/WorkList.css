@@ -69,7 +69,7 @@
 }
 
 .edu-list-timeline::after {
-    background-color: var(--complimentary-color-2);
+    background-color: #000;
 }
 
 .work-list-timeline h2 {
@@ -110,7 +110,7 @@
 }
 
 .edu-list-timeline>.container:not(.no-point)::after {
-    border: 4px solid var(--complimentary-color-2);
+    border: 4px solid #000;
     
 }
 
