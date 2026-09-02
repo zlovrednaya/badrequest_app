@@ -1,15 +1,27 @@
 import React, { Component } from "react";
-
+import { FaReact } from "react-icons/fa";
+import { FaPhp } from "react-icons/fa";
+import { FaLaravel } from "react-icons/fa";
+import { SiPostgresql } from "react-icons/si";
+import { SiTypescript } from "react-icons/si";
 export type Widget = {
   id: string,
   name: string,
   description: string,
-  logo?: string
+  logo?: string,
+  technologies?: string[],
 }
 export type WidgetListProps = {
   id: string,
   widgets: Widget[],
   onSelect: (widget: Widget) => void
+};
+
+const TECHNOLOGIES: Record<string, React.ComponentType> = {
+  "ReactJS": FaReact ,
+  "TypeScript": SiTypescript,
+  "Laravel": FaLaravel,
+  "PostgreSQL": SiPostgresql,
 };
 function WidgetList({ id, widgets, onSelect }: WidgetListProps) {
   const baseLogoUrl = window.location.origin + "/storage/";
@@ -22,7 +34,7 @@ function WidgetList({ id, widgets, onSelect }: WidgetListProps) {
             id={widget.id}
             key={widget.id}
             onClick={() => onSelect(widget)}
-            className="widget-item p-4 w-60 h-60 rounded-md shadow cursor-pointer hover:bg-gray-50"
+            className="widget-item p-4 rounded-md shadow cursor-pointer hover:bg-gray-50"
           >
             <h2 className="font-semibold">{widget.name}</h2>
             <p className="text-sm text-gray-400">{widget.description}</p>
@@ -31,10 +43,20 @@ function WidgetList({ id, widgets, onSelect }: WidgetListProps) {
                 <hr />
                 <div className="widget-list-logo-container">
                   <img src={`${baseLogoUrl + widget.logo}`}/>
-                </div>
+                </div>     
               </div>)  
             }
-            
+
+            {widget.technologies && widget.technologies.length > 0 && (
+              <div className="widget-technologies">
+                <div className="widget-technologies-list">
+                  {widget.technologies.map((techName, index) => {
+                    const Icon = TECHNOLOGIES[techName];
+                    return Icon ? <span key={index} className="technology-icon"><Icon /></span> : null;
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>

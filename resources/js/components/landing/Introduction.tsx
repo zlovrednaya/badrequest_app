@@ -49,7 +49,7 @@ export default function Introduction({ id, onOpenContactForm }: IntroductionProp
             <div style={styles.name} ref={refHello}>
                Daria Hostieva
             </div>
-            <div style={styles.role}><span>Full-stack Software Developer</span> </div>
+            <div style={styles.role}><span>Full-stack Software Developer </span> </div>
             <div style={styles.contact} className="component-button" onClick={onOpenContactForm}>Get in touch</div>
           </div>
           <div className="side-component">
@@ -87,6 +87,12 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: "50px",
     lineHeight:"50px",
     color:"var(--highlight-color)",
+  },
+  stack: {
+    paddingTop: "10px",
+    fontSize: "20px",
+    lineHeight:"20px",
+    color: "#000",
   },
   learnMore: {
     display: "flex",

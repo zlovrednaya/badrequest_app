@@ -80,7 +80,18 @@ body {
     margin: 20px 0;
 }
 
+.widget-technologies {
+     margin-top: auto;
+}
+.widget-technologies-list {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
 .widget-item {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.20);
     border-radius: 8px;
