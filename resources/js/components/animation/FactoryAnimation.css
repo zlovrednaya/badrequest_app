@@ -1,0 +1,89 @@
+.factory-animation {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 0.5px solid #000;
+}
+
+.glow-element {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle at 50% 50%, rgb(241 201 201) 0%, transparent 70%);
+    filter: blur(30px);
+}
+
+.trapezoid {
+    bottom: 0;
+    left: 18px;
+    position: absolute;
+    width:10px;
+    height:40px;
+
+    background:url(http://placekitten.com/300/200);
+    border: 1px solid rgb(159, 159, 159);        
+    border-top-width:2px;
+    border-bottom-width:1px;
+    -webkit-transform: perspective(40px) rotateX(40deg);   
+}
+.settings-wheel svg {
+    width: 200px;
+    height: 200px;
+    animation: rotate-wheel 30s linear infinite;
+    color: #eee;
+   
+}
+
+.house {
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    width: 30px;
+    height: 50px;
+    border: 0.5px solid #000;
+}
+
+.smoke {
+  animation: move-smoke 3s linear infinite;
+  background: rgba(255, 202, 234, 0.8);
+  border-radius: 50%;
+  height: 1.4rem;
+  position: absolute;
+  left: 10px;
+  bottom: 1rem;
+  width: 0.8rem;
+}
+
+@keyframes move-smoke {
+  0% {
+    filter: blur(0.1rem);
+    opacity: 0.8;
+  }
+  
+  50% {
+    filter: blur(0.2rem);
+    opacity: 0.6;
+    transform: translate(0, -3rem) scale(2);
+  }
+  
+  100% {
+    filter: blur(0.3rem);
+    opacity: 0;
+    transform: translate(2.5rem, -6rem) scale(3);
+  }
+}
+/*
+@keyframes rotate-wheel {
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  100% {
+    transform: rotate(360deg);
+  }
+}
+*/
+
+
+
