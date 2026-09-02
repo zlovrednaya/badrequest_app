@@ -6,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 
-import './RegisterForm.css';
+import './LoginRegisterForm.css';
 
 type RegisterFormProps = {
     appName: string,

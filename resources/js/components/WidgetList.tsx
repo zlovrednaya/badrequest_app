@@ -37,7 +37,7 @@ function WidgetList({ id, widgets, onSelect }: WidgetListProps) {
             className="widget-item p-4 rounded-md shadow cursor-pointer hover:bg-gray-50"
           >
             <h2 className="font-semibold">{widget.name}</h2>
-            <p className="text-sm text-gray-400">{widget.description}</p>
+            <p className="widget-item-description text-sm text-gray-400">{widget.description}</p>
             { widget.logo && (
               <div className="widget-list-form-with-logo">
                 <hr />

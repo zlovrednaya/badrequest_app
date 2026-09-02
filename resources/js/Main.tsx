@@ -26,6 +26,13 @@ function Main() {
       logo: "chores_logo.svg",
       technologies: ["ReactJS", "TypeScript", "Laravel", "PostgreSQL"], 
     },
+    {
+      id: "PlantPlan",
+      name: "PlantPlan", 
+      description: "Grow your plants with the help of AI",
+      logo: "PlantPlan_logo.jpg",
+      technologies: ["ReactJS", "TypeScript", "Laravel", "PostgreSQL"],
+    },
     /*{ 
       id: "BaseWidget", 
       name: "BaseWidget", 

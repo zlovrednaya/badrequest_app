@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthProvider } from "../../auth/AuthContext";
 import { WarningProvider } from "../../components/elements/Warning";
 
-import LoginForm from "../LoginForm/LoginForm";
-import RegisterForm from "../RegisterForm/RegisterForm";
+import LoginForm from "../../components/auth/LoginForm.tsx";
+import RegisterForm from "../../components/auth/RegisterForm";
 import ChoresTrackerAccount from "./ChoresTrackerAccount";
 import UserProfile from "./user/UserProfile";
 
@@ -38,12 +38,12 @@ export default function ChoresTracker({widget, onClose}: BaseWidgetFormProps) {
                     </Routes>
                 </Router>
                 <div className="gap-2 close-btn-container rounded-xl absolute">
-                <button
-                    type="button"
-                    onClick={onClose}
-                    className="px-4 py-2 rounded cursor-pointer close-btn"
-                >
-                </button>
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className="px-4 py-2 rounded cursor-pointer close-btn"
+                    >
+                    </button>
                 </div>
                 
             </div>

@@ -1,0 +1,138 @@
+.LoginRegisterForm {
+    z-index: 2000;
+    width: 420px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.LoginRegisterForm * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.LoginRegisterForm h1 {
+    width:100%;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    font-size: 36px;
+    text-align: center;
+    color: var(--app-highlight-color);
+}
+
+.LoginRegisterFormBody {
+    display: flex;
+    justify-content: center;
+    background: var(--app-background);
+    border-radius: 10px; 
+    padding-bottom: 20px;
+}
+
+.LoginRegisterForm Form {
+    width: 90%;
+}
+
+
+
+.LoginForm .remember-forgot {
+   display: flex;
+   justify-content: space-between;
+}
+
+.LoginForm .remember-forgot input {
+   background-color: var(--app-highlight-color);
+}
+
+.LoginRegisterForm button {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 40px;
+    margin: 20px 0 10px 0 ;
+    background: var(--app-highlight-color);
+    color: #fff;
+}
+
+.LoginRegisterForm button:hover {
+    cursor: pointer;
+}
+
+.LoginRegisterForm .register-link {
+    text-align: center;
+}
+
+.LoginRegisterForm .register-link a {
+    font-weight: 600;
+}
+
+
+.LoginForm .set-remember {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.LoginForm .set-remember span{
+    padding-left: 5px;
+}
+
+.LoginForm .set-remember svg{
+    font-size: 20px;
+}
+
+.login-register-form-title {
+    color: var(--app-highlight-color);
+}
+
+
+.LoginRegisterForm .message-box {
+    width: 100%;
+    border-radius: 40px;
+    border: 2px solid var(--app-dimmed-color);
+    padding: 0 50px 0 20px;
+}
+.LoginRegisterForm .message-box.message-success {
+    border: 2px solid var(--app-succes-color);
+}
+.LoginRegisterForm .message-box.message-error {
+    border: 2px solid var(--app-error-color);
+}
+
+.LoginRegisterForm .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 25px 0;
+    font-size: 16px;
+}
+
+.LoginRegisterForm .input-box input {
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    border: 2px solid var(--app-dimmed-color);
+    padding: 0 50px 0 20px;
+    /*background: #ffffff;*/
+}
+
+.LoginRegisterForm .input-box input:focus { 
+    outline: none; 
+    border: var(--app-highlight-color) 2px solid; 
+    background: #fff;
+}
+
+.LoginRegisterForm .input-box input::placeholder {
+    color: var(--app-dimmed-color);
+}
+
+.LoginRegisterForm .input-box .icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+

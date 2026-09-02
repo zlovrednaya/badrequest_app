@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import * as InputComponents from "../../components/elements/Inputs.js";
+import * as InputComponents from "../elements/Inputs.js";
 
 import { useAuth } from "../../auth/useAuth.js";
 
@@ -11,7 +11,7 @@ import { RiCheckboxCircleLine } from "react-icons/ri";
 
 
 
-import './LoginForm.css';
+import './LoginRegisterForm.css';
 
 type LoginFormProps = {
     appName: string,
