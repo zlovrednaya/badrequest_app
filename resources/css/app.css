@@ -33,7 +33,7 @@ body {
 	font-size: xx-large;
 }
 .close-btn-container {
-	color: #ffa33a;
+	color: var(--app-close-button-color);
     border: none;
     outline: none;
     padding: 1.5rem;

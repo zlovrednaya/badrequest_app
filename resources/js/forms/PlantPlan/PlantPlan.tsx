@@ -7,6 +7,7 @@ import { WarningProvider } from "../../components/elements/Warning";
 import LoginForm from "../../components/auth/LoginForm.tsx";
 import RegisterForm from "../../components/auth/RegisterForm";
 import ProtectedRoute from "../../components/ProtectedRoute.tsx";
+import PlantPlanForm from "./app/PlantPlanForm.tsx";
 
 import "./PlantPlan.css";
 import {
@@ -22,7 +23,7 @@ export default function PlantPlan({widget, onClose}: BaseWidgetFormProps) {
     return (
         <WarningProvider>
             <AuthProvider> 
-                <div className={`${widget.id} widget-form`}>
+                <div className={`${widget.id} widget-form fixed inset-0 flex items-center justify-center bg-black/40`}>
                     <div className="app-form">
                         <p>Welcome to your {appName}!</p>
                     </div>
@@ -31,10 +32,11 @@ export default function PlantPlan({widget, onClose}: BaseWidgetFormProps) {
                         <Routes>
                             <Route path="/" element={<LoginForm title={title} appName={appName} />}></Route>
                             <Route path="/register" element={<RegisterForm title={title} appName={appName}/>}></Route>
+                            <Route path="/account" element={<ProtectedRoute><PlantPlanForm /></ProtectedRoute>}></Route>
                         </Routes>
                     </Router>
-                </div>
-                <div className="gap-2 close-btn-container rounded-xl absolute">
+
+                    <div className="gap-2 close-btn-container rounded-xl absolute">
                     <button
                         type="button"
                         onClick={onClose}
@@ -42,6 +44,8 @@ export default function PlantPlan({widget, onClose}: BaseWidgetFormProps) {
                     >
                     </button>
                 </div>
+                </div>
+                
             </AuthProvider>
         </WarningProvider>
         
